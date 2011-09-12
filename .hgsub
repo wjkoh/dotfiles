@@ -1,0 +1,12 @@
+.vim/bundle/vim-pathogen = [git]git://github.com/tpope/vim-pathogen.git
+.vim/bundle/a.vim = [git]git://github.com/vim-scripts/a.vim.git
+.vim/bundle/bufexplorer.zip = [git]git://github.com/vim-scripts/bufexplorer.zip.git
+.vim/bundle/grep.vim = [git]git://github.com/vim-scripts/grep.vim.git
+.vim/bundle/nerdtree = [git]git://github.com/scrooloose/nerdtree.git
+.vim/bundle/supertab = [git]git://github.com/ervandew/supertab.git
+.vim/bundle/taglist.vim = [git]git://github.com/vim-scripts/taglist.vim.git
+.vim/bundle/vim-colors-solarized = [git]git://github.com/altercation/vim-colors-solarized.git
+.vim/bundle/ZoomWin = [git]git://github.com/vim-scripts/ZoomWin.git
+.vim/bundle/vim-l9 = https://bitbucket.org/ns9tks/vim-l9
+.vim/bundle/vim-autocomplpop = https://bitbucket.org/ns9tks/vim-autocomplpop
+.vim/bundle/vim-fuzzyfinder = https://bitbucket.org/ns9tks/vim-fuzzyfinder
