@@ -10,3 +10,4 @@
 .vim/bundle/vim-l9 = https://bitbucket.org/ns9tks/vim-l9
 .vim/bundle/vim-autocomplpop = https://bitbucket.org/ns9tks/vim-autocomplpop
 .vim/bundle/vim-fuzzyfinder = https://bitbucket.org/ns9tks/vim-fuzzyfinder
+.oh-my-zsh = [git]git://github.com/robbyrussell/oh-my-zsh.git
