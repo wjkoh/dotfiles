@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
+pushd "${DOTDIR}" &> /dev/null
+
+echo "Installing dotfiles..."
+
+shopt -s dotglob extglob
+for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat)
+do 
+    echo ${DOTFILE}
+    TARGET="${HOME}/${DOTFILE}"
+    rm -f "${TARGET}"
+    ln -sf "${DOTDIR}/${DOTFILE}" "${TARGET}"
+done
+popd &> /dev/null
