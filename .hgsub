@@ -3,7 +3,6 @@
 .vim/bundle/bufexplorer.zip = [git]git://github.com/vim-scripts/bufexplorer.zip.git
 .vim/bundle/grep.vim = [git]git://github.com/vim-scripts/grep.vim.git
 .vim/bundle/nerdtree = [git]git://github.com/scrooloose/nerdtree.git
-.vim/bundle/supertab = [git]git://github.com/ervandew/supertab.git
 .vim/bundle/taglist.vim = [git]git://github.com/vim-scripts/taglist.vim.git
 .vim/bundle/vim-colors-solarized = [git]git://github.com/altercation/vim-colors-solarized.git
 .vim/bundle/ZoomWin = [git]git://github.com/vim-scripts/ZoomWin.git

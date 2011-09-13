@@ -4,7 +4,6 @@ e7ee18e2e7ed60509aa951cd34b57193fa14e5ab .vim/bundle/ZoomWin
 8c75e65b647238febd0257658b150f717a136359 .vim/bundle/bufexplorer.zip
 1e5658c6d9575cd34be32d0227e06f07c9d58a2e .vim/bundle/grep.vim
 12f692f4369526f408e724fa74a0da527ebe2f2f .vim/bundle/nerdtree
-80ec6539e4139a2e0281a0f1e36d5038d55ad980 .vim/bundle/supertab
 53041fbc45398a9af631a20657e109707a455339 .vim/bundle/taglist.vim
 13fe3d8064647e2cdf07e12840108c3f917f5636 .vim/bundle/vim-autocomplpop
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
