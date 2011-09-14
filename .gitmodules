@@ -1,12 +1,18 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
+[submodule ".vim/bundle/minibufexpl.vim"]
+	path = .vim/bundle/minibufexpl.vim
+	url = git://github.com/fholgado/minibufexpl.vim.git
 [submodule ".vim/bundle/vim-easymotion"]
 	path = .vim/bundle/vim-easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule ".vim/bundle/ZoomWin"]
 	path = .vim/bundle/ZoomWin
 	url = git://github.com/vim-scripts/ZoomWin.git
+[submodule ".vim/bundle/snipmate.vim"]
+	path = .vim/bundle/snipmate.vim
+	url = git://github.com/msanders/snipmate.vim.git
 [submodule ".vim/bundle/grep.vim"]
 	path = .vim/bundle/grep.vim
 	url = git://github.com/vim-scripts/grep.vim.git
