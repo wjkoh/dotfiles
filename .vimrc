@@ -162,7 +162,12 @@ if has("gui_running")
     set cursorline
 endif
 set guioptions-=T   " Remove toolbar
+set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 
 let mapleader=","
 set scrolloff=2     " Keep some context
-set nowrapscan      " Do not wrap around
+set incsearch
+"set nowrapscan      " Do not wrap around
+
+let NERDTreeChDirMode=2
+nnoremap <silent> <C-t> :FufCoverageFile<CR>
