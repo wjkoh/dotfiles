@@ -169,6 +169,9 @@ set scrolloff=2     " Keep some context
 set incsearch
 "set nowrapscan      " Do not wrap around
 
+runtime macros/matchit.vim  " Enable matchit
+map <tab> %
 let NERDTreeChDirMode=2
+let NERDTreeShowBookmarks=1
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
 nnoremap <F5> :GundoToggle<CR>
