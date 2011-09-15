@@ -171,3 +171,4 @@ set incsearch
 
 let NERDTreeChDirMode=2
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
+nnoremap <F5> :GundoToggle<CR>
