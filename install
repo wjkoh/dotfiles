@@ -14,3 +14,5 @@ do
     ln -sf "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
 popd &> /dev/null
+
+sudo pip install keyring
