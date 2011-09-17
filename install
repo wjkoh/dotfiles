@@ -10,7 +10,7 @@ for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat)
 do 
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
-    rm -f "${TARGET}"
+    rm -rf "${TARGET}"
     ln -sf "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
 popd &> /dev/null
