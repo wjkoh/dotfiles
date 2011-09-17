@@ -1,2 +1,10 @@
 [ui]
-username = Woojong Koh <jstrane@gmail.com>
+username = Woojong Koh <wjngkoh@gmail.com>
+
+[extensions]
+hgext.convert =
+hgext.extdiff =
+hgext.graphlog =
+hgext.purge =
+progress =
+hgext.mercurial_keyring = ~/.hgext/mercurial_keyring/mercurial_keyring.py
