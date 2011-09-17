@@ -15,4 +15,14 @@ do
 done
 popd &> /dev/null
 
-sudo pip install keyring
+echo "Generating a dummy certificate..."
+
+# http://mercurial.selenic.com/wiki/CACertificates
+if [ ! -f /etc/hg-dummy-cert.pem ]; then
+    openssl req -new -x509 -extensions v3_ca -keyout /dev/null -out dummycert.pem -days 3650
+    sudo mv dummycert.pem /etc/hg-dummy-cert.pem
+fi
+
+echo "Installing extensions..."
+
+sudo pip install -q keyring
