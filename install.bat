@@ -8,5 +8,8 @@ rmdir /Q %USERPROFILE%\vimfiles
 mklink /D %USERPROFILE%\vimfiles %~dp0\.vim
 
 rem Mercurial
-del /Q %USERPROFILE%\_hgrc
-mklink /H %USERPROFILE%\_hgrc %~dp0\.hgrc
+del /Q %USERPROFILE%\.hgext
+mklink /D %USERPROFILE%\.hgext %~dp0\.hgext
+del /Q %USERPROFILE%\.hgrc
+mklink /H %USERPROFILE%\.hgrc %~dp0\.hgrc
+copy NUL %USERPROFILE%\.hgrc_mac

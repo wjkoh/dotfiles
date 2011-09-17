@@ -1,0 +1,9 @@
+[web]
+# http://mercurial.selenic.com/wiki/CACertificates
+cacerts = /etc/hg-dummy-cert.pem
+
+[pager]
+pager = LESS='FSRX' less
+
+[extensions]
+hgext.mercurial_keyring = ~/.hgext/mercurial_keyring/mercurial_keyring.py
