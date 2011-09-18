@@ -1,6 +1,7 @@
 [ui]
 username = Woojong Koh <wjngkoh@gmail.com>
 verbose = True
+commitsubrepos = False
 
 [email]
 method = smtp
