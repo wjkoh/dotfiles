@@ -12,8 +12,13 @@ port = 587
 username = wjngkoh@gmail.com
 tls = True
 
+[bb]
+username = wjkoh
+default_method = http
+
 [extensions]
 color =
+hgbb = ~/.hgext/hgbb/hgbb.py
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
