@@ -173,5 +173,6 @@ runtime macros/matchit.vim  " Enable matchit
 map <tab> %
 let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
+nnoremap <silent> <Leader>. :e .<CR>
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
 nnoremap <F5> :GundoToggle<CR>
