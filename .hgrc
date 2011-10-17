@@ -54,11 +54,12 @@ opts.imdiff = -c 'compare $0 $1 compared.png; gqview compared.png'
 
 [extensions]
 color =
-hgbb = ~/.hgext/hgbb/hgbb.py
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
+hgext.hgbb = ~/.hgext/hgbb/hgbb.py
+hgext.hgshelve = ~/.hgext/hgshelve/hgshelve.py
 hgext.mercurial_keyring =
 hgext.purge =
 pager =

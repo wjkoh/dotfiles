@@ -18,4 +18,5 @@
 .oh-my-zsh = [git]https://github.com/robbyrussell/oh-my-zsh.git
 
 .hgext/hgbb = https://bitbucket.org/birkenfeld/hgbb
+.hgext/hgshelve = https://bitbucket.org/tksoh/hgshelve
 .hgext/mercurial_keyring = https://bitbucket.org/Mekk/mercurial_keyring
