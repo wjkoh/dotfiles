@@ -2,9 +2,9 @@
 9bb78d1ad68488b0e5821ef243bedefc761c6e3a .hgext/mercurial_keyring
 762b55bb2bc0452ce3f5f2f21bc22b61936ef704 .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
-e7ee18e2e7ed60509aa951cd34b57193fa14e5ab .vim/bundle/ZoomWin
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
 8c75e65b647238febd0257658b150f717a136359 .vim/bundle/bufexplorer.zip
+f3edbfbe567891c0677d6008225084b151028fc2 .vim/bundle/ctrlp.vim
 1e5658c6d9575cd34be32d0227e06f07c9d58a2e .vim/bundle/grep.vim
 9524242bda64063b3bf24c89bb89a27726da882f .vim/bundle/gundo.vim
 71f194fc52920827a811dd6c08a4c24aa4f7958f .vim/bundle/minibufexpl.vim
