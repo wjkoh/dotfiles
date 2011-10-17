@@ -168,11 +168,24 @@ let mapleader=","
 set scrolloff=2     " Keep some context
 set incsearch
 "set nowrapscan      " Do not wrap around
+"set history=1000
+set viminfo+=%3      " Save and restore the buffer list
+set clipboard=unnamed
+if has('unnamedplus')
+    set clipboard=unnamedplus
+endif
 
 runtime macros/matchit.vim  " Enable matchit
 map <tab> %
 let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
+let NERDTreeShowHidden=1
 nnoremap <silent> <Leader>. :e .<CR>
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
 nnoremap <F5> :GundoToggle<CR>
+
+" ctrlp.vim
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_persistent_input = 0
+let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
+"let g:ctrlp_clear_cache_on_exit = 0
