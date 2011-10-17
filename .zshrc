@@ -24,7 +24,7 @@ ZSH_THEME="blinks"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump brew cloudapp debian macports osx pip svn vi-mode)
+plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
