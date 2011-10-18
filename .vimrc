@@ -176,13 +176,34 @@ if has('unnamedplus')
 endif
 
 runtime macros/matchit.vim  " Enable matchit
+
+" Mapping
 map <tab> %
-let NERDTreeChDirMode=2
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
 nnoremap <silent> <Leader>. :e .<CR>
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
 nnoremap <F5> :GundoToggle<CR>
+
+" Autocommand
+autocmd BufEnter * silent! lcd %:p:h
+autocmd BufEnter * if filereadable('SConstruct') | silent! setlocal makeprg=scons | endif
+autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
+
+" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+" NERDTree
+let NERDTreeChDirMode=2
+let NERDTreeShowBookmarks=1
+let NERDTreeShowHidden=1
 
 " ctrlp.vim
 let g:ctrlp_match_window_reversed = 0
