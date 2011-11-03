@@ -64,5 +64,6 @@ hgext.mercurial_keyring =
 hgext.purge =
 pager =
 progress =
+rebase =
 
 %include .hgrc_mac
