@@ -24,5 +24,9 @@ if [ ! -f /etc/hg-dummy-cert.pem ]; then
 fi
 
 echo "Installing extensions..."
+sudo easy_install --upgrade pip
+sudo pip install --upgrade keyring
 
-sudo pip install -q keyring
+echo "Installing virtualenv..."
+sudo pip install --upgrade virtualenv
+sudo pip install --upgrade virtualenvwrapper
