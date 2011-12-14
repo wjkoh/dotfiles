@@ -65,6 +65,7 @@ hgext.graphlog =
 hgext.hgbb = ~/.hgext/hgbb/hgbb.py
 hgext.hgshelve = ~/.hgext/hgshelve/hgshelve.py
 hgext.mercurial_keyring =
+hgext.onsub = ~/.hgext/onsub/onsub.py
 hgext.purge =
 hggit =
 pager =

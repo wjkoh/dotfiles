@@ -1,6 +1,7 @@
 3dfeac0938bfb0d6d15e793e2e6d3ea43ed09ae3 .hgext/hgbb
 244a50c40d93873006c875c5d2ae64fcbc987216 .hgext/hgshelve
 9bb78d1ad68488b0e5821ef243bedefc761c6e3a .hgext/mercurial_keyring
+ef52038b4459ddd8c78f13c2789c658bbc6cacbc .hgext/onsub
 757fa3314d1c041ab715dbda838f3e9b2ff9ce17 .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
