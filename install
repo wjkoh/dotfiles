@@ -26,6 +26,7 @@ fi
 echo "Installing extensions..."
 sudo easy_install --upgrade pip
 sudo pip install --upgrade keyring
+sudo pip install --upgrade hg-git
 
 echo "Installing virtualenv..."
 sudo pip install --upgrade virtualenv

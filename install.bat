@@ -13,3 +13,7 @@ mklink /D %USERPROFILE%\.hgext %~dp0\.hgext
 del /Q %USERPROFILE%\.hgrc
 mklink /H %USERPROFILE%\.hgrc %~dp0\.hgrc
 copy NUL %USERPROFILE%\.hgrc_mac
+
+echo "Installing extensions..."
+easy_install --upgrade pip
+pip install hg-git

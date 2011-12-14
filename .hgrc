@@ -2,6 +2,7 @@
 username = Woojong Koh <wjngkoh@gmail.com>
 verbose = True
 commitsubrepos = False
+editor = vim
 
 [email]
 method = smtp
@@ -52,6 +53,9 @@ opts.ediff = -c 'if [ -d $0 ]; then emacs --eval "(ediff-directories \"$0\" \"$1
 cmd.imdiff = sh  
 opts.imdiff = -c 'compare $0 $1 compared.png; gqview compared.png'
 
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+
 [extensions]
 color =
 hgext.convert =
@@ -62,6 +66,7 @@ hgext.hgbb = ~/.hgext/hgbb/hgbb.py
 hgext.hgshelve = ~/.hgext/hgshelve/hgshelve.py
 hgext.mercurial_keyring =
 hgext.purge =
+hggit =
 pager =
 progress =
 rebase =
