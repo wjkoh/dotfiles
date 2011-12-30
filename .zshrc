@@ -30,6 +30,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+# Set locales
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then

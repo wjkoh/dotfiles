@@ -174,6 +174,7 @@ set clipboard=unnamed
 if has('unnamedplus')
     set clipboard=unnamedplus
 endif
+set noimdisable     " http://tech.groups.yahoo.com/group/vim-mac/message/12312
 
 runtime macros/matchit.vim  " Enable matchit
 
@@ -186,7 +187,8 @@ nnoremap <F5> :GundoToggle<CR>
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter * if filereadable('SConstruct') | silent! setlocal makeprg=scons | endif
-autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
+autocmd BufEnter * if filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | endif
+autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /

@@ -6,7 +6,7 @@ pushd "${DOTDIR}" &> /dev/null
 echo "Installing dotfiles..."
 
 shopt -s dotglob extglob
-for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat)
+for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat|update_subrepos)
 do 
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
