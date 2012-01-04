@@ -175,6 +175,7 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 set noimdisable     " http://tech.groups.yahoo.com/group/vim-mac/message/12312
+set path+=/usr/local/include,/opt/local/include,../lib,../include
 
 runtime macros/matchit.vim  " Enable matchit
 
@@ -188,6 +189,8 @@ nnoremap <F5> :GundoToggle<CR>
 autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter * if filereadable('SConstruct') | silent! setlocal makeprg=scons | endif
 autocmd BufEnter * if filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | endif
+autocmd BufReadPre,BufNewFile SConstruct set filetype=python
+autocmd BufReadPre,BufNewFile SConscript set filetype=python
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
@@ -210,5 +213,6 @@ let NERDTreeShowHidden=1
 " ctrlp.vim
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_persistent_input = 0
-let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
+let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
+"let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
 "let g:ctrlp_clear_cache_on_exit = 0

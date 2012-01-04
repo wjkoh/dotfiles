@@ -31,3 +31,6 @@ sudo pip install --upgrade hg-git
 echo "Installing virtualenv..."
 sudo pip install --upgrade virtualenv
 sudo pip install --upgrade virtualenvwrapper
+
+echo "Installing SCons..."
+sudo pip install --upgrade scons

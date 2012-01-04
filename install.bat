@@ -14,6 +14,19 @@ del /Q %USERPROFILE%\.hgrc
 mklink /H %USERPROFILE%\.hgrc %~dp0\.hgrc
 copy NUL %USERPROFILE%\.hgrc_mac
 
+set PATH=%PATH%;C:\Python27
+
+echo "Installing setuptools..."
+python install_setuptools.py
+
 echo "Installing extensions..."
 easy_install --upgrade pip
+pip install --upgrade pip
 pip install hg-git
+
+echo "Installing virtualenv..."
+sudo pip install --upgrade virtualenv
+sudo pip install --upgrade virtualenvwrapper
+
+echo "Installing SCons..."
+sudo pip install --upgrade scons
