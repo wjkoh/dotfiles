@@ -17,16 +17,15 @@ copy NUL %USERPROFILE%\.hgrc_mac
 set PATH=%PATH%;C:\Python27
 
 echo.
-echo Installing distribute...
+echo Installing distribute and pip...
 python install_distribute.py
+easy_install --upgrade pip
 
 set PATH=%PATH%;C:\Python27\Scripts
 
 echo.
 echo Installing extensions...
-easy_install --upgrade pip
-pip install --upgrade pip
-pip install hg-git
+pip install --upgrade hg-git
 
 echo.
 echo Installing virtualenv...
