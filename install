@@ -15,6 +15,7 @@ do
 done
 popd &> /dev/null
 
+echo
 echo "Generating a dummy certificate..."
 
 # http://mercurial.selenic.com/wiki/CACertificates
@@ -23,14 +24,22 @@ if [ ! -f /etc/hg-dummy-cert.pem ]; then
     sudo mv dummycert.pem /etc/hg-dummy-cert.pem
 fi
 
+echo
+echo "Installing distribute..."
+curl -O http://python-distribute.org/distribute_setup.py
+sudo python distribute_setup.py
+
+echo
 echo "Installing extensions..."
 sudo easy_install --upgrade pip
 sudo pip install --upgrade keyring
 sudo pip install --upgrade hg-git
 
+echo
 echo "Installing virtualenv..."
 sudo pip install --upgrade virtualenv
 sudo pip install --upgrade virtualenvwrapper
 
+echo
 echo "Installing SCons..."
 sudo pip install --upgrade scons

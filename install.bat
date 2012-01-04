@@ -16,17 +16,25 @@ copy NUL %USERPROFILE%\.hgrc_mac
 
 set PATH=%PATH%;C:\Python27
 
-echo "Installing setuptools..."
-python install_setuptools.py
+echo.
+echo Installing distribute...
+python install_distribute.py
 
-echo "Installing extensions..."
+set PATH=%PATH%;C:\Python27\Scripts
+
+echo.
+echo Installing extensions...
 easy_install --upgrade pip
 pip install --upgrade pip
 pip install hg-git
 
-echo "Installing virtualenv..."
-sudo pip install --upgrade virtualenv
-sudo pip install --upgrade virtualenvwrapper
+echo.
+echo Installing virtualenv...
+pip install --upgrade virtualenv
+pip install --upgrade virtualenvwrapper
 
-echo "Installing SCons..."
-sudo pip install --upgrade scons
+echo.
+echo Installing SCons...
+pip install --upgrade scons
+
+pause
