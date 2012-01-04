@@ -44,3 +44,9 @@ fi
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
+
+# Use MacVim if it exists
+if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+fi
