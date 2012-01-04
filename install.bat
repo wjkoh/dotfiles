@@ -14,14 +14,12 @@ del /Q %USERPROFILE%\.hgrc
 mklink /H %USERPROFILE%\.hgrc %~dp0\.hgrc
 copy NUL %USERPROFILE%\.hgrc_mac
 
-set PATH=%PATH%;C:\Python27
+set PATH=%PATH%;C:\Python27;C:\Python27\Scripts
 
 echo.
 echo Installing distribute and pip...
 python install_distribute.py
 easy_install --upgrade pip
-
-set PATH=%PATH%;C:\Python27\Scripts
 
 echo.
 echo Installing extensions...
