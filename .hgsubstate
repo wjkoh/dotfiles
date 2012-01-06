@@ -6,12 +6,14 @@ ef52038b4459ddd8c78f13c2789c658bbc6cacbc .hgext/onsub
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
 8c75e65b647238febd0257658b150f717a136359 .vim/bundle/bufexplorer.zip
-93637eade600d8e0b15aa00641ea9ca328aca995 .vim/bundle/ctrlp.vim
+969075718ac1830a04087b2a8f9cce6ec3fa3c18 .vim/bundle/ctrlp.vim
 1e5658c6d9575cd34be32d0227e06f07c9d58a2e .vim/bundle/grep.vim
 2a78f151df54b53874f0aa6a85cfdad6ead224ed .vim/bundle/gundo.vim
 74e8194d6d35319ccb412e532d79a28314e4e519 .vim/bundle/minibufexpl.vim
-3be5f5ddd86d27ecf364add831c1d60f4b4ef984 .vim/bundle/nerdtree
+54fab2f2e55e9a413e2a1f5aec0f9129036d2168 .vim/bundle/nerdtree
+c7f7aec480dac2866d14980c5aec2e1a093f52d7 .vim/bundle/python-mode
 f5a75d075d3c005ebe69e3f5e56cf99516e8aa3b .vim/bundle/snipmate.vim
+c8dc739e555f416ac65eab52b0bed4919ad818bb .vim/bundle/syntastic
 53041fbc45398a9af631a20657e109707a455339 .vim/bundle/taglist.vim
 13fe3d8064647e2cdf07e12840108c3f917f5636 .vim/bundle/vim-autocomplpop
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
