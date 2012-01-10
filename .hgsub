@@ -1,5 +1,6 @@
 .vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
 .vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
+.vim/bundle/ack.vim = [git]https://github.com/mileszs/ack.vim.git
 .vim/bundle/bufexplorer.zip = [git]https://github.com/vim-scripts/bufexplorer.zip.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git

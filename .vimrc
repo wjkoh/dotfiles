@@ -129,14 +129,14 @@ set pastetoggle=<F11>
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+"set shiftwidth=4
+"set softtabstop=4
+"set expandtab
 
 " Indentation settings for using hard tabs for indent. Display tabs as
 " two characters wide.
-"set shiftwidth=2
-"set tabstop=2
+set shiftwidth=2
+set tabstop=2
 
 
 "------------------------------------------------------------
@@ -183,14 +183,21 @@ runtime macros/matchit.vim  " Enable matchit
 map <tab> %
 nnoremap <silent> <Leader>. :e .<CR>
 nnoremap <silent> <C-t> :FufCoverageFile<CR>
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <silent> <F5> :GundoToggle<CR>
+
+if executable('ack')
+	nmap <silent> <Leader>* :execute expand('Ack --'.&filetype.' <cword> %')<CR>
+	nmap <silent> <Leader>g* :execute expand('Ack --'.&filetype.' <cword>')<CR>
+elseif executable('grep')
+	nmap <silent> <Leader>* :Grep <cword> %<CR>
+	nmap <silent> <Leader>g* :Grep <cword><CR><CR>
+endif
 
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter * if filereadable('SConstruct') | silent! setlocal makeprg=scons | endif
 autocmd BufEnter * if filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | endif
-autocmd BufReadPre,BufNewFile SConstruct set filetype=python
-autocmd BufReadPre,BufNewFile SConscript set filetype=python
+autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
@@ -210,9 +217,14 @@ let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 
-" ctrlp.vim
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_persistent_input = 0
-let g:ctrlp_user_command = 'find %s -type f'       " MacOSX/Linux
-"let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate --fullpath -I .']
-"let g:ctrlp_clear_cache_on_exit = 0
+" CtrlP
+set wildignore+=.DS_Store,*.o  " Linux/MacOSX
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_dont_split = 'netrw\|help\|nerdtree'
+
+" Syntastic
+let g:syntastic_mode_map = { 'passive_filetypes': ['cpp'] }
+let g:syntastic_cpp_no_include_search = 1
+let g:syntastic_cpp_compiler_options = ' -std=c++0x'
+let g:syntastic_c_include_dirs = split(&path, ',')
