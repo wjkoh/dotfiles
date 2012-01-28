@@ -24,6 +24,7 @@ easy_install --upgrade pip
 echo.
 echo Installing extensions...
 pip install --upgrade hg-git
+pip install --upgrade gntp
 
 echo.
 echo Installing virtualenv...

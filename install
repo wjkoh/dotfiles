@@ -34,6 +34,7 @@ echo
 echo "Installing extensions..."
 sudo pip install --upgrade keyring
 sudo pip install --upgrade hg-git
+sudo pip install --upgrade gntp
 
 echo
 echo "Installing virtualenv..."
