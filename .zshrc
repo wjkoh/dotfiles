@@ -37,7 +37,7 @@ export LANG=en_US.UTF-8
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-    . /opt/local/etc/profile.d/autojump.sh
+	. /opt/local/etc/profile.d/autojump.sh
 fi
 
 # virtualenvwrapper
@@ -46,7 +46,10 @@ export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 
 # Use MacVim if it exists
-if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+if hash mvim &> /dev/null; then
+	export EDITOR="mvim -v"
+	alias vim="mvim -v"
+elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 fi

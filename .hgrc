@@ -2,7 +2,6 @@
 username = Woojong Koh <wjngkoh@gmail.com>
 verbose = True
 commitsubrepos = False
-editor = vim
 
 [email]
 method = smtp

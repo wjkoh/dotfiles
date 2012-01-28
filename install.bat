@@ -34,4 +34,9 @@ echo.
 echo Installing SCons...
 pip install --upgrade scons
 
+
+echo.
+echo Installing Ack...
+cpan App::Ack
+
 pause
