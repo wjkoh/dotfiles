@@ -53,3 +53,16 @@ elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 fi
+
+# tmux
+if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
+	SESSION=$USER
+	tmux has-session -t $SESSION
+	if [ $? -eq 0 ]; then
+		#echo "Session $SESSION already exists. Attaching."
+		#sleep 1
+		tmux new-session -t $SESSION \; set-option destroy-unattached on
+	else
+		tmux new-session -s $SESSION
+	fi
+fi
