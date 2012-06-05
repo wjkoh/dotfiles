@@ -31,6 +31,10 @@ sudo python distribute_setup.py
 sudo easy_install --upgrade pip
 
 echo
+echo "Installing Mercurial..."
+sudo pip install --upgrade mercurial
+
+echo
 echo "Installing extensions..."
 sudo pip install --upgrade keyring
 sudo pip install --upgrade hg-git

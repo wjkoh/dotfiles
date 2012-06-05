@@ -161,23 +161,23 @@ colorscheme solarized
 if has("gui_running")
     set cursorline
 endif
-set guioptions-=T   " Remove toolbar
+set guioptions-=T	" Remove toolbar
 set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 
 let mapleader=","
-set scrolloff=2     " Keep some context
+set scrolloff=2		" Keep some context
 set incsearch
-"set nowrapscan      " Do not wrap around
+"set nowrapscan		" Do not wrap around
 "set history=1000
-set viminfo+=%3      " Save and restore the buffer list
+set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
 if has('unnamedplus')
     set clipboard=unnamedplus
 endif
-set noimdisable     " http://tech.groups.yahoo.com/group/vim-mac/message/12312
+set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set path+=/usr/local/include,/opt/local/include,../lib,../include
 
-runtime macros/matchit.vim  " Enable matchit
+runtime macros/matchit.vim	" Enable matchit
 
 " Mapping
 map <tab> %
@@ -218,10 +218,17 @@ let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 
 " CtrlP
-set wildignore+=.DS_Store,*.o  " Linux/MacOSX
+set wildignore+=*.o,*.obj,.DS_Store	" Linux/MacOSX
+"let g:ctrlp_by_filename = 1
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-let g:ctrlp_by_filename = 1
-let g:ctrlp_dont_split = 'netrw\|help\|nerdtree'
+let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
+let g:ctrlp_user_command = {
+			\ 'types': {
+					\ 1: ['.git/', 'cd %s && git ls-files'],
+					\ 2: ['.hg/', 'hg --cwd %s locate -I .'],
+				\ },
+				\ 'fallback': 'find %s -type f'
+			\ }
 
 " Syntastic
 let g:syntastic_mode_map = { 'passive_filetypes': ['cpp'] }
