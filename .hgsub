@@ -23,4 +23,4 @@
 .hgext/hgbb = https://bitbucket.org/birkenfeld/hgbb
 .hgext/hgshelve = https://bitbucket.org/tksoh/hgshelve
 .hgext/mercurial_keyring = https://bitbucket.org/Mekk/mercurial_keyring
-.hgext/onsub = https://bitbucket.org/aragost/onsub
+.hgext/onsub = https://bitbucket.org/lantiq/onsub
