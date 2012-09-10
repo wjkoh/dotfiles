@@ -51,4 +51,4 @@ sudo pip install --upgrade scons
 
 echo
 echo "Installing Ack..."
-cpan App::Ack
+sudo cpan App::Ack
