@@ -1,4 +1,8 @@
 #!/bin/sh
+
+xcodebuild -license
+sudo xcodebuild -license
+
 sudo port selfupdate
 sudo port install autojump
 sudo port install ccache
@@ -22,3 +26,14 @@ sudo port install jpeg
 sudo port install freetype
 
 # install MacVim
+
+# Back to My Mac (SSH)
+HOSTNAME=`hostname -s`
+HOSTNAME_CLEANED=${HOSTNAME//-/_}
+ICLOUD_DOMAIN=`echo show Setup:/Network/BackToMyMac | scutil | sed -n 's/.* : *\(.*\).$/\1/p'`
+EXPORT_STMT="export $HOSTNAME_CLEANED=$HOSTNAME.$ICLOUD_DOMAIN"
+HOSTNAMES_FILE="$HOME/Dropbox/Mac Sync/.hostnames"
+
+if ! grep "$EXPORT_STMT" "$HOSTNAMES_FILE" > /dev/null; then
+    echo $EXPORT_STMT >> $HOSTNAMES_FILE
+fi

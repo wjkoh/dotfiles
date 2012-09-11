@@ -66,3 +66,8 @@ if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 		tmux new-session -s $SESSION
 	fi
 fi
+
+# Back to My Mac (SSH)
+if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
+    source ~/Dropbox/Mac\ Sync/.hostnames
+fi
