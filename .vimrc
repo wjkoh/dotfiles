@@ -129,14 +129,14 @@ set pastetoggle=<F11>
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-"set shiftwidth=4
-"set softtabstop=4
-"set expandtab
+set shiftwidth=4
+set softtabstop=4
+set expandtab
 
 " Indentation settings for using hard tabs for indent. Display tabs as
 " two characters wide.
-set shiftwidth=2
-set tabstop=2
+"set shiftwidth=2
+"set tabstop=2
 
 
 "------------------------------------------------------------
@@ -176,6 +176,7 @@ if has('unnamedplus')
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set path+=/usr/local/include,/opt/local/include,../lib,../include
+set tags+=./tags;
 
 runtime macros/matchit.vim	" Enable matchit
 
@@ -219,19 +220,20 @@ let NERDTreeShowHidden=1
 
 " CtrlP
 set wildignore+=*.o,*.obj,.DS_Store	" Linux/MacOSX
-"let g:ctrlp_by_filename = 1
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
 let g:ctrlp_user_command = {
-			\ 'types': {
-					\ 1: ['.git/', 'cd %s && git ls-files'],
-					\ 2: ['.hg/', 'hg --cwd %s locate -I .'],
-				\ },
-				\ 'fallback': 'find %s -type f'
-			\ }
+                \ 'types': {
+                    \ 1: ['.git', 'cd %s && git ls-files'],
+                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ }
+            \ }
 
 " Syntastic
 let g:syntastic_mode_map = { 'passive_filetypes': ['cpp'] }
 let g:syntastic_cpp_no_include_search = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++0x'
 let g:syntastic_c_include_dirs = split(&path, ',')
+
+" Tagbar
+autocmd BufEnter * nested :call tagbar#autoopen(0)
