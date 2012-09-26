@@ -2,9 +2,9 @@
 244a50c40d93873006c875c5d2ae64fcbc987216 .hgext/hgshelve
 eb6b95a96468d59aedec1927743cc1211b099a3c .hgext/mercurial_keyring
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
-921d2f49ef01acce973980c0aa9c6ffbbd2fbd0b .oh-my-zsh
+25a9cddc2191a1c6751d1e385389c0787a597a3e .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
-8ebc225b364887c0557ab47ab2ca752a70123bee .vim/bundle/YankRing.vim
+698e0c333c1edae8a1d83b04e5674efa7cac3137 .vim/bundle/NrrwRgn
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
 9895285042a2fd5691b2f6582aa979e4d1bdffea .vim/bundle/ack.vim
 3c6182371db8e8ede3789d21b52386569eda2208 .vim/bundle/ctrlp.vim
@@ -23,5 +23,6 @@ dc349bb7d30f713d770fc1fa0fe209e6aab82dc8 .vim/bundle/vim-commentary
 667a668e114e9ec0e5d4cbcb0962d835b23614c4 .vim/bundle/vim-easymotion
 3bb534a720fa762aa01d2df2d5d41bd3c4122169 .vim/bundle/vim-l9
 5e3fdd3a8a3b244e1fedd0f5597f4a9879e16c3b .vim/bundle/vim-pathogen
-114f8e5c204f1cac9b2443065910fa182de39fb8 .vim/bundle/vim-powerline
+20ab08c9a8fe6cdfb7c303aa3063f211d72f8b2f .vim/bundle/vim-powerline
 78ab4b3df24fa2753d3dfc1be75ed5a3df1565b8 .vim/bundle/vim-smartinput
+02ee85f9624c93a6accf571749dfd7d5e8e2cfab .vim/bundle/vim-yankstack

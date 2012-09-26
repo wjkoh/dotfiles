@@ -6,8 +6,7 @@ sudo xcodebuild -license
 # Back to My Mac (SSH)
 HOSTNAME=`hostname -s`
 HOSTNAME_CLEANED=${HOSTNAME//-/_}
-ICLOUD_DOMAIN=`echo show Setup:/Network/BackToMyMac | scutil | sed -n 's/.* : *\(.*\).$/\1/p'`
-EXPORT_STMT="export $HOSTNAME_CLEANED=$HOSTNAME.$ICLOUD_DOMAIN"
+EXPORT_STMT="export $HOSTNAME_CLEANED=$HOSTNAME.`echo show Setup:/Network/BackToMyMac | scutil | sed -n 's/.* : *\(.*\).$/\1/p'`"
 HOSTNAMES_FILE="$HOME/Dropbox/Mac Sync/.hostnames"
 
 if ! grep "$EXPORT_STMT" "$HOSTNAMES_FILE" > /dev/null; then

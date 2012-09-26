@@ -156,6 +156,8 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 " Customization
+set nonumber
+set relativenumber
 set background=dark
 colorscheme solarized
 if has("gui_running")
@@ -168,23 +170,31 @@ let mapleader=","
 set scrolloff=2		" Keep some context
 set incsearch
 "set nowrapscan		" Do not wrap around
-"set history=1000
+set history=1000
 set viminfo+=%3		" Save and restore the buffer list
+set undofile
 set clipboard=unnamed
 if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set path+=/usr/local/include,/opt/local/include,../lib,../include
+set macmeta
+set path+=/usr/local/include,/opt/local/include,./include;,./lib;
 set tags+=./tags;
 
 runtime macros/matchit.vim	" Enable matchit
 
 " Mapping
+nnoremap j gj
+nnoremap k gk
 map <tab> %
 nnoremap <silent> <Leader>. :e .<CR>
-nnoremap <silent> <C-t> :FufCoverageFile<CR>
-nnoremap <silent> <F5> :GundoToggle<CR>
+nnoremap <Leader>a :Ack!<space>
+nnoremap <Leader>gu :GundoToggle<CR>
+nmap <ESC>p <Plug>yankstack_substitute_older_paste
+nmap <ESC>P <Plug>yankstack_substitute_older_paste
+nmap <ESC>n <Plug>yankstack_substitute_newer_paste
+nmap <ESC>N <Plug>yankstack_substitute_newer_paste
 
 if executable('ack')
 	nmap <silent> <Leader>* :execute expand('Ack --'.&filetype.' <cword> %')<CR>
@@ -196,10 +206,10 @@ endif
 
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
-autocmd BufEnter * if filereadable('SConstruct') | silent! setlocal makeprg=scons | endif
-autocmd BufEnter * if filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | endif
-autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
+autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
+autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
+autocmd VimResized * :wincmd =  " Resize splits when the window is resized
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /

@@ -1,5 +1,5 @@
 .vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
-.vim/bundle/YankRing.vim = [git]https://github.com/vim-scripts/YankRing.vim.git
+.vim/bundle/NrrwRgn = [git]https://github.com/chrisbra/NrrwRgn.git
 .vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
 .vim/bundle/ack.vim = [git]https://github.com/mileszs/ack.vim.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
@@ -20,6 +20,7 @@
 .vim/bundle/vim-pathogen = [git]https://github.com/tpope/vim-pathogen.git
 .vim/bundle/vim-powerline = [git]https://github.com/Lokaltog/vim-powerline.git
 .vim/bundle/vim-smartinput = [git]https://github.com/kana/vim-smartinput.git
+.vim/bundle/vim-yankstack = [git]https://github.com/maxbrunsfeld/vim-yankstack.git
 .oh-my-zsh = [git]https://github.com/robbyrussell/oh-my-zsh.git
 
 .hgext/hgbb = https://bitbucket.org/birkenfeld/hgbb

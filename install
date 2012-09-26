@@ -3,7 +3,7 @@
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
 pushd "${DOTDIR}" &> /dev/null
 
-echo "Installing dotfiles..."
+echo "* Installing dotfiles..."
 
 shopt -s dotglob extglob
 for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat|update_subrepos|bootstrap_mac.sh|install_distribute.py)
@@ -16,7 +16,11 @@ done
 popd &> /dev/null
 
 echo
-echo "Generating a dummy certificate..."
+echo "* Changing a login shell to ZSH..."
+chsh -s /bin/zsh
+
+echo
+echo "* Generating a dummy certificate..."
 
 # http://mercurial.selenic.com/wiki/CACertificates
 if [ ! -f /etc/hg-dummy-cert.pem ]; then
@@ -25,30 +29,30 @@ if [ ! -f /etc/hg-dummy-cert.pem ]; then
 fi
 
 echo
-echo "Installing distribute and pip..."
+echo "* Installing distribute and pip..."
 curl -O http://python-distribute.org/distribute_setup.py
 sudo python distribute_setup.py
 sudo easy_install --upgrade pip
 
 echo
-echo "Installing Mercurial..."
+echo "* Installing Mercurial..."
 sudo pip install --upgrade mercurial
 
 echo
-echo "Installing extensions..."
+echo "* Installing extensions..."
 sudo pip install --upgrade keyring
 sudo pip install --upgrade hg-git
 sudo pip install --upgrade gntp
 
 echo
-echo "Installing virtualenv..."
+echo "* Installing virtualenv..."
 sudo pip install --upgrade virtualenv
 sudo pip install --upgrade virtualenvwrapper
 
 echo
-echo "Installing SCons..."
+echo "* Installing SCons..."
 sudo pip install --upgrade scons
 
 echo
-echo "Installing Ack..."
+echo "* Installing Ack..."
 sudo cpan App::Ack
