@@ -172,8 +172,6 @@ set incsearch
 "set nowrapscan		" Do not wrap around
 set history=1000
 set viminfo+=%3		" Save and restore the buffer list
-set undofile
-set noswapfile
 set clipboard=unnamed
 if has('unnamedplus')
     set clipboard=unnamedplus
@@ -182,6 +180,12 @@ set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set macmeta
 set path+=/usr/local/include,/opt/local/include,./include;,./lib;
 set tags+=./tags;
+
+set backup
+set undofile
+set backupdir=~/.vim/tmp/backup
+set undodir=~/.vim/tmp/undo
+set noswapfile
 
 runtime macros/matchit.vim	" Enable matchit
 
@@ -210,19 +214,28 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
-autocmd BufWritePost,FileWritePost * silent! call UpdateTags()
+autocmd BufWritePost,FileWritePost * call UpdateTags()
 
 function UpdateTags()
     let l:ctags_options = "--sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q"
     let l:ctags_excludes = '--exclude="*/typeof/*" --exclude="*/preprocessed/*"'
 
-    execute "!(cd ". expand("%:p:h") . ";ctags ". l:ctags_options ." *)&"
+    silent! execute "!(cd ". expand("%:p:h") .";ctags ". l:ctags_options ." *)&"
 
     let l:tags_list = findfile("tags", ".;", -1)
     if len(l:tags_list) > 1
         let l:tmpfile = tempname()
         let l:globaltags_path = fnamemodify(l:tags_list[-1], ":p:h")
-        execute "!(cd ". l:globaltags_path .";ctags ". l:ctags_options ." ". l:ctags_excludes ." -f ". l:tmpfile ." --file-scope=no -R; mv ". l:tmpfile ." tags)&"
+
+        if l:globaltags_path == $HOME
+            if len(l:tags_list) > 2
+                let l:globaltags_path = fnamemodify(l:tags_list[-2], ":p:h")
+            else
+                return
+            endif
+        endif
+
+        silent! execute "!(cd ". l:globaltags_path .";ctags ". l:ctags_options ." ". l:ctags_excludes ." -f ". l:tmpfile ." --file-scope=no -R; mv ". l:tmpfile ." tags)&"
     endif
 endfunction
 
