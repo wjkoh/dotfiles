@@ -1,6 +1,9 @@
 @echo off
 rem CAUTION: %USERPROFILE% AND %~dp0 SHOULD BE IN THE SAME FILESYSTEM. (/H)
 
+rem %USERPROFILE%/bin
+mklink /H %USERPROFILE%\bin %~dp0\bin
+
 rem Vim
 del /Q %USERPROFILE%\_vimrc
 mklink /H %USERPROFILE%\_vimrc %~dp0\.vimrc
@@ -14,30 +17,37 @@ del /Q %USERPROFILE%\.hgrc
 mklink /H %USERPROFILE%\.hgrc %~dp0\.hgrc
 copy NUL %USERPROFILE%\.hgrc_mac
 
-set PATH=%PATH%;C:\Python27;C:\Python27\Scripts
+rem Git
+del /Q %USERPROFILE%\.gitconfig
+mklink /D %USERPROFILE%\.gitconfig %~dp0\.gitconfig
+
+set PATH=%USERPROFILE%\bin;%PATH%;C:\Python27;C:\Python27\Scripts
 
 echo.
-echo Installing distribute and pip...
-python install_distribute.py
+echo * Installing distribute and pip...
+python %USERPROFILE%\bin\install_distribute.py
 easy_install --upgrade pip
 
 echo.
-echo Installing extensions...
+echo * Installing Mercurial...
+sudo pip install --upgrade mercurial
+
+echo.
+echo * Installing extensions...
 pip install --upgrade hg-git
 pip install --upgrade gntp
 
 echo.
-echo Installing virtualenv...
+echo * Installing virtualenv...
 pip install --upgrade virtualenv
 pip install --upgrade virtualenvwrapper
 
 echo.
-echo Installing SCons...
+echo * Installing SCons...
 pip install --upgrade scons
 
-
 echo.
-echo Installing Ack...
+echo * Installing Ack...
 cpan App::Ack
 
 pause

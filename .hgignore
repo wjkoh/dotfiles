@@ -1,0 +1,8 @@
+# use glob syntax.
+syntax: glob
+
+tags
+
+.vim/tmp/
+.weechat/logs/
+.weechat/weechat.log

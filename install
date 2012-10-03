@@ -6,7 +6,7 @@ pushd "${DOTDIR}" &> /dev/null
 echo "* Installing dotfiles..."
 
 shopt -s dotglob extglob
-for DOTFILE in !(.hg|.hgsub|.hgsubstate|tags|install|install.bat|update_subrepos|bootstrap_mac.sh|install_distribute.py)
+for DOTFILE in !(.hg|.hgsub|.hgsubstate|.hgignore|tags|install|install.bat)
 do 
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
@@ -33,6 +33,8 @@ echo "* Installing distribute and pip..."
 curl -O http://python-distribute.org/distribute_setup.py
 sudo python distribute_setup.py
 sudo easy_install --upgrade pip
+rm distribute_setup.py
+sudo rm distribute-*.tar.gz
 
 echo
 echo "* Installing Mercurial..."
@@ -55,4 +57,4 @@ sudo pip install --upgrade scons
 
 echo
 echo "* Installing Ack..."
-sudo cpan App::Ack
+sudo /usr/bin/cpan App::Ack
