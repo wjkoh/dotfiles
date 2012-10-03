@@ -173,6 +173,7 @@ set incsearch
 set history=1000
 set viminfo+=%3		" Save and restore the buffer list
 set undofile
+set noswapfile
 set clipboard=unnamed
 if has('unnamedplus')
     set clipboard=unnamedplus
@@ -209,6 +210,19 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
+autocmd BufWritePost,FileWritePost * silent! call UpdateTags()
+
+function UpdateTags()
+    execute "!(cd ". expand("%:p:h") . ";ctags --sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q *)&"
+
+    let l:tags_list = findfile("tags", ".;", -1)
+    if len(l:tags_list) > 1
+        let l:globaltags_path = fnamemodify(l:tags_list[-1], ":p:h")
+        let l:tmpfile = tempname()
+        execute "!(cd ". l:globaltags_path .';ctags --sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q --exclude="*/typeof/*" --exclude="*/preprocessed/*" -f '. l:tmpfile .' --file-scope=no -R; mv '. l:tmpfile .' tags)&'
+    endif
+endfunction
+
 autocmd VimResized * :wincmd =  " Resize splits when the window is resized
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
@@ -230,7 +244,8 @@ let NERDTreeShowHidden=1
 
 " CtrlP
 set wildignore+=*.o,*.obj,.DS_Store	" Linux/MacOSX
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
 let g:ctrlp_user_command = {
                 \ 'types': {

@@ -71,3 +71,6 @@ fi
 if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
     source ~/Dropbox/Mac\ Sync/.hostnames
 fi
+
+# MATLAB
+alias matlab="/Applications/MATLAB_R2011b.app/bin/matlab -nodesktop -nosplash"
