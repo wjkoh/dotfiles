@@ -10,10 +10,10 @@ ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
 be5842a376f16c16c5dc4cc1879d7168a074f7de .vim/bundle/ctrlp.vim
 1e5658c6d9575cd34be32d0227e06f07c9d58a2e .vim/bundle/grep.vim
 8c570a493d260890242cbdc5a22d8500dc4604cb .vim/bundle/gundo.vim
-a1433c485eb254838c1db52e087d5ec4d1e77cfd .vim/bundle/nerdtree
+bf79e223aefe0665bcc62b5dcc4c2c23c6f23fc5 .vim/bundle/nerdtree
 e877c7e3e249e5784fcee8feaff7f1a8799335a1 .vim/bundle/python-mode
 f5a75d075d3c005ebe69e3f5e56cf99516e8aa3b .vim/bundle/snipmate.vim
-2ad1437af7224629677231f8830b1ee204b91e40 .vim/bundle/syntastic
+2e7d73305b70a456abb20b1754e094cccfefa3d3 .vim/bundle/syntastic
 568ef5fd25468a58723b50cf40a48c5dcb46c802 .vim/bundle/tagbar
 53041fbc45398a9af631a20657e109707a455339 .vim/bundle/taglist.vim
 13fe3d8064647e2cdf07e12840108c3f917f5636 .vim/bundle/vim-autocomplpop

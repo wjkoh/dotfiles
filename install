@@ -13,6 +13,9 @@ do
     rm -rf "${TARGET}"
     ln -sf "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
+
+rm -rf "${HOME}/.weechat/irc.conf"
+ln -sf "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 popd &> /dev/null
 
 echo

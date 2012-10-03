@@ -4,5 +4,6 @@ syntax: glob
 tags
 
 .vim/tmp/
+.weechat/irc.conf
 .weechat/logs/
 .weechat/weechat.log
