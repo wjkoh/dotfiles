@@ -213,13 +213,16 @@ autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') |
 autocmd BufWritePost,FileWritePost * silent! call UpdateTags()
 
 function UpdateTags()
-    execute "!(cd ". expand("%:p:h") . ";ctags --sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q *)&"
+    let l:ctags_options = "--sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q"
+    let l:ctags_excludes = '--exclude="*/typeof/*" --exclude="*/preprocessed/*"'
+
+    execute "!(cd ". expand("%:p:h") . ";ctags ". l:ctags_options ." *)&"
 
     let l:tags_list = findfile("tags", ".;", -1)
     if len(l:tags_list) > 1
-        let l:globaltags_path = fnamemodify(l:tags_list[-1], ":p:h")
         let l:tmpfile = tempname()
-        execute "!(cd ". l:globaltags_path .';ctags --sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q --exclude="*/typeof/*" --exclude="*/preprocessed/*" -f '. l:tmpfile .' --file-scope=no -R; mv '. l:tmpfile .' tags)&'
+        let l:globaltags_path = fnamemodify(l:tags_list[-1], ":p:h")
+        execute "!(cd ". l:globaltags_path .";ctags ". l:ctags_options ." ". l:ctags_excludes ." -f ". l:tmpfile ." --file-scope=no -R; mv ". l:tmpfile ." tags)&"
     endif
 endfunction
 

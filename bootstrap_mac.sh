@@ -37,7 +37,7 @@ rm -rf tmux-MacOSX-pasteboard
 
 # Install libraries
 sudo port install glew
-sudo port install jpeg
-sudo port install freetype
+#sudo port install jpeg
+#sudo port install freetype
 
 # Install MacVim
