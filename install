@@ -6,7 +6,7 @@ pushd "${DOTDIR}" &> /dev/null
 echo "* Installing dotfiles..."
 
 shopt -s dotglob extglob
-for DOTFILE in !(.hg|.hgsub|.hgsubstate|install|install.bat|update_subrepos|bootstrap_mac.sh|install_distribute.py)
+for DOTFILE in !(.hg|.hgsub|.hgsubstate|tags|install|install.bat|update_subrepos|bootstrap_mac.sh|install_distribute.py)
 do 
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
