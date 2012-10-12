@@ -31,23 +31,27 @@ easy_install --upgrade pip
 echo.
 echo * Installing Mercurial...
 sudo pip install --upgrade mercurial
-
-echo.
-echo * Installing extensions...
-pip install --upgrade hg-git
-pip install --upgrade gntp
+pip install --upgrade gntp hg-git
 
 echo.
 echo * Installing virtualenv...
-pip install --upgrade virtualenv
-pip install --upgrade virtualenvwrapper
+pip install --upgrade virtualenv virtualenvwrapper
 
 echo.
 echo * Installing SCons...
 pip install --upgrade scons
 
 echo.
+echo * Installing iPython and numpy/scipy...
+pip install --upgrade ipython ipdb
+pip install --upgrade numpy scipy matplotlib
+
+echo.
 echo * Installing Ack...
 cpan App::Ack
+
+echo.
+echo * Installing Pyp...
+svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
 
 pause

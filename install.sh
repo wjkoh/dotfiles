@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
 pushd "${DOTDIR}" &> /dev/null
@@ -57,5 +57,7 @@ echo
 echo "* Installing Ack..."
 sudo /usr/bin/cpan App::Ack
 
+echo
+echo "* Installing Pyp..."
 svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
 chmod u+x ~/bin/pyp
