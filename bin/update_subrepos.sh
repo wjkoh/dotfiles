@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Git
 hg onsub --ignore-errors "git checkout master"

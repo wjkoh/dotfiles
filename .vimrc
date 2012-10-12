@@ -179,7 +179,7 @@ endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set macmeta
 set path+=/usr/local/include,/opt/local/include,./include;,./lib;
-set tags+=./tags;
+set tags+=./tags;,~/.vim/libstdc++_tags
 
 set backup
 set undofile
@@ -278,3 +278,12 @@ let g:syntastic_c_include_dirs = split(&path, ',')
 
 " Tagbar
 autocmd BufEnter * nested :call tagbar#autoopen(0)
+
+" NeoComplCache
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+
+" OmniCppComplete
+let OmniCpp_ShowPrototypeInAbbr = 1
+let OmniCpp_MayCompleteScope = 1
+autocmd CursorMovedI,InsertLeave * if pumvisible() == 0 | pclose | endif

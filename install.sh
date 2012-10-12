@@ -56,3 +56,6 @@ $PIP install --upgrade numpy scipy matplotlib
 echo
 echo "* Installing Ack..."
 sudo /usr/bin/cpan App::Ack
+
+svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
+chmod u+x ~/bin/pyp

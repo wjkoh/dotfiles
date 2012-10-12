@@ -1,10 +1,13 @@
 .vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
+.vim/bundle/MatlabFilesEdition = [git]https://github.com/vim-scripts/MatlabFilesEdition.git
 .vim/bundle/NrrwRgn = [git]https://github.com/chrisbra/NrrwRgn.git
+.vim/bundle/OmniCppComplete = [git]https://github.com/FromtonRouge/OmniCppComplete.git
 .vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
 .vim/bundle/ack.vim = [git]https://github.com/mileszs/ack.vim.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git
 .vim/bundle/gundo.vim = https://bitbucket.org/sjl/gundo.vim
+.vim/bundle/neocomplcache = [git]https://github.com/Shougo/neocomplcache.git
 .vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
 .vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
 .vim/bundle/snipmate.vim = [git]https://github.com/msanders/snipmate.vim.git

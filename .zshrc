@@ -46,6 +46,7 @@ mkdir -p WORKON_HOME
 source virtualenvwrapper.sh
 
 # Use MacVim if it exists
+export EDITOR=vim
 if hash mvim &> /dev/null; then
 	export EDITOR="mvim -v"
 	alias vim="mvim -v"
