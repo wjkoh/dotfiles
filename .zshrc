@@ -42,8 +42,8 @@ fi
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
+mkdir -p WORKON_HOME
+source virtualenvwrapper.sh
 
 # Use MacVim if it exists
 if hash mvim &> /dev/null; then

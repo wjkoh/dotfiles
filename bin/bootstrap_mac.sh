@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 
 xcodebuild -license
 sudo xcodebuild -license
@@ -13,12 +13,21 @@ if ! grep "$EXPORT_STMT" "$HOSTNAMES_FILE" > /dev/null; then
     echo $EXPORT_STMT >> $HOSTNAMES_FILE
 fi
 
+# http://mercurial.selenic.com/wiki/CACertificates
+echo
+echo "* Generating a dummy certificate..."
+if [ ! -f /etc/hg-dummy-cert.pem ]; then
+    openssl req -new -x509 -extensions v3_ca -keyout /dev/null -out dummycert.pem -days 3650
+    sudo mv dummycert.pem /etc/hg-dummy-cert.pem
+fi
+
 # Update MacPorts
 sudo port selfupdate
 sudo port upgrade outdated
 
 # Install compilers and utilities
 sudo port install autojump
+sudo port install boost
 sudo port install ccache
 sudo port install ctags
 sudo port install gcc47
@@ -39,5 +48,6 @@ rm -rf tmux-MacOSX-pasteboard
 sudo port install glew
 #sudo port install jpeg
 #sudo port install freetype
+#sudo port install libpng
 
 # Install MacVim

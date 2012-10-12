@@ -1,0 +1,4 @@
+#!/bin/env zsh
+# This hook is run after every virtualenv is deactivated.
+
+rehash
