@@ -6,7 +6,7 @@ pushd "${DOTDIR}" &> /dev/null
 echo "* Installing dotfiles..."
 
 shopt -s dotglob extglob
-for DOTFILE in !(.hg|.hgsub|.hgsubstate|.hgignore|tags|install|install.bat)
+for DOTFILE in !(.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat)
 do
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
@@ -22,7 +22,7 @@ echo
 echo "* Changing a login shell to ZSH..."
 chsh -s /bin/zsh
 
-PIP=sudo pip
+PIP="sudo pip"
 if [ -z "$VIRTUAL_ENV" ]; then
     echo
     echo "* Installing distribute and pip..."
@@ -61,3 +61,7 @@ echo
 echo "* Installing Pyp..."
 svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
 chmod u+x ~/bin/pyp
+
+echo
+echo "* Installing Pelican..."
+$PIP install --upgrade pelican Markdown typogrify

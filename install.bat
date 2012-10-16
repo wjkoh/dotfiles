@@ -54,4 +54,8 @@ echo.
 echo * Installing Pyp...
 svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
 
+echo.
+echo * Installing Pelican...
+pip install --upgrade pelican Markdown typogrify
+
 pause

@@ -47,9 +47,13 @@ source virtualenvwrapper.sh
 
 # Use MacVim if it exists
 export EDITOR=vim
+export VISUAL=vim
 if hash mvim &> /dev/null; then
 	export EDITOR="mvim -v"
 	alias vim="mvim -v"
+elif hash Vim &> /dev/null; then
+	export EDITOR=Vim
+	alias vim=Vim
 elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
@@ -74,4 +78,4 @@ if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
 fi
 
 # MATLAB
-alias matlab="/Applications/MATLAB_R2011b.app/bin/matlab -nodesktop -nosplash"
+alias matlab="matlab -nodesktop -nosplash"
