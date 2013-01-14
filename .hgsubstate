@@ -1,5 +1,4 @@
 15ae319e069c7773726ca26516e46b8cb4084ec7 .hgext/hgbb
-c3499427318a18f56b648dd92c253f93e422f42f .hgext/hgshelve
 865a10150cab63c5df1f756da15103ce811c6bac .hgext/mercurial_keyring
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
 cf03ee6d884b3850775210acb18cfb669cd666fd .oh-my-zsh
