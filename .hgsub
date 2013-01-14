@@ -13,7 +13,6 @@
 .vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
 .vim/bundle/snipmate.vim = [git]https://github.com/msanders/snipmate.vim.git
 .vim/bundle/tagbar = [git]git://github.com/majutsushi/tagbar
-.vim/bundle/vim-autocomplpop = https://bitbucket.org/ns9tks/vim-autocomplpop
 .vim/bundle/vim-buffergator = [git]https://github.com/jeetsukumaran/vim-buffergator.git
 .vim/bundle/vim-colors-solarized = [git]https://github.com/altercation/vim-colors-solarized.git
 .vim/bundle/vim-commentary = [git]https://github.com/tpope/vim-commentary.git

@@ -18,7 +18,6 @@ c3b63d2fd9c929359231363bcabc880ba29eb96e .vim/bundle/nerdtree
 cd6aec27d127053d18bd2a12713137e41d054208 .vim/bundle/python-mode
 f5a75d075d3c005ebe69e3f5e56cf99516e8aa3b .vim/bundle/snipmate.vim
 568ef5fd25468a58723b50cf40a48c5dcb46c802 .vim/bundle/tagbar
-0000000000000000000000000000000000000000 .vim/bundle/vim-autocomplpop
 e3d24db7313c1375d3694e48b62c53ed125f6fbf .vim/bundle/vim-buffergator
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
 dc349bb7d30f713d770fc1fa0fe209e6aab82dc8 .vim/bundle/vim-commentary
