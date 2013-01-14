@@ -19,7 +19,7 @@ ln -sf "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 popd &> /dev/null
 
 echo
-echo "* Changing a login shell to ZSH..."
+echo "* Changing a login shell to Zsh..."
 chsh -s /bin/zsh
 
 PIP="sudo pip"
@@ -50,8 +50,13 @@ $PIP install --upgrade scons
 
 echo
 echo "* Installing iPython and numpy/scipy..."
+easy_install readline
 $PIP install --upgrade ipython ipdb
+$PIP install --upgrade flake8 pylint
 $PIP install --upgrade numpy scipy matplotlib
+$PIP install --upgrade scikit-learn joblib sympy
+$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext
+$PIP install --upgrade Mako PyOpenCL
 
 echo
 echo "* Installing Ack..."
@@ -64,4 +69,4 @@ chmod u+x ~/bin/pyp
 
 echo
 echo "* Installing Pelican..."
-$PIP install --upgrade pelican Markdown typogrify
+$PIP install --upgrade pelican Markdown typogrify boto

@@ -24,7 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode)
+plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode dircycle cp dirpersisti rsync)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,9 +40,13 @@ if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
 	. /opt/local/etc/profile.d/autojump.sh
 fi
 
+
+# Python startup file
+export PYTHONSTARTUP=$HOME/.pythonstartup
+
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
-mkdir -p WORKON_HOME
+mkdir -p $WORKON_HOME
 source virtualenvwrapper.sh
 
 # Use MacVim if it exists
@@ -59,6 +63,18 @@ elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
 	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 fi
 
+# Back to My Mac (SSH)
+if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
+    source ~/Dropbox/Mac\ Sync/.hostnames
+fi
+
+# MATLAB
+alias matlab="matlab -nodesktop -nosplash"
+alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
+alias python='python -i'
+
+export REPORTTIME=1
+
 # tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 	SESSION=$USER
@@ -71,11 +87,4 @@ if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 		tmux new-session -s $SESSION
 	fi
 fi
-
-# Back to My Mac (SSH)
-if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
-    source ~/Dropbox/Mac\ Sync/.hostnames
-fi
-
-# MATLAB
-alias matlab="matlab -nodesktop -nosplash"
+# DO NOT ADD ANY CONFIGURATION BELOW HERE.

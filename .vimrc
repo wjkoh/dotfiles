@@ -156,8 +156,11 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 " Customization
+set infercase
+set shiftround
 set nonumber
 set relativenumber
+set gdefault
 set background=dark
 colorscheme solarized
 if has("gui_running")
@@ -165,12 +168,13 @@ if has("gui_running")
 endif
 set guioptions-=T	" Remove toolbar
 set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
-
 let mapleader=","
 set scrolloff=2		" Keep some context
+set sidescrolloff=5	" Keep some context
 set incsearch
 "set nowrapscan		" Do not wrap around
 set history=1000
+set viminfo^=!
 set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
 if has('unnamedplus')
@@ -180,43 +184,79 @@ set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set macmeta
 set path+=/usr/local/include,/opt/local/include,./include;,./lib;
 set tags+=./tags;,~/.vim/libstdc++_tags
-
+set autoread
+set autowrite
 set backup
 set undofile
-set backupdir=~/.vim/tmp/backup
-set undodir=~/.vim/tmp/undo
 set noswapfile
+set backupdir=~/.vim/tmp/backup//   " include full path
+set undodir=~/.vim/tmp/undo//
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Easier to type, and I never use the default behavior.
+noremap H ^
+noremap L $
+vnoremap L g_
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+set fileformats+=mac
+
+set noignorecase " ignorecase has a problem with tag jump Ctrl-]
+map / /\c
+map ? /\c
+
+" https://github.com/tpope/vim-sensible
+set list
+set showbreak=↪
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  if &termencoding ==# 'utf-8' || &encoding ==# 'utf-8'
+    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+  endif
+endif
 
 runtime macros/matchit.vim	" Enable matchit
+
 
 " Mapping
 nnoremap j gj
 nnoremap k gk
 map <tab> %
 nnoremap <silent> <Leader>. :e .<CR>
+nnoremap D d$   " Made D behave
+
 nnoremap <Leader>a :Ack!<space>
 nnoremap <Leader>gu :GundoToggle<CR>
-nmap <ESC>p <Plug>yankstack_substitute_older_paste
-nmap <ESC>P <Plug>yankstack_substitute_older_paste
-nmap <ESC>n <Plug>yankstack_substitute_newer_paste
-nmap <ESC>N <Plug>yankstack_substitute_newer_paste
 
+" Grep or Ack
+let s:grep_or_ack = 'Grep'
 if executable('ack')
-	nmap <silent> <Leader>* :execute expand('Ack --'.&filetype.' <cword> %')<CR>
-	nmap <silent> <Leader>g* :execute expand('Ack --'.&filetype.' <cword>')<CR>
-elseif executable('grep')
-	nmap <silent> <Leader>* :Grep <cword> %<CR>
-	nmap <silent> <Leader>g* :Grep <cword><CR><CR>
+    let s:grep_or_ack = 'Ack'
 endif
+execute 'nmap <silent> <Leader>* :' . s:grep_or_ack . ' <cword> %<CR>'
+execute 'nmap <silent> <Leader>g* :' . s:grep_or_ack . ' <cword><CR>'
+
 
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
 autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
 autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
-autocmd BufWritePost,FileWritePost * call UpdateTags()
+autocmd VimResized * :wincmd =  " Resize splits when the window is resized
+"autocmd BufWritePost,FileWritePost * call UpdateTags()
 
 function UpdateTags()
+    if !filereadable('tags')
+        return
+    endif
+
     let l:ctags_options = "--sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q"
     let l:ctags_excludes = '--exclude="*/typeof/*" --exclude="*/preprocessed/*"'
 
@@ -239,8 +279,6 @@ function UpdateTags()
     endif
 endfunction
 
-autocmd VimResized * :wincmd =  " Resize splits when the window is resized
-
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
@@ -253,37 +291,48 @@ autocmd VimResized * :wincmd =  " Resize splits when the window is resized
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
+
 " NERDTree
 let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 
+
 " CtrlP
-set wildignore+=*.o,*.obj,.DS_Store	" Linux/MacOSX
+set wildignore+=*/tmp/*,*.so,*.swp,*.o,*.obj,.DS_Store    " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.exe   " Windows
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_mruf_relative = 1
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
 let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ }
+            \ 'types': {
+                \ 1: ['.git', 'cd %s && git ls-files'],
+                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+            \ 'fallback': 'find %s -type f'
             \ }
 
-" Syntastic
-let g:syntastic_mode_map = { 'passive_filetypes': ['cpp'] }
-let g:syntastic_cpp_no_include_search = 1
-let g:syntastic_cpp_compiler_options = ' -std=c++0x'
-let g:syntastic_c_include_dirs = split(&path, ',')
 
 " Tagbar
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+autocmd FileType * nested :call tagbar#autoopen(0)
 autocmd BufEnter * nested :call tagbar#autoopen(0)
 
+
 " NeoComplCache
-let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_auto_select = 1
+
 
 " OmniCppComplete
 let OmniCpp_ShowPrototypeInAbbr = 1
 let OmniCpp_MayCompleteScope = 1
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0 | pclose | endif
+
+
+let g:pymode_breakpoint_key = '<leader>pb'
+let g:pymode_rope = 0
+let g:pymode_rope_guess_project = 0
+let g:pymode_lint_cwindow = 1
+let g:pymode_folding = 0

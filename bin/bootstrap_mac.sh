@@ -34,6 +34,7 @@ sudo port install gcc47
 sudo port install tig
 sudo port install weechat +aspell +perl +python +tls
 sudo port install wget
+sudo port install sshfs
 sudo /usr/bin/cpan App::Ack
 
 # tmux
