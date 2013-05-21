@@ -163,6 +163,14 @@ set relativenumber
 set gdefault
 set background=dark
 colorscheme solarized
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        set macmeta
+    else
+        set t_Co=16
+    endif
+endif
 if has("gui_running")
     set cursorline
 endif
@@ -181,7 +189,6 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set macmeta
 set path+=/usr/local/include,/opt/local/include,./include;,./lib;
 set tags+=./tags;,~/.vim/libstdc++_tags
 set autoread

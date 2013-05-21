@@ -1,4 +1,6 @@
+673589800f0171617133edc4676d2692dfe98240 .dircolors-solarized
 15ae319e069c7773726ca26516e46b8cb4084ec7 .hgext/hgbb
+f482f58b80543a346fb2b75e405fafbb1409aa07 .hgext/hgshelve
 865a10150cab63c5df1f756da15103ce811c6bac .hgext/mercurial_keyring
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
 cf03ee6d884b3850775210acb18cfb669cd666fd .oh-my-zsh

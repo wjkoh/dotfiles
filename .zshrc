@@ -30,16 +30,20 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# Set locales
+# * Set Environment Variables
+# Locales
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# EDITOR
+export EDITOR=vim
+export VISUAL=vim
 
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
 	. /opt/local/etc/profile.d/autojump.sh
 fi
-
 
 # Python startup file
 export PYTHONSTARTUP=$HOME/.pythonstartup
@@ -49,33 +53,46 @@ export WORKON_HOME=$HOME/.virtualenvs
 mkdir -p $WORKON_HOME
 source virtualenvwrapper.sh
 
-# Use MacVim if it exists
-export EDITOR=vim
-export VISUAL=vim
-if hash mvim &> /dev/null; then
-	export EDITOR="mvim -v"
-	alias vim="mvim -v"
-elif hash Vim &> /dev/null; then
-	export EDITOR=Vim
-	alias vim=Vim
-elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-fi
+# Et cetera
+export REPORTTIME=1
 
-# Back to My Mac (SSH)
-if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
-    source ~/Dropbox/Mac\ Sync/.hostnames
-fi
-
+# * Aliases
 # MATLAB
 alias matlab="matlab -nodesktop -nosplash"
 alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
 alias python='python -i'
 
-export REPORTTIME=1
+case `uname` in
+    Darwin)
+        # Use MacVim if it exists
+        if hash mvim &> /dev/null; then
+                export EDITOR="mvim -v"
+                alias vim="mvim -v"
+        elif hash Vim &> /dev/null; then
+                export EDITOR=Vim
+                alias vim=Vim
+        elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+                export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+                alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+        fi
 
-# tmux
+        # Back to My Mac (SSH)
+        if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
+            source ~/Dropbox/Mac\ Sync/.hostnames
+        fi
+        ;;
+    Linux)
+        #http://unix.stackexchange.com/a/66580
+        alias tmux='TERMINFO=/usr/share/terminfo/x/xterm-16color TERM=xterm-16color tmux -2'
+        eval `dircolors ~/.dircolors-solarized/dircolors.ansi-universal`
+        ;;
+esac
+
+# Key settings
+bindkey -v
+bindkey ^R history-incremental-search-backward
+
+# Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 	SESSION=$USER
 	tmux has-session -t $SESSION
