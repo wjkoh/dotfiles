@@ -30,6 +30,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+# * Key settings
+bindkey -v
+bindkey ^R history-incremental-search-backward
+
 # * Set Environment Variables
 # Locales
 export LC_ALL=en_US.UTF-8
@@ -57,10 +61,9 @@ source virtualenvwrapper.sh
 export REPORTTIME=1
 
 # * Aliases
-# MATLAB
+alias python='python -i'
 alias matlab="matlab -nodesktop -nosplash"
 alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
-alias python='python -i'
 
 case `uname` in
     Darwin)
@@ -81,19 +84,22 @@ case `uname` in
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
 
+        # Colorize default `ls` command
+        export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+
+        # Colorize GNU `ls` command
         alias gls='gls --color=auto'
-        eval `gdircolors ~/.dircolors-solarized/dircolors.ansi-universal`
+        DIRCOLORS=gdircolors
         ;;
     Linux)
         #http://unix.stackexchange.com/a/66580
         alias tmux='TERMINFO=/usr/share/terminfo/x/xterm-16color TERM=xterm-16color tmux -2'
-        eval `dircolors ~/.dircolors-solarized/dircolors.ansi-universal`
+
+        # Colorize GNU `ls` command
+        DIRCOLORS=dircolors
         ;;
 esac
-
-# Key settings
-bindkey -v
-bindkey ^R history-incremental-search-backward
+eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
 
 # Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
