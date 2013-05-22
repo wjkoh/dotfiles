@@ -167,8 +167,6 @@ if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
         set macmeta
-    else
-        set t_Co=16
     endif
 endif
 if has("gui_running")

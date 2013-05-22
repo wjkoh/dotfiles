@@ -23,7 +23,7 @@ fi
 
 # Update MacPorts
 sudo port selfupdate || exit
-sudo port upgrade outdated || exit
+sudo port upgrade outdated
 
 # Install compilers and utilities
 sudo port install autojump || exit
