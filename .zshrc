@@ -80,6 +80,9 @@ case `uname` in
         if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
+
+        alias gls='gls --color=auto'
+        eval `gdircolors ~/.dircolors-solarized/dircolors.ansi-universal`
         ;;
     Linux)
         #http://unix.stackexchange.com/a/66580
