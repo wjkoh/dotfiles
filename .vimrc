@@ -336,8 +336,13 @@ let OmniCpp_MayCompleteScope = 1
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0 | pclose | endif
 
 
+" Python-mode
 let g:pymode_breakpoint_key = '<leader>pb'
 let g:pymode_rope = 0
 let g:pymode_rope_guess_project = 0
 let g:pymode_lint_cwindow = 1
 let g:pymode_folding = 0
+
+
+" Powerline for Vim
+let g:Powerline_symbols = 'unicode'
