@@ -65,6 +65,12 @@ alias python='python -i'
 alias matlab="matlab -nodesktop -nosplash"
 alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
 
+alias -s md=vim
+alias -s tex=vim
+alias -s cpp=vim
+alias -s h=vim
+alias -s html=safari
+
 case `uname` in
     Darwin)
         # Use MacVim if it exists
@@ -83,7 +89,6 @@ case `uname` in
         if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
-alias -s html=safari
 
         # Colorize default `ls` command
         export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
@@ -101,6 +106,11 @@ alias -s html=safari
         ;;
 esac
 eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
+
+# http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
+__git_files () { 
+    _wanted files expl 'local files' _files
+}
 
 # Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then

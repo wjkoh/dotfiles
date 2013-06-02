@@ -129,8 +129,8 @@ set pastetoggle=<F11>
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Indentation settings for using hard tabs for indent. Display tabs as
@@ -345,7 +345,7 @@ let g:pymode_folding = 0
 
 
 " Powerline for Vim
-let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols = 'fancy'
 
 
 " Marked & DayOne

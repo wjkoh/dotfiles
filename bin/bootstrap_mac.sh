@@ -25,20 +25,22 @@ fi
 sudo port selfupdate || exit
 sudo port upgrade outdated
 
-# Install compilers and utilities
-sudo port install autojump || exit
+# Install compilers
 sudo port install boost || exit
 sudo port install ccache || exit
 sudo port install ctags || exit
 sudo port install gcc47 || exit
+
+# Install utilities
+sudo port install autojump || exit
 sudo port install weechat +aspell +perl +python +tls || exit
 sudo port install wget || exit
-sudo port install tmux tmux-pasteboard libmpdclient || exit
+sudo port install mosh || exit
 sudo port install htop || exit
 sudo /usr/bin/cpan App::Ack || exit
 
 # tmux
-sudo port install tmux || exit
+sudo port install tmux tmux-pasteboard libmpdclient || exit
 git clone https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
 cd tmux-MacOSX-pasteboard
 make reattach-to-user-namespace && sudo cp reattach-to-user-namespace /opt/local/bin
@@ -55,7 +57,6 @@ sudo port install glew || exit
 # Install MacVim
 
 echo
-
 echo "* SUCCESSFULLY DONE!"
 
 sudo port install nethack +autopickup_exceptions +menucolors

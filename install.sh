@@ -45,7 +45,7 @@ $PIP install --upgrade virtualenv virtualenvwrapper || exit
 
 echo
 echo "* Installing SCons..."
-$PIP install --upgrade scons || exit
+sudo easy_install --upgrade scons || exit
 
 echo
 echo "* Installing iPython and numpy/scipy..."
@@ -56,7 +56,7 @@ $PIP install --upgrade numpy scipy matplotlib || exit
 $PIP install --upgrade scikit-learn joblib sympy || exit
 $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
 $PIP install --upgrade Mako PyOpenCL || exit
-$PIP install --upgrade paramiko
+$PIP install --upgrade paramiko || exit
 
 echo
 echo "* Installing Ack..."
@@ -73,4 +73,5 @@ $PIP install --upgrade pelican Markdown typogrify boto || exit
 
 echo
 echo "* SUCCESSFULLY DONE!"
+
 hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix
