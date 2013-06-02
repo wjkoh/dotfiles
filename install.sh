@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
-pushd "${DOTDIR}" &> /dev/null
 
 echo "* Installing dotfiles..."
-
+pushd "${DOTDIR}" &> /dev/null
 shopt -s dotglob extglob
 for DOTFILE in !(.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat)
 do
@@ -37,31 +36,31 @@ fi
 
 echo
 echo "* Installing Mercurial..."
-$PIP install --upgrade mercurial
-$PIP install --upgrade gntp hg-git keyring
+$PIP install --upgrade mercurial || exit
+$PIP install --upgrade gntp hg-git keyring || exit
 
 echo
 echo "* Installing virtualenv..."
-$PIP install --upgrade virtualenv virtualenvwrapper
+$PIP install --upgrade virtualenv virtualenvwrapper || exit
 
 echo
 echo "* Installing SCons..."
-$PIP install --upgrade scons
+$PIP install --upgrade scons || exit
 
 echo
 echo "* Installing iPython and numpy/scipy..."
-easy_install readline
-$PIP install --upgrade ipython ipdb
-$PIP install --upgrade flake8 pylint
-$PIP install --upgrade numpy scipy matplotlib
-$PIP install --upgrade scikit-learn joblib sympy
-$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext
-$PIP install --upgrade Mako PyOpenCL
+sudo easy_install readline || exit
+$PIP install --upgrade ipython ipdb || exit
+$PIP install --upgrade flake8 pylint || exit
+$PIP install --upgrade numpy scipy matplotlib || exit
+$PIP install --upgrade scikit-learn joblib sympy || exit
+$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
+$PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko
 
 echo
 echo "* Installing Ack..."
-sudo /usr/bin/cpan App::Ack
+sudo /usr/bin/cpan App::Ack || exit
 
 echo
 echo "* Installing Pyp..."
@@ -70,6 +69,8 @@ chmod u+x ~/bin/pyp
 
 echo
 echo "* Installing Pelican..."
-$PIP install --upgrade pelican Markdown typogrify boto
+$PIP install --upgrade pelican Markdown typogrify boto || exit
 
+echo
+echo "* SUCCESSFULLY DONE!"
 hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix

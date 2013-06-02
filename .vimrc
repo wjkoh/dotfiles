@@ -163,6 +163,12 @@ set relativenumber
 set gdefault
 set background=dark
 colorscheme solarized
+if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+        set macmeta
+    endif
+endif
 if has("gui_running")
     set cursorline
 endif
@@ -181,7 +187,6 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set macmeta
 set path+=/usr/local/include,/opt/local/include,./include;,./lib;
 set tags+=./tags;,~/.vim/libstdc++_tags
 set autoread
@@ -339,8 +344,8 @@ let g:pymode_lint_cwindow = 1
 let g:pymode_folding = 0
 
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
+" Powerline for Vim
+let g:Powerline_symbols = 'unicode'
 
 
 " Marked & DayOne

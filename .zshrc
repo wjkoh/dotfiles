@@ -30,16 +30,24 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# Set locales
+# * Key settings
+bindkey -v
+bindkey ^R history-incremental-search-backward
+
+# * Set Environment Variables
+# Locales
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# EDITOR
+export EDITOR=vim
+export VISUAL=vim
 
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
 	. /opt/local/etc/profile.d/autojump.sh
 fi
-
 
 # Python startup file
 export PYTHONSTARTUP=$HOME/.pythonstartup
@@ -49,47 +57,52 @@ export WORKON_HOME=$HOME/.virtualenvs
 mkdir -p $WORKON_HOME
 source virtualenvwrapper.sh
 
-# Use MacVim if it exists
-export EDITOR=vim
-export VISUAL=vim
-if hash mvim &> /dev/null; then
-	export EDITOR="mvim -v"
-	alias vim="mvim -v"
-elif hash Vim &> /dev/null; then
-	export EDITOR=Vim
-	alias vim=Vim
-elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-	alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-fi
-
-# Back to My Mac (SSH)
-if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
-    source ~/Dropbox/Mac\ Sync/.hostnames
-fi
-
-# MATLAB
-alias matlab="matlab -nodesktop -nosplash"
-alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
-#alias python='python -i'
-
-alias -s tex=vim
-alias -s md=vim
-alias -s cpp=vim
-alias -s h=vim
-alias -s html=safari
-
-# if you are using vi-mode plugin or bindkey -v.
-bindkey '^R' history-incremental-search-backward
-
+# Et cetera
 export REPORTTIME=1
 
-# http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
-__git_files () { 
-    _wanted files expl 'local files' _files
-}
+# * Aliases
+alias python='python -i'
+alias matlab="matlab -nodesktop -nosplash"
+alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
 
-# tmux
+case `uname` in
+    Darwin)
+        # Use MacVim if it exists
+        if hash mvim &> /dev/null; then
+                export EDITOR="mvim -v"
+                alias vim="mvim -v"
+        elif hash Vim &> /dev/null; then
+                export EDITOR=Vim
+                alias vim=Vim
+        elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+                export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+                alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+        fi
+
+        # Back to My Mac (SSH)
+        if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
+            source ~/Dropbox/Mac\ Sync/.hostnames
+        fi
+alias -s html=safari
+
+        # Colorize default `ls` command
+        export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+
+        # Colorize GNU `ls` command
+        alias gls='gls --color=auto'
+        DIRCOLORS=gdircolors
+        ;;
+    Linux)
+        #http://unix.stackexchange.com/a/66580
+        alias tmux='TERMINFO=/usr/share/terminfo/x/xterm-16color TERM=xterm-16color tmux -2'
+
+        # Colorize GNU `ls` command
+        DIRCOLORS=dircolors
+        ;;
+esac
+eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
+
+# Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 	SESSION=$USER
 	tmux has-session -t $SESSION

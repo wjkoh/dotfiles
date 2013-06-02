@@ -22,25 +22,23 @@ if [ ! -f /etc/hg-dummy-cert.pem ]; then
 fi
 
 # Update MacPorts
-sudo port selfupdate
+sudo port selfupdate || exit
 sudo port upgrade outdated
 
 # Install compilers and utilities
-sudo port install autojump
-sudo port install boost
-sudo port install ccache
-sudo port install ctags
-sudo port install gcc47
-sudo port install tig
-sudo port install weechat +aspell +perl +python +tls
-sudo port install wget
-sudo port install sshfs
-sudo port install tmux tmux-pasteboard libmpdclient
-sudo port install htop
-sudo /usr/bin/cpan App::Ack
+sudo port install autojump || exit
+sudo port install boost || exit
+sudo port install ccache || exit
+sudo port install ctags || exit
+sudo port install gcc47 || exit
+sudo port install weechat +aspell +perl +python +tls || exit
+sudo port install wget || exit
+sudo port install tmux tmux-pasteboard libmpdclient || exit
+sudo port install htop || exit
+sudo /usr/bin/cpan App::Ack || exit
 
 # tmux
-sudo port install tmux
+sudo port install tmux || exit
 git clone https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
 cd tmux-MacOSX-pasteboard
 make reattach-to-user-namespace && sudo cp reattach-to-user-namespace /opt/local/bin
@@ -48,15 +46,17 @@ cd ..
 rm -rf tmux-MacOSX-pasteboard
 
 # Install libraries
-sudo port install glew
-sudo port install glm
-sudo port install jpeg
-sudo port install freetype
-sudo port install libpng
+sudo port install jpeg || exit
+sudo port install libpng || exit
+sudo port install glm || exit
+sudo port install freetype || exit
+sudo port install glew || exit
 
 # Install MacVim
 
-sudo tmutil disablelocal
+echo
+
+echo "* SUCCESSFULLY DONE!"
 
 sudo port install nethack +autopickup_exceptions +menucolors
 wget http://dayoneapp.com/downloads/dayone-cli.pkg && open dayone-cli.pkg
