@@ -188,7 +188,7 @@ set autoread
 set autowrite
 set backup
 set undofile
-set noswapfile
+"set noswapfile
 set backupdir=~/.vim/tmp/backup//   " include full path
 set undodir=~/.vim/tmp/undo//
 
@@ -331,8 +331,18 @@ let OmniCpp_MayCompleteScope = 1
 autocmd CursorMovedI,InsertLeave * if pumvisible() == 0 | pclose | endif
 
 
+" Python-mode
 let g:pymode_breakpoint_key = '<leader>pb'
 let g:pymode_rope = 0
 let g:pymode_rope_guess_project = 0
 let g:pymode_lint_cwindow = 1
 let g:pymode_folding = 0
+
+
+" Powerline
+let g:Powerline_symbols = 'fancy'
+
+
+" Marked & DayOne
+command! Marked :silent !open -a Marked "%:p"
+command! DayOne execute ':w !dayone new' | set buftype=nowrite

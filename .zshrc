@@ -24,7 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode dircycle cp dirpersisti rsync)
+#plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode dircycle cp dirpersist rsync)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -71,9 +71,23 @@ fi
 # MATLAB
 alias matlab="matlab -nodesktop -nosplash"
 alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
-alias python='python -i'
+#alias python='python -i'
+
+alias -s tex=vim
+alias -s md=vim
+alias -s cpp=vim
+alias -s h=vim
+alias -s html=safari
+
+# if you are using vi-mode plugin or bindkey -v.
+bindkey '^R' history-incremental-search-backward
 
 export REPORTTIME=1
+
+# http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
+__git_files () { 
+    _wanted files expl 'local files' _files
+}
 
 # tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then

@@ -11,11 +11,11 @@ do
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
     rm -rf "${TARGET}"
-    ln -sf "${DOTDIR}/${DOTFILE}" "${TARGET}"
+    ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
 
 rm -rf "${HOME}/.weechat/irc.conf"
-ln -sf "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
+ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 popd &> /dev/null
 
 echo
@@ -57,6 +57,7 @@ $PIP install --upgrade numpy scipy matplotlib
 $PIP install --upgrade scikit-learn joblib sympy
 $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext
 $PIP install --upgrade Mako PyOpenCL
+$PIP install --upgrade paramiko
 
 echo
 echo "* Installing Ack..."
@@ -70,3 +71,5 @@ chmod u+x ~/bin/pyp
 echo
 echo "* Installing Pelican..."
 $PIP install --upgrade pelican Markdown typogrify boto
+
+hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix

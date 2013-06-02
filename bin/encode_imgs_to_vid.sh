@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-ffmpeg -r 2 -i frame_%06d.jpg -vcodec libx264 -threads 4 -preset slower -crf 12 -tune animation -pix_fmt yuv420p output_2fps.mp4
-#ffmpeg -r 0.5 -i frame_%06d.jpg -vcodec libx264 -threads 4 -preset slower -crf 12 -tune animation -pix_fmt yuv420p output_60fps.mp4
-#ffmpeg -r 0.25 -i frame_%06d.jpg -vcodec libx264 -threads 4 -preset slower -crf 12 -tune animation -pix_fmt yuv420p output_30fps.mp4
-#ffmpeg -r 90 -i img_%04d.png -vcodec libx264 -threads 4 -preset veryslow -crf 12 -tune animation -pix_fmt yuv420p output_90fps.mp4
-#ffmpeg -r 30 -i img_%04d.png -vcodec libx264 -threads 4 -preset veryslow -crf 12 -tune animation -pix_fmt yuv420p output_30fps.mp4
+# iMovie (baseline)
+ffmpeg -r 60 -i frame_%04d.png -vcodec libx264 -threads 3 -preset veryslow -crf 1 -pix_fmt yuv420p -profile:v baseline output_baseline_60fps.mp4
+ffmpeg -r 30 -i frame_%04d.png -vcodec libx264 -threads 3 -preset veryslow -crf 1 -pix_fmt yuv420p -profile:v baseline output_baseline_30fps.mp4
+
+# General
+#ffmpeg -r 60 -i frame_%06d.jpg -vcodec libx264 -threads 3 -preset veryslow -crf 1 -pix_fmt yuv420p output_60fps.mp4
+#ffmpeg -r 30 -i frame_%04d.png -vcodec libx264 -threads 3 -preset veryslow -crf 1 -pix_fmt yuv420p output_30fps.mp4

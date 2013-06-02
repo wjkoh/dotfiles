@@ -7,3 +7,4 @@ tags
 .weechat/irc.conf
 .weechat/logs/
 .weechat/weechat.log
+.virtualenvs/

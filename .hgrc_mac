@@ -7,3 +7,17 @@ pager = LESS='FSRX' less
 
 [extensions]
 hgext.mercurial_keyring = ~/.hgext/mercurial_keyring/mercurial_keyring.py
+
+[hooks]
+commit = hg_commithook.sh
+
+[extdiff]
+cmd.ksdiff = /usr/local/bin/ksdiff
+opts.ksdiff = --changeset --wait --filelist
+
+[ui]
+merge = Kaleidoscope
+
+[merge-tools]
+Kaleidoscope.executable = /usr/local/bin/ksdiff
+Kaleidoscope.args = --merge --output $output --base $base -- $local $other

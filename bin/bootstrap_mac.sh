@@ -35,6 +35,8 @@ sudo port install tig
 sudo port install weechat +aspell +perl +python +tls
 sudo port install wget
 sudo port install sshfs
+sudo port install tmux tmux-pasteboard libmpdclient
+sudo port install htop
 sudo /usr/bin/cpan App::Ack
 
 # tmux
@@ -47,8 +49,15 @@ rm -rf tmux-MacOSX-pasteboard
 
 # Install libraries
 sudo port install glew
-#sudo port install jpeg
-#sudo port install freetype
-#sudo port install libpng
+sudo port install glm
+sudo port install jpeg
+sudo port install freetype
+sudo port install libpng
 
 # Install MacVim
+
+sudo tmutil disablelocal
+
+sudo port install nethack +autopickup_exceptions +menucolors
+wget http://dayoneapp.com/downloads/dayone-cli.pkg && open dayone-cli.pkg
+wget https://gist.github.com/raw/1838072/Monaco-Powerline.otf --no-check-certificate && open Monaco-Powerline.otf

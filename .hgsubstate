@@ -21,6 +21,10 @@ e3d24db7313c1375d3694e48b62c53ed125f6fbf .vim/bundle/vim-buffergator
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
 dc349bb7d30f713d770fc1fa0fe209e6aab82dc8 .vim/bundle/vim-commentary
 667a668e114e9ec0e5d4cbcb0962d835b23614c4 .vim/bundle/vim-easymotion
+6a4d1933ad61ad94f2fa06905337a51cb0304ac1 .vim/bundle/vim-eunuch
 78fffa609b3e6b84ef01ee4c9aba6d7435d7b18e .vim/bundle/vim-indent-object
 96b5726ef3135effd54993e52c773718fb69a95d .vim/bundle/vim-pathogen
 20ab08c9a8fe6cdfb7c303aa3063f211d72f8b2f .vim/bundle/vim-powerline
+a81bef76031ca1c71766b516417480caeb01c932 .vim/bundle/vim-repeat
+48d1cb6bf0000159291014226d8d8d3330ad875e .vim/bundle/vim-unimpaired
+808e2dd079f8a922a21b6311a33a4cb358106eef tmux-powerline
