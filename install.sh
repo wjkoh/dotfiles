@@ -25,11 +25,11 @@ PIP="sudo pip"
 if [ -z "$VIRTUAL_ENV" ]; then
     echo
     echo "* Installing distribute and pip..."
-    curl -O http://python-distribute.org/distribute_setup.py
-    sudo python distribute_setup.py
-    sudo easy_install --upgrade pip
-    rm distribute_setup.py
-    rm distribute-*.tar.gz
+    curl -O http://python-distribute.org/distribute_setup.py || exit
+    sudo python distribute_setup.py || exit
+    sudo easy_install --upgrade pip || exit
+    rm -f distribute_setup.py
+    rm -f distribute-*.tar.gz
 else
     PIP=pip
 fi
@@ -54,9 +54,10 @@ $PIP install --upgrade ipython ipdb || exit
 $PIP install --upgrade flake8 pylint || exit
 $PIP install --upgrade numpy scipy matplotlib || exit
 $PIP install --upgrade scikit-learn joblib sympy || exit
-$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
-$PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko || exit
+
+$PIP install --upgrade flask || exit
+$PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
 
 echo
 echo "* Installing Ack..."
@@ -75,3 +76,6 @@ echo
 echo "* SUCCESSFULLY DONE!"
 
 hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix
+
+$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
+$PIP install --upgrade Mako PyOpenCL || exit

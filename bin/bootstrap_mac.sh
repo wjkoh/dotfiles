@@ -40,12 +40,8 @@ sudo port install htop || exit
 sudo /usr/bin/cpan App::Ack || exit
 
 # tmux
-sudo port install tmux tmux-pasteboard libmpdclient || exit
-git clone https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
-cd tmux-MacOSX-pasteboard
-make reattach-to-user-namespace && sudo cp reattach-to-user-namespace /opt/local/bin
-cd ..
-rm -rf tmux-MacOSX-pasteboard
+sudo port install tmux libmpdclient || exit
+sudo port install tmux-pasteboard
 
 # Install libraries
 sudo port install jpeg || exit
