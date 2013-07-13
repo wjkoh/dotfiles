@@ -30,7 +30,7 @@ easy_install --upgrade pip
 
 echo.
 echo * Installing Mercurial...
-sudo pip install --upgrade mercurial
+pip install --upgrade mercurial
 pip install --upgrade gntp hg-git
 
 echo.
@@ -45,6 +45,8 @@ echo.
 echo * Installing iPython and numpy/scipy...
 pip install --upgrade ipython ipdb
 pip install --upgrade numpy scipy matplotlib
+pip install --upgrade mayavi
+pip install --upgrade cvxopt
 
 echo.
 echo * Installing Ack...

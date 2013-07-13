@@ -320,9 +320,9 @@ let g:ctrlp_user_command = {
 
 
 " Tagbar
-autocmd VimEnter * nested :call tagbar#autoopen(1)
-autocmd FileType * nested :call tagbar#autoopen(0)
-autocmd BufEnter * nested :call tagbar#autoopen(0)
+"autocmd VimEnter * nested :call tagbar#autoopen(1)
+"autocmd FileType * nested :call tagbar#autoopen(0)
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 
 " NeoComplCache

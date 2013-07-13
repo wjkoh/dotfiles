@@ -8,7 +8,7 @@
 .vim/bundle/delimitMate = [git]https://github.com/Raimondi/delimitMate.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git
 .vim/bundle/gundo.vim = https://bitbucket.org/sjl/gundo.vim
-.vim/bundle/neocomplcache = [git]https://github.com/Shougo/neocomplcache.git
+.vim/bundle/neocomplcache.vim = [git]https://github.com/Shougo/neocomplcache.git
 .vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
 .vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
 .vim/bundle/snipmate.vim = [git]https://github.com/msanders/snipmate.vim.git
@@ -23,6 +23,7 @@
 .vim/bundle/vim-powerline = [git]https://github.com/Lokaltog/vim-powerline.git
 .vim/bundle/vim-repeat = [git]https://github.com/tpope/vim-repeat.git
 .vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
+.vim/bundle/web-indent = [svn]http://web-indent.googlecode.com/svn/trunk
 .dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git
 .oh-my-zsh = [git]https://github.com/robbyrussell/oh-my-zsh.git
 tmux-powerline = [git]https://github.com/erikw/tmux-powerline.git

@@ -23,36 +23,31 @@ fi
 
 # Update MacPorts
 sudo port selfupdate || exit
-sudo port upgrade outdated
+sudo port upgrade outdated || exit
 
 # Install compilers
-sudo port install boost || exit
-sudo port install ccache || exit
-sudo port install ctags || exit
 sudo port install gcc47 || exit
 
 # Install utilities
+sudo /usr/bin/cpan App::Ack || exit
 sudo port install autojump || exit
+sudo port install ccache || exit
+sudo port install ctags || exit
+sudo port install git-core || exit
+sudo port install htop || exit
+sudo port install mosh || exit
+sudo port install tmux libmpdclient || exit
+sudo port install tmux-pasteboard
 sudo port install weechat +aspell +perl +python +tls || exit
 sudo port install wget || exit
-sudo port install mosh || exit
-sudo port install htop || exit
-sudo /usr/bin/cpan App::Ack || exit
-
-# tmux
-sudo port install tmux tmux-pasteboard libmpdclient || exit
-git clone https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
-cd tmux-MacOSX-pasteboard
-make reattach-to-user-namespace && sudo cp reattach-to-user-namespace /opt/local/bin
-cd ..
-rm -rf tmux-MacOSX-pasteboard
 
 # Install libraries
-sudo port install jpeg || exit
-sudo port install libpng || exit
-sudo port install glm || exit
+sudo port install boost || exit
 sudo port install freetype || exit
 sudo port install glew || exit
+sudo port install glm || exit
+sudo port install jpeg || exit
+sudo port install libpng || exit
 
 # Install MacVim
 

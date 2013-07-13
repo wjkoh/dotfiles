@@ -54,6 +54,8 @@ $PIP install --upgrade ipython ipdb || exit
 $PIP install --upgrade flake8 pylint || exit
 $PIP install --upgrade numpy scipy matplotlib || exit
 $PIP install --upgrade scikit-learn joblib sympy || exit
+$PIP install --upgrade mayavi || exit
+$PIP install --upgrade cvxopt || exit
 $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
 $PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko || exit
