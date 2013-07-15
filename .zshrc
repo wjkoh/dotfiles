@@ -71,6 +71,7 @@ alias -s cpp=vim
 alias -s h=vim
 alias -s html=safari
 
+alias tmux="TERM=screen-256color-bce tmux"
 case `uname` in
     Darwin)
         # Use MacVim if it exists
@@ -98,9 +99,6 @@ case `uname` in
         DIRCOLORS=gdircolors
         ;;
     Linux)
-        #http://unix.stackexchange.com/a/66580
-        alias tmux='TERMINFO=/usr/share/terminfo/x/xterm-16color TERM=xterm-16color tmux -2'
-
         # Colorize GNU `ls` command
         DIRCOLORS=dircolors
         ;;

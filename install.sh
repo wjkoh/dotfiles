@@ -59,6 +59,8 @@ $PIP install --upgrade cvxopt || exit
 $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
 $PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko || exit
+$PIP install --upgrade PIL networkx line-profiler || exit
+$PIP install --upgrade nose || exit
 $PIP install --upgrade flask || exit
 $PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
 

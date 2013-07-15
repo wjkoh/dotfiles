@@ -162,6 +162,8 @@ set nonumber
 set relativenumber
 set gdefault
 set background=dark
+set t_Co=16
+let g:solarized_termcolors=16
 colorscheme solarized
 if has("unix")
     let s:uname = system("uname")
