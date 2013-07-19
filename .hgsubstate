@@ -1,15 +1,13 @@
 a00bc0ad5524c13f8146640653230e6ddc3ee6c8 .dircolors-solarized
-15ae319e069c7773726ca26516e46b8cb4084ec7 .hgext/hgbb
 f482f58b80543a346fb2b75e405fafbb1409aa07 .hgext/hgshelve
-e43a257a2a195e7f5e3db569b661b95beac11ef5 .hgext/mercurial_keyring
+d9e34cc71e058a321ca437c80448c92c9b26ec4d .hgext/mercurial_keyring
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
-7f74294d7aa7ab86e18e70a1153c15fa373c5849 .oh-my-zsh
+2cc4801bd25a619cae8b41d698ff0489f7d629c3 .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
 06c1e16a4dcfd1b8b1764e96482af4b063ca7c8a .vim/bundle/MatlabFilesEdition
 680f60fb237370d6eda2bfb28cd660916991733e .vim/bundle/NrrwRgn
 91d9da162a4dea283f90ee772470cb2dca927a30 .vim/bundle/OmniCppComplete
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
-f183a345a0c10caed7684d07dabae33e007c7590 .vim/bundle/ack.vim
 daf0c01bd850dbd7337c469251c13b0bc779c762 .vim/bundle/ctrlp.vim
 7ce61655a75aba3b1742b202ed39114890e66f99 .vim/bundle/delimitMate
 852ddb0c6590bbc41c508d7f5d2fc17112492def .vim/bundle/grep.vim

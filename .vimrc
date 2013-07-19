@@ -242,13 +242,13 @@ nnoremap D d$   " Made D behave
 nnoremap <Leader>a :Ack!<space>
 nnoremap <Leader>gu :GundoToggle<CR>
 
-" Grep or Ack
-let s:grep_or_ack = 'Grep'
-if executable('ack')
-    let s:grep_or_ack = 'Ack'
-endif
-execute 'nmap <silent> <Leader>* :' . s:grep_or_ack . ' <cword> %<CR>'
-execute 'nmap <silent> <Leader>g* :' . s:grep_or_ack . ' <cword><CR>'
+
+" Grep
+let Grep_Skip_Dirs = '.hg .git .svn'
+execute 'nmap <silent> <Leader>* :Egrep <cword> %<CR>'
+execute 'nmap <silent> <Leader>g* :Regrep <cword> *<CR>'
+cnoremap Grep Egrep
+cnoremap Rgrep Regrep
 
 
 " Autocommand

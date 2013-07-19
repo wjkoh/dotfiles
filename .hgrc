@@ -13,22 +13,7 @@ port = 587
 username = wjngkoh@gmail.com
 tls = True
 
-[bb]
-username = wjkoh
-default_method = http
-
 [extdiff]
-# add new command that runs GNU diff(1) in 'context diff' mode
-cmd.cdiff = gdiff
-opts.cdiff = -Nprc5
-
-# similarly, a command that runs GNU diff(1) in 'side-by-side' mode
-cmd.ydiff = gdiff
-opts.ydiff = -Npry
-
-# add new command called vdiff, runs kdiff3
-cmd.vdiff = kdiff3
-
 # add new command called meld, runs meld (no need to name twice)
 cmd.meld =
 
@@ -39,11 +24,6 @@ cmd.meld =
 cmd.vimdiff = vim
 opts.vimdiff = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
 
-# add new command called ediff, runs emacs diff
-cmd.ediff = sh
-opts.ediff = -c 'if [ -d $0 ]; then emacs --eval "(ediff-directories \"$0\" \"$1\" \"\")"; else emacs --eval "(ediff-files \"$0\" \"$1\")"; fi'
-
-
 # add new command to run ImageMagick compare (image diff).  Does not work on directories.
 
 # note:  could subsitute ImageMagick's "display" call instead of "gqview" for
@@ -53,7 +33,8 @@ cmd.imdiff = sh
 opts.imdiff = -c 'compare $0 $1 compared.png; gqview compared.png'
 
 [merge-tools]
-kdiff3.args = $base $local $other -o $output
+meld.gui = True
+meld.priority = 1
 
 [extensions]
 color =
@@ -61,7 +42,6 @@ hgext.convert =
 hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
-hgext.hgbb = ~/.hgext/hgbb/hgbb.py
 hgext.hgshelve = ~/.hgext/hgshelve/hgshelve.py
 hgext.mercurial_keyring =
 hgext.onsub = ~/.hgext/onsub/onsub.py

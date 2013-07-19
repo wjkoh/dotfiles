@@ -44,13 +44,11 @@ pip install --upgrade scons
 echo.
 echo * Installing iPython and numpy/scipy...
 pip install --upgrade ipython ipdb
+pip install --upgrade flake8 pylint
 pip install --upgrade numpy scipy matplotlib
 pip install --upgrade mayavi
 pip install --upgrade cvxopt
-
-echo.
-echo * Installing Ack...
-cpan App::Ack
+pip install --upgrade nose2
 
 echo.
 echo * Installing Pyp...

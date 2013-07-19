@@ -60,13 +60,9 @@ $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
 $PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko || exit
 $PIP install --upgrade PIL networkx line-profiler || exit
-$PIP install --upgrade nose || exit
+$PIP install --upgrade nose2 || exit
 $PIP install --upgrade flask || exit
 $PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
-
-echo
-echo "* Installing Ack..."
-sudo /usr/bin/cpan App::Ack || exit
 
 echo
 echo "* Installing Pyp..."

@@ -29,12 +29,12 @@ sudo port upgrade outdated || exit
 sudo port install gcc47 || exit
 
 # Install utilities
-sudo /usr/bin/cpan App::Ack || exit
 sudo port install autojump || exit
 sudo port install ccache || exit
 sudo port install ctags || exit
 sudo port install git-core || exit
 sudo port install htop || exit
+sudo port install meld || exit
 sudo port install mosh || exit
 sudo port install tmux libmpdclient || exit
 sudo port install tmux-pasteboard

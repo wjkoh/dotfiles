@@ -7,7 +7,6 @@ $APT_GET update || exit
 
 # Install compilers
 $APT_GET install build-essential || exit
-$APT_GET install python-setuptools || exit
 $APT_GET install gcc-4.7 || exit
 $APT_GET install gfortran || exit
 $APT_GET install python-dev || exit
@@ -24,13 +23,13 @@ $APT_GET install git-core || exit
 $APT_GET install htop || exit
 $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit
+$APT_GET install meld || exit
 $APT_GET install mosh || exit
 $APT_GET install subversion || exit
 $APT_GET install tmux || exit
 $APT_GET install weechat || exit
 $APT_GET install wget || exit
 $APT_GET install zsh || exit
-sudo /usr/bin/cpan App::Ack || exit
 
 # Install libraries
 $APT_GET install libatlas-dev || exit
