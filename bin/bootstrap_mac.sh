@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-xcodebuild -license
 sudo xcodebuild -license
 
 # Back to My Mac (SSH)
@@ -23,14 +22,16 @@ fi
 
 # Update MacPorts
 sudo port selfupdate || exit
-sudo port upgrade outdated || exit
+sudo port upgrade outdated  # It can fail.
 
 # Install compilers
 sudo port install gcc47 || exit
+sudo ln -s /opt/local/bin/gfortran-mp-4.7 /usr/local/bin/gfortran || exit
 
 # Install utilities
 sudo port install autojump || exit
 sudo port install ccache || exit
+sudo port install coreutils || exit
 sudo port install ctags || exit
 sudo port install git-core || exit
 sudo port install htop || exit
@@ -38,7 +39,7 @@ sudo port install meld || exit
 sudo port install mosh || exit
 sudo port install tmux libmpdclient || exit
 sudo port install tmux-pasteboard
-sudo port install weechat +aspell +perl +python +tls || exit
+#sudo port install weechat +aspell +perl +python +tls || exit
 sudo port install wget || exit
 
 # Install libraries

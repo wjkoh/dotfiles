@@ -25,11 +25,10 @@ PIP="sudo pip"
 if [ -z "$VIRTUAL_ENV" ]; then
     echo
     echo "* Installing distribute and pip..."
-    curl -O http://python-distribute.org/distribute_setup.py || exit
-    sudo python distribute_setup.py || exit
+    #wget https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py --no-check-certificate
+    #sudo python ez_setup.py || exit
+    sudo easy_install --upgrade setuptools || exit
     sudo easy_install --upgrade pip || exit
-    rm -f distribute_setup.py
-    rm -f distribute-*.tar.gz
 else
     PIP=pip
 fi
@@ -54,15 +53,19 @@ $PIP install --upgrade ipython ipdb || exit
 $PIP install --upgrade flake8 pylint || exit
 $PIP install --upgrade numpy scipy matplotlib || exit
 $PIP install --upgrade scikit-learn joblib sympy || exit
-$PIP install --upgrade mayavi || exit
+#$PIP install --upgrade mayavi || exit
 $PIP install --upgrade cvxopt || exit
 $PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
 $PIP install --upgrade Mako PyOpenCL || exit
 $PIP install --upgrade paramiko || exit
 $PIP install --upgrade PIL networkx line-profiler || exit
-$PIP install --upgrade nose2 || exit
+$PIP install --upgrade nose || exit
 $PIP install --upgrade flask || exit
 $PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
+
+echo
+echo "* Installing Ack..."
+#sudo /usr/bin/cpan App::Ack || exit
 
 echo
 echo "* Installing Pyp..."

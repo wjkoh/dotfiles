@@ -49,6 +49,7 @@ pip install --upgrade numpy scipy matplotlib
 pip install --upgrade mayavi
 pip install --upgrade cvxopt
 pip install --upgrade nose2
+pip install --upgrade sh
 
 echo.
 echo * Installing Pyp...
