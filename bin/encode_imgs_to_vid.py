@@ -6,7 +6,6 @@ import time
 
 import sh
 
-
 DEFAULT_FRAME_RATE = 25
 DEFAULT_OUTPUT_FNAME = 'output_%s_%dfps.mp4' % (time.strftime("%H%M%S"), DEFAULT_FRAME_RATE)
 
@@ -19,7 +18,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Encode still images to a video using FFmpeg.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('img_files', type=str, nargs='*',
-                        default='%04d.png', help='a pattern of input image files')
+                        default=['%04d.png'], help='a pattern of input image files')
     parser.add_argument('-o', '--output_file', type=str, default=DEFAULT_OUTPUT_FNAME,
                         nargs='?', help='an output file', metavar='O')
     parser.add_argument('-vs', '--vertical_sxs', dest='horizontal_sxs',
