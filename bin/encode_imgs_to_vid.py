@@ -27,6 +27,8 @@ if __name__ == '__main__':
                         help='frame rate', metavar='R')
     parser.add_argument('-t', '--threads', type=int, default=multiprocessing.cpu_count() // 2,
                         help='the number of threads to use', metavar='N')
+    parser.add_argument('-b', '--baseline', action="store_true",
+                        help='use the Baseline Profile for better compatibility')
     args = parser.parse_args()
 
     # Build FFmpeg options
@@ -49,10 +51,10 @@ if __name__ == '__main__':
             '-vcodec', 'libx264',
             '-threads', args.threads,
             '-preset', 'slow',
-            '-crf', '1',
-            '-profile:v', 'baseline',  # for iMovie
+            '-crf', '6',
             '-pix_fmt', 'yuv420p']
-    #opts += ['-s', '1442x852']  # Output dimension
+    if args.baseline:
+        opts += ['-profile:v', 'baseline']  # for iMovie and so on
 
     # Output file
     opts.append(args.output_file)

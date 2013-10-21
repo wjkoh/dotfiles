@@ -160,7 +160,7 @@ set infercase
 set shiftround
 set nonumber
 set relativenumber
-set gdefault
+"set gdefault
 set background=dark
 set t_Co=16
 let g:solarized_termcolors=16
@@ -245,10 +245,8 @@ nnoremap <Leader>gu :GundoToggle<CR>
 
 " Grep
 let Grep_Skip_Dirs = '.hg .git .svn'
-execute 'nmap <silent> <Leader>* :Egrep <cword> %<CR>'
-execute 'nmap <silent> <Leader>g* :Regrep <cword> *<CR>'
-cnoremap Grep Egrep
-cnoremap Rgrep Regrep
+execute 'nmap <silent> <Leader>* :Grep <cword> %<CR>'
+execute 'nmap <silent> <Leader>g* :Rgrep <cword> *<CR>'
 
 
 " Autocommand
