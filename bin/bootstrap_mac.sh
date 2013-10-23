@@ -25,8 +25,8 @@ sudo port selfupdate || exit
 sudo port upgrade outdated  # It can fail.
 
 # Install compilers
-sudo port install gcc47 || exit
-sudo ln -s /opt/local/bin/gfortran-mp-4.7 /usr/local/bin/gfortran || exit
+sudo port install gcc48 || exit
+sudo ln -sf /opt/local/bin/gfortran-mp-4.8 /opt/local/bin/gfortran || exit
 
 # Install utilities
 sudo port install autojump || exit
@@ -39,7 +39,7 @@ sudo port install meld || exit
 sudo port install mosh || exit
 sudo port install tmux libmpdclient || exit
 sudo port install tmux-pasteboard
-#sudo port install weechat +aspell +perl +python +tls || exit
+sudo port install weechat +aspell +perl +python +tls || exit
 sudo port install wget || exit
 
 # Install libraries

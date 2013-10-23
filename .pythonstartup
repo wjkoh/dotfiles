@@ -1,9 +1,3 @@
 import numpy as np
 import scipy as sp
 
-from pylab import *
-
-
-from IPython.frontend.terminal.ipapp import launch_new_instance
-launch_new_instance()
-raise SystemExit

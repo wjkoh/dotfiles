@@ -122,4 +122,4 @@ if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
 		tmux new-session -s $SESSION
 	fi
 fi
-# DO NOT ADD ANY CONFIGURATION BELOW HERE.
+# DO NOT ADD ANY CONFIGURATION BELOW.
