@@ -25,7 +25,7 @@ if __name__ == '__main__':
                         action='store_false', help='create a vertical side by side video')
     parser.add_argument('-f', '--frame_rate', type=int, default=DEFAULT_FRAME_RATE,
                         help='frame rate', metavar='R')
-    parser.add_argument('-t', '--threads', type=int, default=multiprocessing.cpu_count() // 2,
+    parser.add_argument('-t', '--threads', type=int, default=multiprocessing.cpu_count() // 2 + 1,
                         help='the number of threads to use', metavar='N')
     parser.add_argument('-b', '--baseline', action="store_true",
                         help='use the Baseline Profile for better compatibility')
@@ -47,14 +47,18 @@ if __name__ == '__main__':
 
     # Video options
     opts += ['-y',
-            '-r', args.frame_rate,
-            '-vcodec', 'libx264',
-            '-threads', args.threads,
-            '-preset', 'slow',
-            '-crf', '6',
-            '-pix_fmt', 'yuv420p']
+             '-r', args.frame_rate,
+             '-vcodec', 'libx264',
+             '-threads', args.threads,
+             '-preset', 'slow',
+             '-crf', '6',
+             '-pix_fmt', 'yuv420p',
+             '-movflags', '+faststart'  # faststart for Web video
+             ]
     if args.baseline:
         opts += ['-profile:v', 'baseline']  # for iMovie and so on
+    else:
+        opts += ['-profile:v', 'high', '-level', '4.1']  # iPad >= 2, iPhone >= 4S
 
     # Output file
     opts.append(args.output_file)

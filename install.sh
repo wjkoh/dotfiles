@@ -62,10 +62,7 @@ $PIP install --upgrade PIL networkx line-profiler || exit
 $PIP install --upgrade nose || exit
 $PIP install --upgrade flask || exit
 $PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
-
-echo
-echo "* Installing Ack..."
-#sudo /usr/bin/cpan App::Ack || exit
+$PIP install --upgrade sh || exit
 
 echo
 echo "* Installing Pyp..."

@@ -45,9 +45,10 @@ export VISUAL=vim
 
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.sh ]; then
-	. /opt/local/etc/profile.d/autojump.sh
+if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+	. /opt/local/etc/profile.d/autojump.zsh
 fi
+autoload -U compinit; compinit
 
 # Python startup file
 export PYTHONSTARTUP=$HOME/.pythonstartup
