@@ -156,7 +156,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 " Customization
-set textwidth=80
+set textwidth=100
 set infercase
 set shiftround
 set nonumber
@@ -240,8 +240,8 @@ map <tab> %
 nnoremap <silent> <Leader>. :e .<CR>
 nnoremap D d$   " Made D behave
 
-nnoremap <Leader>a :Ack!<space>
 nnoremap <Leader>gu :GundoToggle<CR>
+nnoremap <Leader>a :TagbarOpen fjc<CR>
 
 
 " Grep
@@ -295,6 +295,8 @@ let g:ctrlp_user_command = {
 
 
 " Tagbar
+let g:tagbar_left = 1
+let g:tagbar_compact = 1
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
 "autocmd FileType * nested :call tagbar#autoopen(0)
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -320,7 +322,26 @@ let g:pymode_folding = 0
 
 
 " Powerline for Vim
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'fancy'
+let g:airline#extensions#tabline#enabled = 1
+
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 
 " Marked & DayOne
