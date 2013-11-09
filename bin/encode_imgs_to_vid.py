@@ -25,8 +25,9 @@ if __name__ == '__main__':
                         action='store_false', help='create a vertical side by side video')
     parser.add_argument('-f', '--frame_rate', type=int, default=DEFAULT_FRAME_RATE,
                         help='frame rate', metavar='R')
-    parser.add_argument('-t', '--threads', type=int, default=multiprocessing.cpu_count() // 2 + 1,
-                        help='the number of threads to use', metavar='N')
+    parser.add_argument('-t', '--threads', type=int,
+            default=multiprocessing.cpu_count() // 2 + 1,
+            help='the number of threads to use', metavar='N')
     parser.add_argument('-b', '--baseline', action="store_true",
                         help='use the Baseline Profile for better compatibility')
     args = parser.parse_args()
@@ -39,26 +40,33 @@ if __name__ == '__main__':
         opts += ['-i', f]
 
     # Merge options (Overlay)
-    if len(args.img_files) == 2:
-        if args.horizontal_sxs:
-            opts += ['-filter_complex', '[0:0]pad=iw*2:ih[a];[a][0:1]overlay=w:0']
-        else:
-            opts += ['-filter_complex', '[0:0]pad=iw:ih*2[a];[a][1:0]overlay=0:h']
+    n_img_files = len(args.img_files)
+    if n_img_files > 1:
+        pad = '[0:0]pad=iw*%d:ih'
+        overlay = '[a];[a][0:%d]overlay=w*%d:0'
+        if not args.horizontal_sxs:
+            pad = '[0:0]pad=iw:ih*%d'
+            overlay = '[a];[a][%d:0]overlay=0:h*%d'
+
+        f = pad % n_img_files
+        for i in range(1, n_img_files):
+            f += overlay % (i, i)
+        opts += ['-filter_complex', f]
 
     # Video options
     opts += ['-y',
              '-r', args.frame_rate,
              '-vcodec', 'libx264',
              '-threads', args.threads,
-             '-preset', 'slow',
-             '-crf', '6',
-             '-pix_fmt', 'yuv420p',
+             '-preset', 'veryslow',
+             '-crf', '18',
+             '-pix_fmt', 'yuv420p',  # for QuickTime
              '-movflags', '+faststart'  # faststart for Web video
              ]
     if args.baseline:
-        opts += ['-profile:v', 'baseline']  # for iMovie and so on
+        opts += ['-profile:v', 'baseline', '-level', '3.0']  # for iMovie and so on
     else:
-        opts += ['-profile:v', 'high', '-level', '4.1']  # iPad >= 2, iPhone >= 4S
+        opts += ['-profile:v', 'high', '-level', '4.0']  # ATV >= 3, iPad >= 2, iPhone >= 4S
 
     # Output file
     opts.append(args.output_file)
@@ -68,4 +76,6 @@ if __name__ == '__main__':
                 _err=process_output,
                 _out_bufsize=1,
                 _err_bufsize=1)
+    print 'Run:', p.ran
     p.wait()
+    exit(p.exit_code)

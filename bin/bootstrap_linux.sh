@@ -37,6 +37,7 @@ $APT_GET install libatlas-dev || exit
 $APT_GET install libboost-dev || exit
 $APT_GET install libfreetype6-dev || exit
 $APT_GET install libglew-dev || exit
+$APT_GET install libglfw-dev || exit
 $APT_GET install libjpeg-dev || exit
 $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit

@@ -156,6 +156,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 " Customization
+set textwidth=80
 set infercase
 set shiftround
 set nonumber
@@ -251,38 +252,12 @@ execute 'nmap <silent> <Leader>g* :Rgrep <cword> *<CR>'
 
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
-autocmd BufEnter *.tex silent! setlocal textwidth=75 spell spelllang=en_us
-autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
-autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
 autocmd VimResized * :wincmd =  " Resize splits when the window is resized
-"autocmd BufWritePost,FileWritePost * call UpdateTags()
 
-function UpdateTags()
-    if !filereadable('tags')
-        return
-    endif
+autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
+autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -U | else | silent! setlocal makeprg= | endif
+autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
 
-    let l:ctags_options = "--sort=foldcase --c++-kinds=+p --fields=+iaS --extra=+q"
-    let l:ctags_excludes = '--exclude="*/typeof/*" --exclude="*/preprocessed/*"'
-
-    silent! execute "!(cd ". expand("%:p:h") .";ctags ". l:ctags_options ." *)&"
-
-    let l:tags_list = findfile("tags", ".;", -1)
-    if len(l:tags_list) > 1
-        let l:tmpfile = tempname()
-        let l:globaltags_path = fnamemodify(l:tags_list[-1], ":p:h")
-
-        if l:globaltags_path == $HOME
-            if len(l:tags_list) > 2
-                let l:globaltags_path = fnamemodify(l:tags_list[-2], ":p:h")
-            else
-                return
-            endif
-        endif
-
-        silent! execute "!(cd ". l:globaltags_path .";ctags ". l:ctags_options ." ". l:ctags_excludes ." -f ". l:tmpfile ." --file-scope=no -R; mv ". l:tmpfile ." tags)&"
-    endif
-endfunction
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /

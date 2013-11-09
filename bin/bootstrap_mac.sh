@@ -15,7 +15,7 @@ sudo port install autojump || exit
 sudo port install ccache || exit
 sudo port install coreutils || exit
 sudo port install ctags || exit
-sudo port install ffmpeg || exit
+sudo port install x264 +asm ffmpeg || exit
 sudo port install git-core || exit
 sudo port install htop || exit
 sudo port install meld || exit
@@ -33,6 +33,7 @@ sudo port install wget || exit
 sudo port -ns install boost configure.compiler=macports-gcc-4.8 || exit
 sudo port install freetype || exit
 sudo port install glew || exit
+sudo port install glfw || exit
 sudo port install glm || exit
 sudo port install jpeg || exit
 sudo port install libpng || exit
