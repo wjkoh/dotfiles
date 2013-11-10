@@ -24,7 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#plugins=(git mercurial autojump brew cloudapp debian macports osx python pip svn vi-mode dircycle cp dirpersist rsync)
+plugins=(vi-mode osx macports autojump cp rsync mosh python pip git mercurial svn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -46,7 +46,7 @@ export VISUAL=vim
 # autojump installed via MacPorts
 export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-	. /opt/local/etc/profile.d/autojump.zsh
+    . /opt/local/etc/profile.d/autojump.zsh
 fi
 autoload -U compinit; compinit
 
@@ -77,14 +77,14 @@ case `uname` in
     Darwin)
         # Use MacVim if it exists
         if hash mvim &> /dev/null; then
-                export EDITOR="mvim -v"
-                alias vim="mvim -v"
+            export EDITOR="mvim -v"
+            alias vim="mvim -v"
         elif hash Vim &> /dev/null; then
-                export EDITOR=Vim
-                alias vim=Vim
+            export EDITOR=Vim
+            alias vim=Vim
         elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-                export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-                alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+            export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+            alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
         fi
 
         # Back to My Mac (SSH)
@@ -107,20 +107,20 @@ esac
 eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
 
 # http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
-__git_files () { 
+__git_files () {
     _wanted files expl 'local files' _files
 }
 
 # Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
-	SESSION=$USER
-	tmux has-session -t $SESSION
-	if [ $? -eq 0 ]; then
-		#echo "Session $SESSION already exists. Attaching."
-		#sleep 1
-		tmux new-session -t $SESSION \; set-option destroy-unattached on
-	else
-		tmux new-session -s $SESSION
-	fi
+    SESSION=$USER
+    tmux has-session -t $SESSION
+    if [ $? -eq 0 ]; then
+        #echo "Session $SESSION already exists. Attaching."
+        #sleep 1
+        tmux new-session -t $SESSION \; set-option destroy-unattached on
+    else
+        tmux new-session -s $SESSION
+    fi
 fi
-# DO NOT ADD ANY CONFIGURATION BELOW.
+# DO NOT ADD ANY CONFIGURATION BELOW THIS LINE.

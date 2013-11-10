@@ -3,7 +3,6 @@ path=(/Applications/MacVim.app/Contents/MacOS $HOME/bin /opt/local/bin /opt/loca
 
 export EDITOR=vim
 export VISUAL=vim
-export MAC_SYNC="$HOME/Dropbox/Mac Sync/"
 #export PYTHONPATH=/Library/Python/2.7/site-packages:~/wjkoh-research/koh:$PYTHONPATH
 
 export PYOPENCL_CTX=1
