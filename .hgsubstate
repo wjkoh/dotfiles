@@ -24,10 +24,10 @@ a3ae0df1d9e13941e9e8086637055841ce93f7bd .vim/bundle/vim-commentary
 667a668e114e9ec0e5d4cbcb0962d835b23614c4 .vim/bundle/vim-easymotion
 6a4d1933ad61ad94f2fa06905337a51cb0304ac1 .vim/bundle/vim-eunuch
 78fffa609b3e6b84ef01ee4c9aba6d7435d7b18e .vim/bundle/vim-indent-object
-8c9aca0e4322f56bce43204a172f9d18b67f0cc2 .vim/bundle/vim-lawrencium
+16e873b2a4a8421fcbcf9a1b57ee0bbfe6bbe358 .vim/bundle/vim-lawrencium
 1270dceb1fe0ca35f8b292c7b41b45b42c5a0cc1 .vim/bundle/vim-pathogen
 a81bef76031ca1c71766b516417480caeb01c932 .vim/bundle/vim-repeat
-22515a370cdd77f7987bc1373cd9d3b07c7e604f .vim/bundle/vim-signify
+8893445c7034147af39ba47eb194266cc2777a6c .vim/bundle/vim-signify
 a029dc28ebc1ba5953cd5b0ef9a50bd0ffba3aa4 .vim/bundle/vim-unimpaired
 15 .vim/bundle/web-indent
 19afd8812fc1ff8558b7223ce9fb19a28d15d2ff tmux-powerline

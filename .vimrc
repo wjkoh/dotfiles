@@ -323,7 +323,6 @@ let g:pymode_folding = 0
 
 " Powerline for Vim
 "let g:Powerline_symbols = 'fancy'
-let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
