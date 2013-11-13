@@ -43,6 +43,7 @@ $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit
 $APT_GET install libpng-dev || exit
 $APT_GET install opencl-headers || exit
+$APT_GET install suitesparse || exit
 
 # Install Solarized
 git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git

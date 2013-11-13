@@ -37,6 +37,7 @@ sudo port install glfw || exit
 sudo port install glm || exit
 sudo port install jpeg || exit
 sudo port install libpng || exit
+sudo port install suitesparse || exit
 
 # Install MacVim
 

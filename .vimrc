@@ -159,7 +159,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 set textwidth=100
 set infercase
 set shiftround
-set nonumber
+set number
 set relativenumber
 "set gdefault
 set background=dark
@@ -254,7 +254,6 @@ execute 'nmap <silent> <Leader>g* :Rgrep <cword> *<CR>'
 autocmd BufEnter * silent! lcd %:p:h
 autocmd VimResized * :wincmd =  " Resize splits when the window is resized
 
-autocmd BufReadPre,BufNewFile SConstruct,Sconscript set filetype=python
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -U | else | silent! setlocal makeprg= | endif
 autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
 
