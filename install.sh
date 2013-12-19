@@ -33,7 +33,8 @@ fi
 
 echo "* Installing Mercurial..."
 $PIP install --upgrade mercurial
-$PIP install --upgrade gntp hg-git keyring
+$PIP install --upgrade gntp hg-git
+$PIP install --upgrade keyring mercurial_keyring
 
 echo "* Installing virtualenv..."
 $PIP install --upgrade virtualenv virtualenvwrapper
@@ -71,5 +72,3 @@ echo "* Installing Pelican..."
 $PIP install --upgrade pelican Markdown typogrify boto
 
 echo "* SUCCESSFULLY DONE!"
-
-hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix

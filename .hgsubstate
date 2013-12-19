@@ -1,6 +1,4 @@
 2719a15b779eef0bfb1d11816c25192ae9ee99b9 .dircolors-solarized
-c4e9bcb9f9e7af74b2f5e6d4f5afb33c6ad78dfc .hgext/hgshelve
-db9e7c92b31527e0d8cd595a1b7d9af727bc2d17 .hgext/mercurial_keyring
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
 a38af27991d15d14ac4ca55c919bb694d7eafb7a .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
