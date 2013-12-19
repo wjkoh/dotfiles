@@ -47,5 +47,4 @@ echo
 echo "* SUCCESSFULLY DONE!"
 
 sudo port install nethack +autopickup_exceptions +menucolors
-wget http://dayoneapp.com/downloads/dayone-cli.pkg && open dayone-cli.pkg
-wget https://gist.github.com/raw/1838072/Monaco-Powerline.otf --no-check-certificate && open Monaco-Powerline.otf
+wget http://dayoneapp.com/downloads/dayone-cli.pkg -P /tmp/ && open /tmp/dayone-cli.pkg
