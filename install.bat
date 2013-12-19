@@ -23,40 +23,43 @@ mklink /D %USERPROFILE%\.gitconfig %~dp0\.gitconfig
 
 set PATH=%USERPROFILE%\bin;%PATH%;C:\Python27;C:\Python27\Scripts
 
-echo.
 echo * Installing distribute and pip...
 python %USERPROFILE%\bin\install_distribute.py
-easy_install --upgrade pip
+easy_install -q --upgrade pip
 
-echo.
 echo * Installing Mercurial...
-pip install --upgrade mercurial
-pip install --upgrade gntp hg-git
+pip -q install --upgrade mercurial
+pip -q install --upgrade gntp hg-git
 
-echo.
 echo * Installing virtualenv...
-pip install --upgrade virtualenv virtualenvwrapper
+pip -q install --upgrade virtualenv virtualenvwrapper
 
-echo.
 echo * Installing SCons...
-pip install --upgrade scons
+pip -q install --upgrade scons
 
-echo.
 echo * Installing iPython and numpy/scipy...
-pip install --upgrade ipython ipdb
-pip install --upgrade flake8 pylint
-pip install --upgrade numpy scipy matplotlib
-pip install --upgrade mayavi
-pip install --upgrade cvxopt
-pip install --upgrade nose2
-pip install --upgrade sh
+pip -q install --upgrade ipython ipdb
+pip -q install --upgrade flake8 pylint
+pip -q install --upgrade numpy scipy matplotlib
+pip -q install --upgrade mayavi
+pip -q install --upgrade cvxopt
+pip -q install --upgrade paramiko
+pip -q install --upgrade pil
+pip -q install --upgrade networkx
+pip -q install --upgrade line-profiler
+pip -q install --upgrade nose2
+pip -q install --upgrade flask
+pip -q install --upgrade sqlalchemy flask-sqlalchemy
+pip -q install --upgrade sh
+pip -q install --upgrade lxml
+pip -q install --upgrade boto
+pip -q install --upgrade fabric
+pip -q install --upgrade psutil
 
-echo.
 echo * Installing Pyp...
-svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
+pip -q install --upgrade pyp
 
-echo.
 echo * Installing Pelican...
-pip install --upgrade pelican Markdown typogrify boto
+pip -q install --upgrade pelican Markdown typogrify boto
 
 pause

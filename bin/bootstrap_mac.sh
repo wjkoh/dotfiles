@@ -19,19 +19,21 @@ sudo port install x264 +asm ffmpeg || exit
 sudo port install git-core || exit
 sudo port install htop || exit
 sudo port install meld || exit
-sudo launchctl load -w /Library/LaunchDaemons/org.freedesktop.dbus-system.plist
-launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 sudo port install mosh || exit
 sudo port install tig || exit
 sudo port install tmux libmpdclient || exit
 sudo port install tmux-pasteboard
 sudo port install weechat +aspell +perl +python +tls || exit
 sudo port install wget || exit
+sudo port install swig swig-python || exit  # for SciPy
 
 # Install libraries
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145
 sudo port -ns install boost configure.compiler=macports-gcc-4.8 || exit
+
 sudo port install freetype || exit
+sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype  # for PIL
+
 sudo port install glew || exit
 sudo port install glfw || exit
 sudo port install glm || exit

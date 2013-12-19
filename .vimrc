@@ -160,24 +160,23 @@ set textwidth=100
 set infercase
 set shiftround
 set number
-set relativenumber
+if exists('&relativenumber')
+    set relativenumber
+endif
 "set gdefault
 set background=dark
 set t_Co=16
 let g:solarized_termcolors=16
 colorscheme solarized
-if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-        set macmeta
-    endif
+if system('uname') =~ 'Darwin'
+    set macmeta
 endif
-if has("gui_running")
+if has('gui_running')
     set cursorline
 endif
 set guioptions-=T	" Remove toolbar
 set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
-let mapleader=","
+let mapleader=','
 set scrolloff=2		" Keep some context
 set sidescrolloff=5	" Keep some context
 set incsearch
@@ -195,10 +194,12 @@ set tags+=./tags;,~/.vim/libstdc++_tags
 set autoread
 set autowrite
 set backup
-set undofile
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim/tmp/undo//
+endif
 "set noswapfile
 set backupdir=~/.vim/tmp/backup//   " include full path
-set undodir=~/.vim/tmp/undo//
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -340,6 +341,11 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+
+
+" Autojump
+command! -nargs=* -complete=dir J silent edit `autojump <args>`
+nnoremap <Leader>m :J<Space>
 
 
 " Marked & DayOne

@@ -48,7 +48,9 @@ export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
 if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
-autoload -U compinit; compinit
+autoload -U compinit; compinit -u
+export AUTOJUMP_IGNORE_CASE=1
+export AUTOJUMP_KEEP_SYMLINKS=1
 
 # Python startup file
 export PYTHONSTARTUP=$HOME/.pythonstartup
@@ -62,9 +64,7 @@ source virtualenvwrapper.sh
 export REPORTTIME=1
 
 # * Aliases
-alias python='python -i'
 alias matlab="matlab -nodesktop -nosplash"
-alias ssh_i="ssh doyubkim@ssh.intel-research.net -t ssh "
 
 alias -s md=vim
 alias -s tex=vim
@@ -110,6 +110,10 @@ eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
 __git_files () {
     _wanted files expl 'local files' _files
 }
+
+# D-Bus for X11 applications, such as Meld
+launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 
 # Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then

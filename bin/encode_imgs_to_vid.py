@@ -61,12 +61,13 @@ if __name__ == '__main__':
              '-preset', 'veryslow',
              '-crf', '18',
              '-pix_fmt', 'yuv420p',  # for QuickTime
+             #'-bf', '0', '-g', '1',  # Frame-by-frame scrubbing
              '-movflags', '+faststart'  # faststart for Web video
              ]
     if args.baseline:
         opts += ['-profile:v', 'baseline', '-level', '3.0']  # for iMovie and so on
     else:
-        opts += ['-profile:v', 'high', '-level', '4.0']  # ATV >= 3, iPad >= 2, iPhone >= 4S
+        opts += ['-profile:v', 'high', '-level', '4.1']  # iPad >= 2, iPhone >= 4S
 
     # Output file
     opts.append(args.output_file)

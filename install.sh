@@ -17,63 +17,59 @@ rm -rf "${HOME}/.weechat/irc.conf"
 ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 popd &> /dev/null
 
-echo
 echo "* Changing a login shell to Zsh..."
 chsh -s /bin/zsh
 
-PIP="sudo pip"
+PIP="sudo pip -q"
 if [ -z "$VIRTUAL_ENV" ]; then
-    echo
     echo "* Installing distribute and pip..."
     #wget https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py --no-check-certificate
     #sudo python ez_setup.py || exit
-    sudo easy_install --upgrade setuptools || exit
-    sudo easy_install --upgrade pip || exit
+    sudo easy_install -q --upgrade setuptools || exit
+    sudo easy_install -q --upgrade pip || exit
 else
-    PIP=pip
+    PIP="pip -q"
 fi
 
-echo
 echo "* Installing Mercurial..."
-$PIP install --upgrade mercurial || exit
-$PIP install --upgrade gntp hg-git keyring || exit
+$PIP install --upgrade mercurial
+$PIP install --upgrade gntp hg-git keyring
 
-echo
 echo "* Installing virtualenv..."
-$PIP install --upgrade virtualenv virtualenvwrapper || exit
+$PIP install --upgrade virtualenv virtualenvwrapper
 
-echo
 echo "* Installing SCons..."
-sudo easy_install --upgrade scons || exit
+sudo easy_install -q --upgrade scons
 
-echo
 echo "* Installing iPython and numpy/scipy..."
-sudo easy_install readline || exit
-$PIP install --upgrade ipython ipdb || exit
-$PIP install --upgrade flake8 pylint || exit
-$PIP install --upgrade numpy scipy matplotlib || exit
-$PIP install --upgrade scikit-learn joblib sympy || exit
-#$PIP install --upgrade mayavi || exit
-$PIP install --upgrade cvxopt || exit
-$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext || exit
-$PIP install --upgrade Mako PyOpenCL || exit
-$PIP install --upgrade paramiko || exit
-$PIP install --upgrade PIL networkx line-profiler || exit
-$PIP install --upgrade nose || exit
-$PIP install --upgrade flask || exit
-$PIP install --upgrade sqlalchemy flask-sqlalchemy || exit
-$PIP install --upgrade sh || exit
+sudo easy_install -q --upgrade readline
+$PIP install --upgrade ipython ipdb
+$PIP install --upgrade flake8 pylint
+$PIP install --upgrade numpy scipy matplotlib
+$PIP install --upgrade scikit-learn joblib sympy
+$PIP install --upgrade mayavi
+$PIP install --upgrade cvxopt
+$PIP install --upgrade PyOpenGL PyOpenGL_accelerate OpenGLContext
+$PIP install --upgrade Mako PyOpenCL
+$PIP install --upgrade paramiko
+$PIP install --upgrade PIL
+$PIP install --upgrade networkx
+$PIP install --upgrade line-profiler
+$PIP install --upgrade nose2
+$PIP install --upgrade flask
+$PIP install --upgrade sqlalchemy flask-sqlalchemy
+$PIP install --upgrade sh
+$PIP install --upgrade lxml
+$PIP install --upgrade boto
+$PIP install --upgrade fabric
+$PIP install --upgrade psutil
 
-echo
 echo "* Installing Pyp..."
-svn export --force http://pyp.googlecode.com/svn/trunk/ ~/bin
-chmod u+x ~/bin/pyp
+$PIP install --upgrade pyp
 
-echo
 echo "* Installing Pelican..."
-$PIP install --upgrade pelican Markdown typogrify boto || exit
+$PIP install --upgrade pelican Markdown typogrify boto
 
-echo
 echo "* SUCCESSFULLY DONE!"
 
 hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve # temporary fix
