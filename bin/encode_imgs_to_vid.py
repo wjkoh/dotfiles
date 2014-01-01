@@ -59,7 +59,8 @@ if __name__ == '__main__':
              '-vcodec', 'libx264',
              '-threads', args.threads,
              '-preset', 'veryslow',
-             '-crf', '18',
+             '-crf', '18',  # Original setting
+             #'-crf', '12',  # High-quality setting
              '-pix_fmt', 'yuv420p',  # for QuickTime
              #'-bf', '0', '-g', '1',  # Frame-by-frame scrubbing
              '-movflags', '+faststart'  # faststart for Web video

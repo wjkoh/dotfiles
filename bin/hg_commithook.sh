@@ -3,5 +3,5 @@
 SUBJECT=$(hg log -r $HG_NODE --template '{desc|firstline}')
 
 (
-    echo $SUBJECT
+    echo Hg: $SUBJECT
 ) | dayone new
