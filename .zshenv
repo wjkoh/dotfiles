@@ -1,5 +1,5 @@
 typeset -U path
-path=(/Applications/MacVim.app/Contents/MacOS $HOME/bin /opt/local/bin /opt/local/sbin $path /Applications/MATLAB_R2011b.app/bin /Applications/MATLAB_R2011b.app/bin/maci64)
+path=($HOME/anaconda/bin /Applications/MacVim.app/Contents/MacOS $HOME/bin /opt/local/bin /opt/local/sbin $path)
 
 export EDITOR=vim
 export VISUAL=vim

@@ -55,6 +55,7 @@ pip -q install --upgrade lxml
 pip -q install --upgrade boto
 pip -q install --upgrade fabric
 pip -q install --upgrade psutil
+pip -q install --upgrade bokeh
 
 echo * Installing Pyp...
 pip -q install --upgrade pyp
