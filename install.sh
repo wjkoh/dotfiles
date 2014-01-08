@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 USE_ANACONDA=true
 if [ $USE_ANACONDA ]; then
