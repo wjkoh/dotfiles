@@ -24,6 +24,15 @@
 # (this script requires WeeChat 0.3.0 or newer)
 #
 # History:
+# 2014-01-12, Phyks (Lucas Verney) <phyks@phyks.me>
+#  version 0.12: Added an option to check status of relays to set unaway in
+#                   case of a connected relay.
+# 2013-08-30, Anders Einar Hilden <hildenae@gmail.com>
+#  version: 0.11: Fix reading of set_away
+# 2013-06-16, Renato Botelho <rbgarga@gmail.com>
+#  version 0.10: add option to don't set away, only change nick
+#                   allow multiple commands on attach/dettach
+#                   do not add suffix if nick already have it
 # 2012-12-29, David Flatz <david@upcs.at>
 #  version 0.9: add option to ignore servers and don't set away status for them
 #               add descriptions to config options
@@ -52,7 +61,7 @@ import os
 
 SCRIPT_NAME    = "screen_away"
 SCRIPT_AUTHOR  = "xt <xt@bash.no>"
-SCRIPT_VERSION = "0.9"
+SCRIPT_VERSION = "0.12"
 SCRIPT_LICENSE = "GPL3"
 SCRIPT_DESC    = "Set away status on screen detach"
 
@@ -60,14 +69,17 @@ settings = {
         'message': ('Detached from screen', 'Away mesage'),
         'interval': ('5', 'How often in seconds to check screen status'),
         'away_suffix': ('', 'What to append to your nick when you\'re away.'),
-        'command_on_attach': ('', 'Command to execute on attach'),
-        'command_on_detach': ('', 'Command to execute on detach'),
+        'command_on_attach': ('', 'Commands to execute on attach, separated by semicolon'),
+        'command_on_detach': ('', 'Commands to execute on detach, separated by semicolon'),
         'ignore': ('', 'Comma-separated list of servers to ignore.'),
+        'set_away': ('on', 'Set user as away.'),
+        'ignore_relays': ('off', 'Only check screen status and ignore relay interfaces'),
 }
 
 TIMER = None
 SOCK = None
 AWAY = False
+CONNECTED_RELAY = False
 
 def set_timer():
     '''Update timer hook with new interval'''
@@ -93,9 +105,10 @@ def get_servers():
         if not w.infolist_integer(infolist, 'is_connected') == 1 or \
                w.infolist_string(infolist, 'name') in ignores:
             continue
-        if not w.infolist_integer(infolist, 'is_away') or \
-               w.infolist_string(infolist, 'away_message') == \
-               w.config_get_plugin('message'):
+        if not w.config_string_to_boolean(w.config_get_plugin('set_away')) or \
+                not w.infolist_integer(infolist, 'is_away') or \
+                    w.infolist_string(infolist, 'away_message') == \
+                    w.config_get_plugin('message'):
             buffers.append((w.infolist_pointer(infolist, 'buffer'),
                 w.infolist_string(infolist, 'nick')))
     w.infolist_free(infolist)
@@ -104,31 +117,48 @@ def get_servers():
 def screen_away_timer_cb(buffer, args):
     '''Check if screen is attached, update awayness'''
 
-    global AWAY, SOCK
+    global AWAY, SOCK, CONNECTED_RELAY
 
+    set_away = w.config_string_to_boolean(w.config_get_plugin('set_away'))
+    check_relays = not w.config_string_to_boolean(w.config_get_plugin('ignore_relays'))
     suffix = w.config_get_plugin('away_suffix')
     attached = os.access(SOCK, os.X_OK) # X bit indicates attached
 
-    if attached and AWAY:
+    # Check wether a client is connected on relay or not
+    CONNECTED_RELAY = False
+    if check_relays:
+        infolist = w.infolist_get('relay', '', '')
+        if infolist:
+            while w.infolist_next(infolist):
+                status = w.infolist_string(infolist, 'status_string')
+                if status == 'connected':
+                    CONNECTED_RELAY = True
+                    break
+            w.infolist_free(infolist)
+
+    if (attached and AWAY) or (check_relays and CONNECTED_RELAY and not attached and AWAY):
         w.prnt('', '%s: Screen attached. Clearing away status' % SCRIPT_NAME)
         for server, nick in get_servers():
-            w.command(server,  "/away")
+            if set_away:
+                w.command(server,  "/away")
             if suffix and nick.endswith(suffix):
                 nick = nick[:-len(suffix)]
                 w.command(server,  "/nick %s" % nick)
         AWAY = False
-        if w.config_get_plugin("command_on_attach"):
-            w.command("", w.config_get_plugin("command_on_attach"))
+        for cmd in w.config_get_plugin("command_on_attach").split(";"):
+            w.command("", cmd)
 
     elif not attached and not AWAY:
-        w.prnt('', '%s: Screen detached. Setting away status' % SCRIPT_NAME)
-        for server, nick in get_servers():
-            if suffix:
-                w.command(server, "/nick %s%s" % (nick, suffix));
-            w.command(server, "/away %s" % w.config_get_plugin('message'));
-        AWAY = True
-        if w.config_get_plugin("command_on_detach"):
-            w.command("", w.config_get_plugin("command_on_detach"))
+        if not CONNECTED_RELAY:
+            w.prnt('', '%s: Screen detached. Setting away status' % SCRIPT_NAME)
+            for server, nick in get_servers():
+                if suffix and not nick.endswith(suffix):
+                    w.command(server, "/nick %s%s" % (nick, suffix));
+                if set_away:
+                    w.command(server, "/away %s" % w.config_get_plugin('message'));
+            AWAY = True
+            for cmd in w.config_get_plugin("command_on_detach").split(";"):
+                w.command("", cmd)
 
     return w.WEECHAT_RC_OK
 

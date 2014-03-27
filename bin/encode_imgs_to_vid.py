@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-
 import argparse
 import multiprocessing
 import time
+from sh import ffmpeg
 
-import sh
 
 DEFAULT_FRAME_RATE = 25
 DEFAULT_OUTPUT_FNAME = 'output_%s_%dfps.mp4' % (time.strftime("%H%M%S"), DEFAULT_FRAME_RATE)
@@ -36,6 +35,28 @@ if __name__ == '__main__':
     opts = []
 
     # Input files
+    """
+    If the sequence pattern contains "%d" or "%0Nd", the first filename of the file
+    list specified by the pattern must contain a number inclusively contained
+    between start_number and start_number+start_number_range-1, and all the
+    following numbers must be sequential.
+
+    'start_number'
+    Set the index of the file matched by the image file pattern to start to read
+    from. Default value is 0.
+
+    'start_number_range'
+    Set the index interval range to check when looking for the first image file in
+    the sequence, starting from start_number. Default value is 5.
+    """
+    opts += ['-start_number_range', 100]
+
+    for img_file in args.img_files:
+        if any([glob_char in img_file for glob_char in '*?[]']):
+            opts += ['-pattern_type', 'glob']  # 'sequence'
+            print 'Use glob() file pattern for %s...' % img_file
+            break
+
     for f in args.img_files:
         opts += ['-i', f]
 
@@ -59,11 +80,11 @@ if __name__ == '__main__':
              '-vcodec', 'libx264',
              '-threads', args.threads,
              '-preset', 'veryslow',
-             '-crf', '18',  # Original setting
-             #'-crf', '12',  # High-quality setting
+             #'-crf', '18',  # Original setting
+             '-crf', '6',  # High-quality setting
              '-pix_fmt', 'yuv420p',  # for QuickTime
              #'-bf', '0', '-g', '1',  # Frame-by-frame scrubbing
-             '-movflags', '+faststart'  # faststart for Web video
+             #'-movflags', '+faststart'  # faststart for Web video
              ]
     if args.baseline:
         opts += ['-profile:v', 'baseline', '-level', '3.0']  # for iMovie and so on
@@ -73,11 +94,13 @@ if __name__ == '__main__':
     # Output file
     opts.append(args.output_file)
 
-    p = sh.ffmpeg(*opts,
-                _out=process_output,
-                _err=process_output,
-                _out_bufsize=1,
-                _err_bufsize=1)
-    print 'Run:', p.ran
-    p.wait()
+    try:
+        print
+        p = ffmpeg(*opts, _out=process_output, _err_to_out=True, _piped=True)
+        print 'Command:', p.ran
+        print
+        p.wait()
+    except KeyboardInterrupt:
+        print 'Ctrl-C pressed.'
+        p.kill()
     exit(p.exit_code)

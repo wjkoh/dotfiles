@@ -156,7 +156,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 "------------------------------------------------------------
 
 " Customization
-set textwidth=100
+set textwidth=90
 set infercase
 set shiftround
 set number

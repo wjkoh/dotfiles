@@ -27,4 +27,5 @@
 .oh-my-zsh = [git]https://github.com/robbyrussell/oh-my-zsh.git
 tmux-powerline = [git]https://github.com/erikw/tmux-powerline.git
 
+.hgext/hgsubversion = http://bitbucket.org/durin42/hgsubversion
 .hgext/onsub = https://bitbucket.org/lantiq/onsub

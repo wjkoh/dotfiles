@@ -32,13 +32,17 @@ $APT_GET install weechat || exit
 $APT_GET install wget || exit
 $APT_GET install zsh || exit
 $APT_GET install swig || exit  # for SciPy
+$APT_GET install pigz || exit
 
 # Install libraries
+$APT_GET install freeglut3-dev || exit
+$APT_GET install libatlas-base-dev || exit
 $APT_GET install libatlas-dev || exit
-$APT_GET install libboost-dev || exit
+$APT_GET install libboost-all-dev || exit
 $APT_GET install libfreetype6-dev || exit  # Also for PIL
 $APT_GET install libglew-dev || exit
 $APT_GET install libglfw-dev || exit
+$APT_GET install libglu1-mesa-dev || exit
 $APT_GET install libjpeg-dev || exit
 $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit

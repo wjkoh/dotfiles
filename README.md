@@ -1,4 +1,5 @@
 # My Dotfiles
+* Author: Woojong Koh
 
 ## How to Install
 1. Run `bootstrap_{mac|linux}.sh` in the `bin` directory
