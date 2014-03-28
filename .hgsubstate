@@ -1,7 +1,7 @@
 f5910a643c77b8fb2486fc17b7943a770d395388 .dircolors-solarized
 4a92eb1484ba054a67af8669d862ff720f0a5731 .hgext/hgsubversion
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
-ffc17b6b4d55f74b9d3786ba790b7340865e5014 .oh-my-zsh
+70dfb91b982b91cd2bd052124e8b65b774f66db1 .oh-my-zsh
 ca0ce8fcc49a09eca7eb8ff8003554de2f250901 .vim/bundle/DirDiff.vim
 06c1e16a4dcfd1b8b1764e96482af4b063ca7c8a .vim/bundle/MatlabFilesEdition
 341785bb1bfec38f62d210e2d01ae79f40028e86 .vim/bundle/OmniCppComplete
@@ -19,7 +19,7 @@ c70ac5e3a0330987b8c479a700f0889a0632be2b .vim/bundle/vim-buffergator
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
 07f79be068dece008c3f38476c93086bf733e165 .vim/bundle/vim-commentary
 e3f3b6f1be3084e0f0811f77a68be0d91a0b14b8 .vim/bundle/vim-eunuch
-3bfa0a27253d12a49331d0d9baa8d1210a816a8d .vim/bundle/vim-fugitive
+d6540b2588044f4028f6323e421e2e90116c8af7 .vim/bundle/vim-fugitive
 78fffa609b3e6b84ef01ee4c9aba6d7435d7b18e .vim/bundle/vim-indent-object
 a383a816d9759df14a8b964baaa5c321f18c69f1 .vim/bundle/vim-lawrencium
 099b9181413b81deb49e87d6c787d6cfe8b43ea5 .vim/bundle/vim-pathogen

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+from itertools import product
 import argparse
+import math
 import multiprocessing
 import time
+
 from sh import ffmpeg
 
 
@@ -63,15 +66,29 @@ if __name__ == '__main__':
     # Merge options (Overlay)
     n_img_files = len(args.img_files)
     if n_img_files > 1:
-        pad = '[0:0]pad=iw*%d:ih'
-        overlay = '[a];[a][0:%d]overlay=w*%d:0'
-        if not args.horizontal_sxs:
-            pad = '[0:0]pad=iw:ih*%d'
-            overlay = '[a];[a][%d:0]overlay=0:h*%d'
+        # By default, place input videos in horizontal direction.
+        n_row, n_col = 1, n_img_files
+        if n_img_files == int(math.sqrt(n_img_files)) ** 2:
+            # If n_img_files is a perfect square, switch to grid layout.
+            n_row = n_col = int(math.sqrt(n_img_files))
+        row_col_indices = product(range(n_row), range(n_col));  # fix row, inc. col
 
-        f = pad % n_img_files
-        for i in range(1, n_img_files):
-            f += overlay % (i, i)
+        # Place input videos in vertical direction.
+        if not args.horizontal_sxs:
+            row_col_indices = [(c, r) for r, c in row_col_indices]  # inc. row, fix col
+            n_row, n_col = n_col, n_row
+
+        pad = '[0:0]pad=iw*%(n_col)d:ih*%(n_row)d'
+        overlay = '[a];[a][%(src_idx)d:0]overlay=w*%(col_idx)d:h*%(row_idx)d'
+
+        f = ''
+        for src_idx, (row_idx, col_idx) in enumerate(row_col_indices):
+            if src_idx == 0:
+                f = pad % {'n_row': n_row, 'n_col': n_col}
+            else:
+                f += overlay % {'src_idx': src_idx, 'row_idx': row_idx,
+                        'col_idx': col_idx}
+        #f += '[a];[a]scale=-1:1080'  # Scale to 1080p
         opts += ['-filter_complex', f]
 
     # Video options
@@ -86,6 +103,7 @@ if __name__ == '__main__':
              #'-bf', '0', '-g', '1',  # Frame-by-frame scrubbing
              #'-movflags', '+faststart'  # faststart for Web video
              ]
+
     if args.baseline:
         opts += ['-profile:v', 'baseline', '-level', '3.0']  # for iMovie and so on
     else:

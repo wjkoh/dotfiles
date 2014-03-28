@@ -25,14 +25,15 @@ $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit
 $APT_GET install meld || exit
 $APT_GET install mosh || exit
+$APT_GET install pigz || exit
+$APT_GET install s3cmd || exit
 $APT_GET install subversion || exit
+$APT_GET install swig || exit  # for SciPy
 $APT_GET install tig || exit
 $APT_GET install tmux || exit
 $APT_GET install weechat || exit
 $APT_GET install wget || exit
 $APT_GET install zsh || exit
-$APT_GET install swig || exit  # for SciPy
-$APT_GET install pigz || exit
 
 # Install libraries
 $APT_GET install freeglut3-dev || exit
