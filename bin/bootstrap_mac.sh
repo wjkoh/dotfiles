@@ -6,6 +6,15 @@ sudo xcodebuild -license
 sudo port selfupdate || exit
 sudo port upgrade outdated  # It might fail.
 
+# Change default Python installation
+sudo port install python27
+sudo port select python python27
+sudo port install py27-pip
+sudo port select pip pip27
+sudo port install py27-ipython
+sudo port select ipython ipython7
+rehash
+
 # Install compilers
 sudo port install gcc48 || exit
 sudo ln -sf /opt/local/bin/gfortran-mp-4.8 /opt/local/bin/gfortran || exit

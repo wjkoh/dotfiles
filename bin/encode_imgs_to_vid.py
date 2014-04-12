@@ -17,21 +17,22 @@ def process_output(line):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Encode still images to a video using FFmpeg.',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('img_files', type=str, nargs='*',
-                        default=['%04d.png'], help='a pattern of input image files')
+    parser = argparse.ArgumentParser(description='Encode still images to a video using FFmpeg.'
+            , formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('img_files', type=str, nargs='*', default=['%04d.png'],
+            help='a pattern of input image files')
     parser.add_argument('-o', '--output_file', type=str, default=DEFAULT_OUTPUT_FNAME,
-                        nargs='?', help='an output file', metavar='O')
+            nargs='?', help='an output file', metavar='O')
     parser.add_argument('-vs', '--vertical_sxs', dest='horizontal_sxs',
-                        action='store_false', help='create a vertical side by side video')
+            action='store_false', help='create a vertical side by side video')
     parser.add_argument('-f', '--frame_rate', type=int, default=DEFAULT_FRAME_RATE,
-                        help='frame rate', metavar='R')
+            help='frame rate', metavar='R')
     parser.add_argument('-t', '--threads', type=int,
             default=multiprocessing.cpu_count() // 2 + 1,
             help='the number of threads to use', metavar='N')
     parser.add_argument('-b', '--baseline', action="store_true",
                         help='use the Baseline Profile for better compatibility')
+    parser.add_argument('-p', '--p1080', action="store_true", help='scale to 1080p')
     args = parser.parse_args()
 
     # Build FFmpeg options
@@ -88,7 +89,8 @@ if __name__ == '__main__':
             else:
                 f += overlay % {'src_idx': src_idx, 'row_idx': row_idx,
                         'col_idx': col_idx}
-        #f += '[a];[a]scale=-1:1080'  # Scale to 1080p
+        if args.p1080:
+            f += '[a];[a]scale=-1:1080'  # Scale to 1080p
         opts += ['-filter_complex', f]
 
     # Video options
