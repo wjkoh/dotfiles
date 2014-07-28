@@ -285,13 +285,24 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
-let g:ctrlp_user_command = {
-            \ 'types': {
-                \ 1: ['.git', 'cd %s && git ls-files'],
-                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-            \ 'fallback': 'find %s -type f'
-            \ }
+
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+        \ --ignore .git
+        \ --ignore .svn
+        \ --ignore .hg
+        \ --ignore .DS_Store
+        \ --ignore "**/*.pyc"
+        \ -g ""'
+else
+  let g:ctrlp_user_command = {
+              \ 'types': {
+                  \ 1: ['.git', 'cd %s && git ls-files'],
+                  \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                  \ },
+              \ 'fallback': 'find %s -type f'
+              \ }
+endif
 
 
 " Tagbar

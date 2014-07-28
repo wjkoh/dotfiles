@@ -36,6 +36,7 @@ $APT_GET install wget || exit
 $APT_GET install zsh || exit
 
 # Install libraries
+$APT_GET install ceres-solver || exit
 $APT_GET install freeglut3-dev || exit
 $APT_GET install libatlas-base-dev || exit
 $APT_GET install libatlas-dev || exit
@@ -49,7 +50,7 @@ $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit
 $APT_GET install libpng-dev || exit
 $APT_GET install opencl-headers || exit
-$APT_GET install suitesparse || exit
+#$APT_GET install suitesparse || exit
 
 # Install Solarized
 git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git

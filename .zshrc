@@ -98,10 +98,17 @@ case `uname` in
         # Colorize GNU `ls` command
         alias gls='gls --color=auto'
         DIRCOLORS=gdircolors
+
+        # D-Bus for X11 applications, such as Meld
+        launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+        launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
         ;;
     Linux)
         # Colorize GNU `ls` command
         DIRCOLORS=dircolors
+
+        # Aliases
+        alias open=gnome-open
         ;;
 esac
 eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
@@ -110,10 +117,6 @@ eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
 __git_files () {
     _wanted files expl 'local files' _files
 }
-
-# D-Bus for X11 applications, such as Meld
-launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
-launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 
 # Initiate tmux
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then

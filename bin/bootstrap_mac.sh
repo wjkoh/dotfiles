@@ -42,6 +42,7 @@ sudo port install x264 +asm ffmpeg || exit
 # Install libraries
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145
 sudo port -ns install boost configure.compiler=macports-gcc-4.8 || exit
+sudo port install ceres-solver || exit
 sudo port install freetype || exit
 sudo port install glew || exit
 sudo port install glfw || exit
