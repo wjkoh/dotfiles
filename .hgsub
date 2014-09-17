@@ -21,6 +21,8 @@
 .vim/bundle/vim-pathogen = [git]https://github.com/tpope/vim-pathogen.git
 .vim/bundle/vim-repeat = [git]https://github.com/tpope/vim-repeat.git
 .vim/bundle/vim-signify = [git]https://github.com/mhinz/vim-signify.git
+.vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
+.vim/bundle/vimux = [git]https://github.com/benmills/vimux.git
 .vim/bundle/web-indent = [svn]http://web-indent.googlecode.com/svn/trunk
 
 .dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git

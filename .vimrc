@@ -129,8 +129,8 @@ set pastetoggle=<F11>
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Indentation settings for using hard tabs for indent. Display tabs as
@@ -231,6 +231,8 @@ if &listchars ==# 'eol:$'
   endif
 endif
 
+set breakindent  " https://retracile.net/wiki/VimBreakIndent
+
 runtime macros/matchit.vim	" Enable matchit
 
 
@@ -246,17 +248,26 @@ nnoremap <Leader>a :TagbarOpen fjc<CR>
 
 
 " Grep
-let Grep_Skip_Dirs = '.hg .git .svn'
-execute 'nmap <silent> <Leader>* :Grep <cword> %<CR>'
-execute 'nmap <silent> <Leader>g* :Rgrep <cword> *<CR>'
+" '\b' and '\[<>]' are word boundary characters.
+nnoremap <Leader>* :vimgrep /\<<C-R><C-W>\>/ %<CR>
+nnoremap <Leader>g* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+if executable('ag')
+  " Note that we extract the column as well as the file and line number
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c%m
+endif
 
 
 " Autocommand
 autocmd BufEnter * silent! lcd %:p:h
-autocmd VimResized * :wincmd =  " Resize splits when the window is resized
+autocmd VimResized * wincmd =  " Resize splits when the window is resized
 
-autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -U | else | silent! setlocal makeprg= | endif
+autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
 autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
+
+autocmd BufNewFile,BufRead SConstruct set filetype=python
+autocmd BufNewFile,BufRead SConscript set filetype=python
 
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
@@ -294,14 +305,15 @@ if executable('ag')
         \ --ignore .DS_Store
         \ --ignore "**/*.pyc"
         \ -g ""'
+  let g:ctrlp_clear_cache_on_exit = 1
 else
   let g:ctrlp_user_command = {
-              \ 'types': {
-                  \ 1: ['.git', 'cd %s && git ls-files'],
-                  \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                  \ },
-              \ 'fallback': 'find %s -type f'
-              \ }
+        \ 'types': {
+          \ 1: ['.git', 'cd %s && git ls-files'],
+          \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+          \ },
+        \ 'fallback': 'find %s -type f'
+        \ }
 endif
 
 
@@ -356,9 +368,21 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 " Autojump
 command! -nargs=* -complete=dir J silent edit `autojump <args>`
-nnoremap <Leader>m :J<Space>
+nnoremap <Leader>j :J<Space>
 
 
 " Marked & DayOne
 command! Marked :silent !open -a Marked "%:p"
 command! DayOne execute ':w !dayone new' | set buftype=nowrite
+
+" Vimux
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <Leader>vs "vy :call VimuxSlime()<CR>
+
+" Select current paragraph and send it to tmux
+nmap <Leader>vs vip<Leader>vs<CR>

@@ -1,5 +1,5 @@
 typeset -U path
-path=(/Applications/MacVim.app/Contents/MacOS $HOME/bin /opt/local/bin /opt/local/sbin $path)
+path=($HOME/bin /opt/local/bin /opt/local/sbin $path)
 
 export EDITOR=vim
 export VISUAL=vim

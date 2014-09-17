@@ -68,6 +68,7 @@ $PIP_INSTALL cvxopt
 $PIP_INSTALL fabric
 $PIP_INSTALL flake8 pylint
 $PIP_INSTALL flask
+$PIP_INSTALL hg+http://bitbucket.org/pygame/pygame  # For SimpleCV.
 $PIP_INSTALL ipython ipdb
 $PIP_INSTALL lxml
 $PIP_INSTALL networkx
@@ -75,11 +76,13 @@ $PIP_INSTALL nose2
 $PIP_INSTALL numpy scipy matplotlib
 $PIP_INSTALL paramiko
 $PIP_INSTALL psutil
+$PIP_INSTALL scikit-image
 $PIP_INSTALL scikit-learn
 $PIP_INSTALL sh
 $PIP_INSTALL sqlalchemy flask-sqlalchemy
 $PIP_INSTALL sympy
 $PIP_INSTALL tabulate
+$PIP_INSTALL wand
 
 echo "* Installing Pyp..."
 $PIP_INSTALL pyp
@@ -94,3 +97,4 @@ $PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
 $PIP_INSTALL -e ~/wjkoh-research/koh
 
 echo "* SUCCESSFULLY DONE!"
+updmap -setoption pdftexDownloadBase14 true

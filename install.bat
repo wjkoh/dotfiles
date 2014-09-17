@@ -38,24 +38,26 @@ echo * Installing SCons...
 pip -q install --upgrade scons
 
 echo * Installing iPython and numpy/scipy...
-pip -q install --upgrade ipython ipdb
-pip -q install --upgrade flake8 pylint
-pip -q install --upgrade numpy scipy matplotlib
-pip -q install --upgrade mayavi
+pip -q install --upgrade bokeh
+pip -q install --upgrade boto
 pip -q install --upgrade cvxopt
+pip -q install --upgrade fabric
+pip -q install --upgrade flake8 pylint
+pip -q install --upgrade flask
+pip -q install --upgrade ipython ipdb
+pip -q install --upgrade line-profiler
+pip -q install --upgrade lxml
+pip -q install --upgrade mayavi
+pip -q install --upgrade networkx
+pip -q install --upgrade nose2
+pip -q install --upgrade numpy scipy matplotlib
 pip -q install --upgrade paramiko
 pip -q install --upgrade pil
-pip -q install --upgrade networkx
-pip -q install --upgrade line-profiler
-pip -q install --upgrade nose2
-pip -q install --upgrade flask
-pip -q install --upgrade sqlalchemy flask-sqlalchemy
-pip -q install --upgrade sh
-pip -q install --upgrade lxml
-pip -q install --upgrade boto
-pip -q install --upgrade fabric
 pip -q install --upgrade psutil
-pip -q install --upgrade bokeh
+pip -q install --upgrade scikit-image
+pip -q install --upgrade scikit-learn
+pip -q install --upgrade sh
+pip -q install --upgrade sqlalchemy flask-sqlalchemy
 
 echo * Installing Pyp...
 pip -q install --upgrade pyp

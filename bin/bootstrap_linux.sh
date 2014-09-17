@@ -27,6 +27,7 @@ $APT_GET install meld || exit
 $APT_GET install mosh || exit
 $APT_GET install pigz || exit
 $APT_GET install s3cmd || exit
+$APT_GET install silversearcher-ag || exit
 $APT_GET install subversion || exit
 $APT_GET install swig || exit  # for SciPy
 $APT_GET install tig || exit
@@ -51,6 +52,10 @@ $APT_GET install libncurses-dev || exit
 $APT_GET install libpng-dev || exit
 $APT_GET install opencl-headers || exit
 #$APT_GET install suitesparse || exit
+
+$APT_GET install assimp-utils || exit
+$APT_GET install libassimp-dev || exit
+$APT_GET install python-pyassimp || exit
 
 # Install Solarized
 git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git

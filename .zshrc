@@ -102,6 +102,8 @@ case `uname` in
         # D-Bus for X11 applications, such as Meld
         launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
         launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
+
+        alias matlab="/Applications/MATLAB_R2014a.app/bin/matlab -nodesktop -nosplash"
         ;;
     Linux)
         # Colorize GNU `ls` command
