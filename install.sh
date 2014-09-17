@@ -47,8 +47,8 @@ if [ "$USE_ANACONDA" == false ]; then
     $PIP_INSTALL virtualenv virtualenvwrapper
 fi
 
-echo "* Installing SCons... (Please install it manually if fails.)"
-$EASY_INSTALL scons  # Can fail.
+#echo "* Installing SCons... (Please install it manually if fails.)"
+#$EASY_INSTALL scons  # Can fail.
 
 echo "* Installing iPython and numpy/scipy..."
 # For bokeh, you may need to run

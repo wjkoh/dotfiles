@@ -12,7 +12,7 @@ sudo port select python python27
 sudo port install py27-pip
 sudo port select pip pip27
 sudo port install py27-ipython +notebook
-sudo port select ipython ipython7
+sudo port select ipython ipython27
 rehash
 
 # Install compilers
@@ -44,6 +44,7 @@ sudo port install x264 +asm ffmpeg || exit
 
 # Install libraries
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145
+# sudo port -ns upgrade --force boost configure.compiler=macports-gcc-4.8 || exit
 sudo port -ns install boost configure.compiler=macports-gcc-4.8 || exit
 sudo port install assimp || exit
 sudo port install ceres-solver || exit
@@ -57,8 +58,8 @@ sudo port install libpng || exit
 sudo port install opencv +python27 || exit
 sudo port install suitesparse || exit
 
-# for PIL. Pillow is okay?
-#sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype
+# for Matplotlib and PIL. Pillow is okay?
+sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype
 
 # Install MacVim
 open https://github.com/b4winckler/macvim/releases
