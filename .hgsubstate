@@ -13,7 +13,7 @@ eb9fc8676b8959c3c2c95bf6b6e8f0f44317c5c0 .vim/bundle/gundo.vim
 237442924ac366015e6e0a8a13a31ac37be0c696 .vim/bundle/neocomplcache.vim
 4f1e6ecb057fc0bac189171c1430d71ef25f6bb1 .vim/bundle/nerdtree
 f5a75d075d3c005ebe69e3f5e56cf99516e8aa3b .vim/bundle/snipmate.vim
-f3a369c31d0b19ead7cf32358bd262b9ecfba318 .vim/bundle/tagbar
+b54d8d64f126a6d600323d56ba1d2e0051b09d16 .vim/bundle/tagbar
 0bc3a2111693c0292457d19488c09b3766de1fe8 .vim/bundle/vim-airline
 2cb134a7c63814a552eb46ba3b11cd12c7cb3418 .vim/bundle/vim-buffergator
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
@@ -24,7 +24,7 @@ c856e5d649b9f87590aff66a84b930fce5793431 .vim/bundle/vim-eunuch
 e66df94ebcebc5f806c225eb932d53a6449f39c1 .vim/bundle/vim-lawrencium
 91e6378908721d20514bbe5d18d292a0a15faf0c .vim/bundle/vim-pathogen
 2a3c5f8e3c26a57b8eb4cfc4be79615a1c508ef6 .vim/bundle/vim-repeat
-9186a58ca73cd8368e843e91d0e5c456e0297312 .vim/bundle/vim-signify
+64c3b60a9866637eabad9c4fbb5854ba6943ebb6 .vim/bundle/vim-signify
 1bf6f167d4994d7e899a5b27a627e91490850508 .vim/bundle/vim-unimpaired
 50254fad43fde3ccae067e49dda28dcfee44eeac .vim/bundle/vimux
 15 .vim/bundle/web-indent
