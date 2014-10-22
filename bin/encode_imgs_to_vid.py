@@ -109,7 +109,7 @@ if __name__ == '__main__':
     if args.baseline:
         opts += ['-profile:v', 'baseline', '-level', '3.0']  # for iMovie and so on
     else:
-        opts += ['-profile:v', 'high', '-level', '4.1']  # iPad >= 2, iPhone >= 4S
+        opts += ['-profile:v', 'high', '-level', '4.2']  # iPad >= Air, iPhone >= 5S
 
     # Output file
     opts.append(args.output_file)
