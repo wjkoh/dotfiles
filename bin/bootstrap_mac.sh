@@ -25,10 +25,10 @@ sudo port install autojump || exit
 sudo port install ccache || exit
 sudo port install coreutils || exit
 sudo port install ctags || exit
-sudo port install git-core +bash_completion +svn || exit
+sudo port install git +bash_completion +svn || exit
 sudo port install htop || exit
 sudo port install imagemagick || exit
-sudo port install macvim +python +breakindent || exit
+sudo port install macvim +python27 +breakindent || exit
 sudo port install meld || exit
 sudo port install mosh || exit
 sudo port install pigz || exit
@@ -45,7 +45,7 @@ sudo port install x264 +asm ffmpeg || exit
 # Install libraries
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145
 # sudo port -ns upgrade --force boost configure.compiler=macports-gcc-4.8 || exit
-sudo port -ns install boost configure.compiler=macports-gcc-4.8 || exit
+sudo port install boost || exit
 sudo port install anttweakbar || exit
 sudo port install assimp || exit
 sudo port install ceres-solver || exit
