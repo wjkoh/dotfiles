@@ -90,11 +90,10 @@ $PIP_INSTALL pyp
 echo "* Installing Pelican..."
 $PIP_INSTALL pelican Markdown typogrify boto
 
-echo "* Install Koh..."
+echo "* Checking out Koh..."
 mkdir -p ~/wjkoh-research/
 hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
 $PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
 $PIP_INSTALL -e ~/wjkoh-research/koh
 
 echo "* SUCCESSFULLY DONE!"
-updmap -setoption pdftexDownloadBase14 true

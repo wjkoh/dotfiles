@@ -16,8 +16,8 @@ sudo port select ipython ipython27
 rehash
 
 # Install compilers
-sudo port install gcc48 || exit
-sudo ln -sf /opt/local/bin/gfortran-mp-4.8 /opt/local/bin/gfortran || exit
+sudo port install gcc49 || exit
+sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit
 
 # Install utilities
 sudo port install aspell-dict-en || exit
@@ -25,7 +25,8 @@ sudo port install autojump || exit
 sudo port install ccache || exit
 sudo port install coreutils || exit
 sudo port install ctags || exit
-sudo port install git +bash_completion +svn || exit
+sudo port install git +bash_completion +svn +credential_osxkeychain || exit
+sudo port install mercurial +bash_completion +zsh_completion || exit
 sudo port install htop || exit
 sudo port install imagemagick || exit
 sudo port install macvim +python27 +breakindent || exit
@@ -41,6 +42,7 @@ sudo port install tmux-pasteboard
 sudo port install weechat +aspell +perl +python +tls || exit  # Install aspell-dict-en as well.
 sudo port install wget || exit
 sudo port install x264 +asm ffmpeg || exit
+sudo port install scons || exit
 
 # Install libraries
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145
@@ -61,9 +63,6 @@ sudo port install suitesparse || exit
 
 # for Matplotlib and PIL. Pillow is okay?
 sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype
-
-# Install MacVim
-open https://github.com/b4winckler/macvim/releases
 
 # Install XQuartz
 open -a X11
