@@ -1,12 +1,15 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "tmux-powerline"]
-	path = tmux-powerline
-	url = https://github.com/erikw/tmux-powerline.git
+[submodule ".vim/bundle/vim-snippets"]
+	path = .vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
 [submodule ".vim/bundle/vim-eunuch"]
 	path = .vim/bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
+[submodule ".vim/bundle/undotree"]
+	path = .vim/bundle/undotree
+	url = https://github.com/mbbill/undotree.git
 [submodule ".vim/bundle/delimitMate"]
 	path = .vim/bundle/delimitMate
 	url = https://github.com/Raimondi/delimitMate.git
@@ -16,9 +19,12 @@
 [submodule ".vim/bundle/vim-repeat"]
 	path = .vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule ".vim/bundle/snipmate.vim"]
-	path = .vim/bundle/snipmate.vim
-	url = https://github.com/msanders/snipmate.vim.git
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule ".dircolors-solarized"]
+	path = .dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized.git
 [submodule ".vim/bundle/grep.vim"]
 	path = .vim/bundle/grep.vim
 	url = https://github.com/vim-scripts/grep.vim.git
@@ -43,6 +49,9 @@
 [submodule ".vim/bundle/vim-colors-solarized"]
 	path = .vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
 [submodule ".vim/bundle/vim-indent-object"]
 	path = .vim/bundle/vim-indent-object
 	url = https://github.com/michaeljsmith/vim-indent-object.git
@@ -61,18 +70,12 @@
 [submodule ".vim/bundle/vim-commentary"]
 	path = .vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
-[submodule ".vim/bundle/vimux"]
-	path = .vim/bundle/vimux
-	url = https://github.com/benmills/vimux.git
-[submodule ".vim/bundle/neocomplcache.vim"]
-	path = .vim/bundle/neocomplcache.vim
-	url = https://github.com/Shougo/neocomplcache.git
+[submodule "tmux-powerline"]
+	path = tmux-powerline
+	url = https://github.com/erikw/tmux-powerline.git
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule ".dircolors-solarized"]
-	path = .dircolors-solarized
-	url = https://github.com/seebi/dircolors-solarized.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git

@@ -55,12 +55,7 @@ export AUTOJUMP_KEEP_SYMLINKS=1
 # Python startup file
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
-# virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-mkdir -p $WORKON_HOME
-source virtualenvwrapper.sh
-
-# Et cetera
+# Et cetera.
 export REPORTTIME=1
 
 # * Aliases

@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 
-USE_ANACONDA=false
-if [ "$USE_ANACONDA" == true ]; then
-    EASY_INSTALL="conda install -q --yes"
-    PIP_INSTALL="conda install -q --yes"
-else
-    EASY_INSTALL="sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments easy_install -q --upgrade"
-    PIP_INSTALL="sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip -q install --upgrade"
-fi
+EASY_INSTALL="sudo easy_install -q --upgrade"
+PIP_INSTALL="sudo -H pip -q install --upgrade"
 
 echo "* Installing dotfiles..."
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
@@ -21,71 +15,64 @@ do
     ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
 
+# WeeChat.
 rm -rf "${HOME}/.weechat/irc.conf"
 ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 popd &> /dev/null
 
 echo "* Changing a login shell to Zsh..."
-chsh -s /bin/zsh
+chsh -s /bin/zsh || exit
 
 if [ -z "$VIRTUAL_ENV" ]; then
     echo "* Installing distribute and pip..."
     $EASY_INSTALL setuptools || exit
     $EASY_INSTALL pip || exit
-elif [ "$USE_ANACONDA" == false ]; then
-    EASY_INSTALL="easy_install -q --upgrade"
-    PIP_INSTALL="pip -q install --upgrade"
 fi
 
-echo "* Installing Mercurial..."
-$PIP_INSTALL mercurial
+# Warning! Already installed using MacPorts in bootstrap_[mac|linux].sh.
+#echo "* Installing Mercurial..."
+#$PIP_INSTALL mercurial
+#echo "* Installing iPython and numpy/scipy..."
+#$PIP_INSTALL numpy scipy matplotlib
+#$PIP_INSTALL sympy
+#$PIP_INSTALL pandas
+#$PIP_INSTALL scikit-image
+#$PIP_INSTALL scikit-learn
+#$PIP_INSTALL PyOpenGL PyOpenGL_accelerate
+
+echo "* Installing Mercurial extensions..."
 $PIP_INSTALL gntp hg-git
 $PIP_INSTALL keyring mercurial_keyring
 
-if [ "$USE_ANACONDA" == false ]; then
-    echo "* Installing virtualenv..."
-    $PIP_INSTALL virtualenv virtualenvwrapper
-fi
+# This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
+# directory .vim until install.sh links .vim to ~/.vim.
+echo "* Installing YouCompleteMe..."
+pushd "$(pwd)" &> /dev/null
+cd ~/.vim/bundle/YouCompleteMe/ && \
+  git submodule update --init --recursive && \
+  ./install.sh --clang-completer --system-libclang
+popd &> /dev/null
 
-#echo "* Installing SCons... (Please install it manually if fails.)"
-#$EASY_INSTALL scons  # Can fail.
-
-echo "* Installing iPython and numpy/scipy..."
-# For bokeh, you may need to run
-# `sudo CFLAGS="-I /opt/local/include -L /opt/local/lib" pip install bokeh`
-# instead after installing libevent.
-
-#$PIP_INSTALL mayavi  # Can fail.
-$EASY_INSTALL readline
-$PIP_INSTALL --pre OpenGLContext
-$PIP_INSTALL --pre line-profiler
+echo "* Installing Python modules..."
 $PIP_INSTALL Mako PyOpenCL
 $PIP_INSTALL Pillow  # A fork of PIL.
-$PIP_INSTALL PyOpenGL PyOpenGL_accelerate
 $PIP_INSTALL bokeh
 $PIP_INSTALL boto
 $PIP_INSTALL cvxopt
 $PIP_INSTALL fabric
 $PIP_INSTALL flake8 pylint
 $PIP_INSTALL flask
-$PIP_INSTALL hg+http://bitbucket.org/pygame/pygame  # For SimpleCV.
 $PIP_INSTALL ipython ipdb
 $PIP_INSTALL lxml
 $PIP_INSTALL networkx
 $PIP_INSTALL nose2
-$PIP_INSTALL numpy scipy matplotlib
 $PIP_INSTALL paramiko
 $PIP_INSTALL psutil
-$PIP_INSTALL scikit-image
-$PIP_INSTALL scikit-learn
+$PIP_INSTALL pyp
 $PIP_INSTALL sh
 $PIP_INSTALL sqlalchemy flask-sqlalchemy
-$PIP_INSTALL sympy
 $PIP_INSTALL tabulate
 $PIP_INSTALL wand
-
-echo "* Installing Pyp..."
-$PIP_INSTALL pyp
 
 echo "* Installing Pelican..."
 $PIP_INSTALL pelican Markdown typogrify boto

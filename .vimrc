@@ -1,4 +1,5 @@
-" Pathogen
+"------------------------------------------------------------
+" Pathogen.
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 call pathogen#helptags()
@@ -154,8 +155,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 
 "------------------------------------------------------------
-
-" Customization
+" Customizations.
 set textwidth=90
 set infercase
 set shiftround
@@ -163,7 +163,6 @@ set number
 if exists('&relativenumber')
     set relativenumber
 endif
-"set gdefault
 set background=dark
 set t_Co=16
 let g:solarized_termcolors=16
@@ -180,7 +179,6 @@ let mapleader=','
 set scrolloff=2		" Keep some context
 set sidescrolloff=5	" Keep some context
 set incsearch
-"set nowrapscan		" Do not wrap around
 set history=1000
 set viminfo^=!
 set viminfo+=%3		" Save and restore the buffer list
@@ -189,16 +187,15 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set path+=/usr/local/include,/opt/local/include,./include;,./lib;
-set tags+=./tags;,~/.vim/libstdc++_tags
+set path+=/opt/local/include,../include,../external
+set tags+=tags;
 set autoread
 set autowrite
 set backup
 if has('persistent_undo')
-    set undofile
     set undodir=~/.vim/tmp/undo//
+    set undofile
 endif
-"set noswapfile
 set backupdir=~/.vim/tmp/backup//   " include full path
 
 " Keep search matches in the middle of the window.
@@ -236,30 +233,38 @@ set breakindent  " https://retracile.net/wiki/VimBreakIndent
 runtime macros/matchit.vim	" Enable matchit
 
 
-" Mapping
+"------------------------------------------------------------
+" Mappings.
+map <tab> %
+nnoremap <Leader>. :e .<CR>
+nnoremap <Leader>a :A<CR>
+nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
-map <tab> %
-nnoremap <silent> <Leader>. :e .<CR>
-nnoremap D d$   " Made D behave
-
-nnoremap <Leader>gu :GundoToggle<CR>
-nnoremap <Leader>a :TagbarOpen fjc<CR>
 
 
-" Grep
-" '\b' and '\[<>]' are word boundary characters.
-nnoremap <Leader>* :vimgrep /\<<C-R><C-W>\>/ %<CR>
-nnoremap <Leader>g* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"------------------------------------------------------------
+" Undotree.
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_SplitWidth = 30
+let g:undotree_WindowLayout = 2
+nnoremap <Leader>u :UndotreeToggle<CR>
 
+
+"------------------------------------------------------------
+" Grep.
 if executable('ag')
-  " Note that we extract the column as well as the file and line number
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
-  set grepformat=%f:%l:%c%m
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
 endif
 
+" '\b' matches a word boundary. ! in grep! prevents a jump to the first occurence.
+nnoremap <Leader>* :grep! "\b<C-R><C-W>\b" %<CR>:cwindow<CR>:redraw!<CR>
+nnoremap <Leader>g* :grep! "\b<C-R><C-W>\b" *<CR>:cwindow<CR>:redraw!<CR>
 
-" Autocommand
+
+"------------------------------------------------------------
+" Autocommands.
 autocmd BufEnter * silent! lcd %:p:h
 autocmd VimResized * wincmd =  " Resize splits when the window is resized
 
@@ -283,18 +288,20 @@ autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 
-" NERDTree
+"------------------------------------------------------------
+" NERDTree.
 let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 
 
-" CtrlP
+"------------------------------------------------------------
+" CtrlP.
 set wildignore+=*/tmp/*,*.so,*.swp,*.o,*.obj,.DS_Store    " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.exe   " Windows
 let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_mruf_relative = 1
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_mruf_relative = 1
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
 
 if executable('ag')
@@ -317,38 +324,39 @@ else
 endif
 
 
-" Tagbar
-let g:tagbar_left = 1
+"------------------------------------------------------------
+" Buffergator.
+let g:buffergator_split_size = 10
+let g:buffergator_suppress_keymaps = 1
+let g:buffergator_viewport_split_policy = 'T'
+nnoremap <Leader>b :BuffergatorOpen<CR>
+
+
+"------------------------------------------------------------
+" Tagbar.
 let g:tagbar_compact = 1
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-"autocmd FileType * nested :call tagbar#autoopen(0)
-"autocmd BufEnter * nested :call tagbar#autoopen(0)
+let g:tagbar_indent = 1
+let g:tagbar_left = 1
+let g:tagbar_width = 30
+nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 
 
-" NeoComplCache
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_auto_select = 1
+"------------------------------------------------------------
+" YouCompleteMe.
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+nnoremap <Leader>j :YcmCompleter GoTo<CR>
 
 
-" OmniCppComplete
-let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_MayCompleteScope = 1
-autocmd CursorMovedI,InsertLeave * if pumvisible() == 0 | pclose | endif
+"------------------------------------------------------------
+" Ultisnips.
+let g:UltiSnipsExpandTrigger="<c-j>"
 
 
-" Python-mode
-let g:pymode_breakpoint_key = '<leader>pb'
-let g:pymode_rope = 0
-let g:pymode_rope_guess_project = 0
-let g:pymode_lint_cwindow = 1
-let g:pymode_folding = 0
-
-
-" Powerline for Vim
-"let g:Powerline_symbols = 'fancy'
-
+"------------------------------------------------------------
+" Airline.
 if !exists('g:airline_symbols')
-let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 
 " unicode symbols
@@ -364,25 +372,3 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
-
-
-" Autojump
-command! -nargs=* -complete=dir J silent edit `autojump <args>`
-nnoremap <Leader>j :J<Space>
-
-
-" Marked & DayOne
-command! Marked :silent !open -a Marked "%:p"
-command! DayOne execute ':w !dayone new' | set buftype=nowrite
-
-" Vimux
-function! VimuxSlime()
-  call VimuxSendText(@v)
-  call VimuxSendKeys("Enter")
-endfunction
-
-" If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <Leader>vs "vy :call VimuxSlime()<CR>
-
-" Select current paragraph and send it to tmux
-nmap <Leader>vs vip<Leader>vs<CR>

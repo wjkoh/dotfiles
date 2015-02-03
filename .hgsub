@@ -1,14 +1,14 @@
 .vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
 .vim/bundle/MatlabFilesEdition = [git]https://github.com/vim-scripts/MatlabFilesEdition.git
+.vim/bundle/YouCompleteMe = [git]https://github.com/Valloric/YouCompleteMe.git
 .vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
 .vim/bundle/delimitMate = [git]https://github.com/Raimondi/delimitMate.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git
-.vim/bundle/gundo.vim = https://bitbucket.org/sjl/gundo.vim
-.vim/bundle/neocomplcache.vim = [git]https://github.com/Shougo/neocomplcache.git
 .vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
-.vim/bundle/snipmate.vim = [git]https://github.com/msanders/snipmate.vim.git
 .vim/bundle/tagbar = [git]git://github.com/majutsushi/tagbar
+.vim/bundle/ultisnips = [git]https://github.com/SirVer/ultisnips.git
+.vim/bundle/undotree = [git]https://github.com/mbbill/undotree.git
 .vim/bundle/vim-airline = [git]https://github.com/bling/vim-airline.git
 .vim/bundle/vim-buffergator = [git]https://github.com/jeetsukumaran/vim-buffergator.git
 .vim/bundle/vim-colors-solarized = [git]https://github.com/altercation/vim-colors-solarized.git
@@ -20,8 +20,8 @@
 .vim/bundle/vim-pathogen = [git]https://github.com/tpope/vim-pathogen.git
 .vim/bundle/vim-repeat = [git]https://github.com/tpope/vim-repeat.git
 .vim/bundle/vim-signify = [git]https://github.com/mhinz/vim-signify.git
+.vim/bundle/vim-snippets = [git]https://github.com/honza/vim-snippets.git
 .vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
-.vim/bundle/vimux = [git]https://github.com/benmills/vimux.git
 .vim/bundle/web-indent = [svn]http://web-indent.googlecode.com/svn/trunk
 
 .dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git

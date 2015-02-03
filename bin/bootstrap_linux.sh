@@ -2,18 +2,31 @@
 
 APT_GET="sudo apt-get -y"
 
-# Update apt-get
+# Update apt-get.
 $APT_GET update || exit
 
-# Install compilers
+# Install compilers.
 $APT_GET install build-essential || exit
 $APT_GET install gcc-4.8 || exit
 $APT_GET install gfortran || exit
 $APT_GET install python-dev || exit
 $APT_GET install python-setuptools || exit
-#$APT_GET install python-matplotlib || exit
 
-# Install utilities
+# Install Python modules.
+$APT_GET install python-numpy || exit
+$APT_GET install python-scipy || exit
+$APT_GET install python-matplotlib || exit
+$APT_GET install ipython || exit
+$APT_GET install ipython-notebook || exit
+$APT_GET install python-pandas || exit
+$APT_GET install python-sympy || exit
+$APT_GET install python-nose || exit
+
+$APT_GET install python-scikits-learn || exit
+#$APT_GET install python-scikits-image || exit  # Not available yet.
+$APT_GET install python-opengl || exit
+
+# Install utilities.
 $APT_GET install autojump || exit
 $APT_GET install ccache || exit
 $APT_GET install ctags || exit
@@ -24,9 +37,11 @@ $APT_GET install htop || exit
 $APT_GET install liblapack-dev || exit
 $APT_GET install libncurses-dev || exit
 $APT_GET install meld || exit
+$APT_GET install mercurial || exit
 $APT_GET install mosh || exit
 $APT_GET install pigz || exit
 $APT_GET install s3cmd || exit
+$APT_GET install scons || exit
 $APT_GET install silversearcher-ag || exit
 $APT_GET install subversion || exit
 $APT_GET install swig || exit  # for SciPy
@@ -36,7 +51,7 @@ $APT_GET install weechat || exit
 $APT_GET install wget || exit
 $APT_GET install zsh || exit
 
-# Install libraries
+# Install libraries.
 $APT_GET install ceres-solver || exit
 $APT_GET install freeglut3-dev || exit
 $APT_GET install libatlas-base-dev || exit
@@ -57,9 +72,12 @@ $APT_GET install assimp-utils || exit
 $APT_GET install libassimp-dev || exit
 $APT_GET install python-pyassimp || exit
 
-# Install Solarized
+# Install Solarized.
 git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git
 cd gnome-terminal-colors-solarized; ./solarize; cd ..; rm -rf gnome-terminal-colors-solarized
+
+# Install TeX Live.
+$APT_GET install texlive || exit
 
 echo
 echo "* SUCCESSFULLY DONE!"
