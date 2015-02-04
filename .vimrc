@@ -274,6 +274,10 @@ autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
 autocmd BufNewFile,BufRead SConstruct set filetype=python
 autocmd BufNewFile,BufRead SConscript set filetype=python
 
+if executable('marked')
+  autocmd BufNewFile,BufRead *.md silent! exe '!marked ' . shellescape(expand('%'))
+endif
+
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /

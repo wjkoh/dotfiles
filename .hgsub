@@ -6,6 +6,7 @@
 .vim/bundle/delimitMate = [git]https://github.com/Raimondi/delimitMate.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git
 .vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
+.vim/bundle/tabular = [git]https://github.com/godlygeek/tabular.git
 .vim/bundle/tagbar = [git]git://github.com/majutsushi/tagbar
 .vim/bundle/ultisnips = [git]https://github.com/SirVer/ultisnips.git
 .vim/bundle/undotree = [git]https://github.com/mbbill/undotree.git

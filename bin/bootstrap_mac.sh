@@ -51,7 +51,7 @@ sudo port install pigz || exit
 sudo port install s3cmd || exit
 sudo port install scons || exit
 sudo port install swig swig-python || exit  # for SciPy
-sudo port install texlive texlive-latex-extra || exit
+sudo port install texlive texlive-latex-extra texlive-science || exit
 sudo port install the_silver_searcher || exit
 sudo port install tig || exit
 sudo port install tmux libmpdclient || exit
