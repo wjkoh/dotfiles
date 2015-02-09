@@ -76,7 +76,7 @@ sudo port install glm || exit
 sudo port install jpeg || exit
 sudo port install libevent || exit  # for gevent/bokeh
 sudo port install libpng || exit
-sudo port install opencv +python27 || exit
+sudo port install opencv +python27 +eigen || exit
 sudo port install suitesparse || exit
 
 # for Matplotlib and PIL. Pillow is okay?
@@ -98,3 +98,9 @@ wget http://dayoneapp.com/downloads/dayone-cli.pkg -P /tmp/ && open /tmp/dayone-
 # Install Dandy.
 curl https://raw.githubusercontent.com/EBvi/dandy/master/bin/uninstall.sh | sh
 curl https://raw.githubusercontent.com/EBvi/dandy/master/bin/install.sh | sh
+
+# Better fast than slow.
+defaults delete NSGlobalDomain KeyRepeat
+defaults delete NSGlobalDomain InitialKeyRepeat
+defaults write NSGlobalDomain KeyRepeat -int 0
+#defaults write NSGlobalDomain InitialKeyRepeat -int 4

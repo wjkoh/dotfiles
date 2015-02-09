@@ -160,21 +160,21 @@ set textwidth=90
 set infercase
 set shiftround
 set number
-if exists('&relativenumber')
+if exists('+relativenumber')
     set relativenumber
 endif
 set background=dark
 set t_Co=16
 let g:solarized_termcolors=16
 colorscheme solarized
-if system('uname') =~ 'Darwin'
+if exists('+macmeta')
     set macmeta
 endif
 if has('gui_running')
     set cursorline
+    set guioptions-=T	" Remove toolbar
+    set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 endif
-set guioptions-=T	" Remove toolbar
-set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 let mapleader=','
 set scrolloff=2		" Keep some context
 set sidescrolloff=5	" Keep some context
@@ -188,15 +188,24 @@ if has('unnamedplus')
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set path+=/opt/local/include,../include,../external
-set tags+=tags;
+set tags=./tags;
 set autoread
 set autowrite
 set backup
 if has('persistent_undo')
-    set undodir=~/.vim/tmp/undo//
     set undofile
+    set undodir=~/.vim/tmp/undo//
 endif
 set backupdir=~/.vim/tmp/backup//   " include full path
+set spellfile=~/.vim/spell/en.utf-8.add
+set spelllang=en_us
+set dictionary+=/usr/share/dict/words
+set showmatch
+set complete-=i
+set completeopt=longest,menuone,preview
+set colorcolumn=+1
+set lazyredraw
+set wildmode=longest:full,full
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -218,17 +227,16 @@ set noignorecase " ignorecase has a problem with tag jump Ctrl-]
 map / /\c
 map ? /\c
 
-" https://github.com/tpope/vim-sensible
+" From https://github.com/tpope/vim-sensible.
 set list
-set showbreak=↪
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-  if &termencoding ==# 'utf-8' || &encoding ==# 'utf-8'
-    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
-  endif
 endif
 
-set breakindent  " https://retracile.net/wiki/VimBreakIndent
+if exists('+breakindent')
+  set breakindent  " https://retracile.net/wiki/VimBreakIndent
+  set showbreak=\ +
+endif
 
 runtime macros/matchit.vim	" Enable matchit
 
@@ -269,10 +277,10 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd VimResized * wincmd =  " Resize splits when the window is resized
 
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
-autocmd BufEnter *.tex silent! setlocal spell spelllang=en_us
+autocmd FileType text,plaintex,gitcommit,hgcommit setlocal spell
 
-autocmd BufNewFile,BufRead SConstruct set filetype=python
-autocmd BufNewFile,BufRead SConscript set filetype=python
+autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
 
 if executable('marked')
   autocmd BufNewFile,BufRead *.md silent! exe '!marked ' . shellescape(expand('%'))
