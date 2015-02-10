@@ -14,6 +14,7 @@ do
     rm -rf "${TARGET}"
     ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
+rehash
 
 # WeeChat.
 rm -rf "${HOME}/.weechat/irc.conf"
@@ -47,11 +48,7 @@ $PIP_INSTALL keyring mercurial_keyring
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
 echo "* Installing YouCompleteMe..."
-pushd "$(pwd)" &> /dev/null
-cd ~/.vim/bundle/YouCompleteMe/ && \
-  git submodule update --init --recursive && \
-  ./install.sh --clang-completer --system-libclang
-popd &> /dev/null
+install_ycm.sh
 
 echo "* Installing Python modules..."
 $PIP_INSTALL Mako PyOpenCL
