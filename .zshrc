@@ -44,10 +44,10 @@ export EDITOR=vim
 export VISUAL=vim
 
 # autojump installed via MacPorts
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    . /opt/local/etc/profile.d/autojump.zsh
-fi
+#export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+#if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+#    . /opt/local/etc/profile.d/autojump.zsh
+#fi
 autoload -U compinit; compinit -u
 export AUTOJUMP_IGNORE_CASE=1
 export AUTOJUMP_KEEP_SYMLINKS=1
