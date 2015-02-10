@@ -3,22 +3,24 @@
 EASY_INSTALL="sudo easy_install -q --upgrade"
 PIP_INSTALL="sudo -H pip -q install --upgrade"
 
+INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+MAC_SYNC_DIR="${HOME}/Dropbox/Mac Sync"
+
 # Zsh.
 echo "* Changing a login shell to Zsh..."
 chsh -s /bin/zsh || exit
 
 # Dotfiles.
 echo "* Installing dotfiles..."
-DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
-pushd "${DOTDIR}" &> /dev/null
+pushd "${INSTALL_SH_DIR}" &> /dev/null
 shopt -s dotglob extglob
 for DOTFILE in !(.|..|.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md|*.swp)
 do
-    echo ${DOTFILE}
-    TARGET="${HOME}/${DOTFILE}"
-    rm -rf "${TARGET}"
-    ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
+    echo "Linking ${DOTFILE}..."
+    rm -f "${HOME}/${DOTFILE}"
+    ln -s "${INSTALL_SH_DIR}/${DOTFILE}" "${HOME}/${DOTFILE}"
 done
+popd &> /dev/null
 
 if [ -z "$VIRTUAL_ENV" ]
 then
@@ -69,9 +71,18 @@ $PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
 $PIP_INSTALL -e ~/wjkoh-research/koh
 
 # WeeChat.
-rm -rf "${HOME}/.weechat/irc.conf"
-ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
-popd &> /dev/null
+if [ -e "${MAC_SYNC_DIR}/weechat/irc.conf" ]
+then
+  rm -f "${HOME}/.weechat/irc.conf"
+  ln -s "${MAC_SYNC_DIR}/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
+fi
+
+# ssh_config.
+if [ -e "${MAC_SYNC_DIR}/.ssh/config" ]
+then
+  rm -f "${HOME}/.ssh/config"
+  ln -s "${MAC_SYNC_DIR}/.ssh/config" "${HOME}/.ssh/config"
+fi
 
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
