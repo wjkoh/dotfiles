@@ -16,7 +16,7 @@ pushd "${INSTALL_SH_DIR}" &> /dev/null
 shopt -s dotglob extglob
 for DOTFILE in !(.|..|.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md|*.swp)
 do
-    echo "Linking ${DOTFILE}..."
+    echo "Linking ${DOTFILE}"
     rm -f "${HOME}/${DOTFILE}"
     ln -s "${INSTALL_SH_DIR}/${DOTFILE}" "${HOME}/${DOTFILE}"
 done
@@ -70,18 +70,18 @@ hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
 $PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
 $PIP_INSTALL -e ~/wjkoh-research/koh
 
+# ssh_config.
+if [ -e "${MAC_SYNC_DIR}/ssh/config" ]
+then
+  rm -f "${HOME}/.ssh/config"
+  ln -s "${MAC_SYNC_DIR}/ssh/config" "${HOME}/.ssh/config"
+fi
+
 # WeeChat.
 if [ -e "${MAC_SYNC_DIR}/weechat/irc.conf" ]
 then
   rm -f "${HOME}/.weechat/irc.conf"
   ln -s "${MAC_SYNC_DIR}/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
-fi
-
-# ssh_config.
-if [ -e "${MAC_SYNC_DIR}/.ssh/config" ]
-then
-  rm -f "${HOME}/.ssh/config"
-  ln -s "${MAC_SYNC_DIR}/.ssh/config" "${HOME}/.ssh/config"
 fi
 
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
