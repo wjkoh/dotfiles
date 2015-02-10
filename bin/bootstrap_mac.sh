@@ -30,6 +30,10 @@ sudo port install py27-scikit-image
 sudo port install py27-opengl
 sudo port install py27-opengl-accelerate
 
+sudo port install py27-hggit || exit
+sudo port install py27-hgsubversion || exit
+sudo port install py27-mercurial_keyring || exit
+
 # Install compilers.
 sudo port install gcc49 || exit
 sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit

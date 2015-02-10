@@ -1,9 +1,6 @@
 [pager]
 pager = LESS='FSRX' less
 
-[extensions]
-hgext.mercurial_keyring = ~/.hgext/mercurial_keyring/mercurial_keyring.py
-
 [hooks]
 #commit = hg_commithook.sh
 

@@ -43,10 +43,10 @@ fi
 #$PIP_INSTALL scikit-image
 #$PIP_INSTALL scikit-learn
 #$PIP_INSTALL PyOpenGL PyOpenGL_accelerate
-
-echo "* Installing Mercurial extensions..."
-$PIP_INSTALL hg-git
-$PIP_INSTALL mercurial_keyring
+#echo "* Installing Mercurial extensions..."
+#$PIP_INSTALL hg-git
+#$PIP_INSTALL hgsubversion
+#$PIP_INSTALL mercurial_keyring
 
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
