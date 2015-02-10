@@ -3,6 +3,10 @@
 EASY_INSTALL="sudo easy_install -q --upgrade"
 PIP_INSTALL="sudo -H pip -q install --upgrade"
 
+# Zsh.
+echo "* Changing a login shell to Zsh..."
+chsh -s /bin/zsh || exit
+
 # Dotfiles.
 echo "* Installing dotfiles..."
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
@@ -16,16 +20,8 @@ do
     ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
 
-# WeeChat.
-rm -rf "${HOME}/.weechat/irc.conf"
-ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
-popd &> /dev/null
-
-# Zsh.
-echo "* Changing a login shell to Zsh..."
-chsh -s /bin/zsh || exit
-
-if [ -z "$VIRTUAL_ENV" ]; then
+if [ -z "$VIRTUAL_ENV" ]
+then
     echo "* Installing distribute and pip..."
     $EASY_INSTALL setuptools || exit
     $EASY_INSTALL pip || exit
@@ -47,11 +43,6 @@ fi
 #$PIP_INSTALL hg-git
 #$PIP_INSTALL hgsubversion
 #$PIP_INSTALL mercurial_keyring
-
-# This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
-# directory .vim until install.sh links .vim to ~/.vim.
-echo "* Installing YouCompleteMe..."
-install_ycm.sh
 
 echo "* Installing Python modules..."
 $PIP_INSTALL Pillow  # A fork of PIL.
@@ -76,5 +67,15 @@ mkdir -p ~/wjkoh-research/
 hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
 $PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
 $PIP_INSTALL -e ~/wjkoh-research/koh
+
+# WeeChat.
+rm -rf "${HOME}/.weechat/irc.conf"
+ln -s "${HOME}/Dropbox/Mac Sync/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
+popd &> /dev/null
+
+# This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
+# directory .vim until install.sh links .vim to ~/.vim.
+echo "* Installing YouCompleteMe..."
+install_ycm.sh
 
 echo "* SUCCESSFULLY DONE!"
