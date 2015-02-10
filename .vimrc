@@ -198,6 +198,8 @@ if has('persistent_undo')
 endif
 set backupdir=~/.vim/tmp/backup//   " include full path
 set spellfile=~/.vim/spell/en.utf-8.add
+" What if &spellfile is a list of filenames?
+silent execute 'mkspell! ' . &spellfile
 set spelllang=en_us
 set dictionary+=/usr/share/dict/words
 set showmatch
@@ -283,7 +285,7 @@ autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
 
 if executable('marked')
-  autocmd BufNewFile,BufRead *.md silent! exe '!marked ' . shellescape(expand('%'))
+  autocmd BufNewFile,BufRead *.md silent! execute '!marked ' . shellescape(expand('%'))
 endif
 
 
