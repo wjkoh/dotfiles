@@ -13,6 +13,8 @@ sudo port install py27-pip
 sudo port select pip pip27
 sudo port install py27-ipython +notebook
 sudo port select ipython ipython27
+sudo port install py27-ipdb
+sudo port select ipdb ipdb27
 rehash
 
 # I hope installing these using MacPorts gives me a better performance than using PIP.

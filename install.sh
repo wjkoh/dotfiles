@@ -7,14 +7,13 @@ echo "* Installing dotfiles..."
 DOTDIR="$( cd -P "$( dirname "$0" )" && pwd )"
 pushd "${DOTDIR}" &> /dev/null
 shopt -s dotglob extglob
-for DOTFILE in !(.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md)
+for DOTFILE in !(.|..|.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md|*.swp)
 do
     echo ${DOTFILE}
     TARGET="${HOME}/${DOTFILE}"
     rm -rf "${TARGET}"
     ln -s "${DOTDIR}/${DOTFILE}" "${TARGET}"
 done
-rehash
 
 # WeeChat.
 rm -rf "${HOME}/.weechat/irc.conf"
@@ -34,6 +33,7 @@ fi
 #echo "* Installing Mercurial..."
 #$PIP_INSTALL mercurial
 #echo "* Installing iPython and numpy/scipy..."
+#$PIP_INSTALL ipython ipdb
 #$PIP_INSTALL numpy scipy matplotlib
 #$PIP_INSTALL sympy
 #$PIP_INSTALL pandas
@@ -51,15 +51,12 @@ echo "* Installing YouCompleteMe..."
 install_ycm.sh
 
 echo "* Installing Python modules..."
-$PIP_INSTALL Mako PyOpenCL
 $PIP_INSTALL Pillow  # A fork of PIL.
 $PIP_INSTALL bokeh
 $PIP_INSTALL boto
 $PIP_INSTALL cvxopt
 $PIP_INSTALL fabric
-$PIP_INSTALL flake8 pylint
 $PIP_INSTALL flask
-$PIP_INSTALL ipython ipdb
 $PIP_INSTALL lxml
 $PIP_INSTALL networkx
 $PIP_INSTALL nose2
