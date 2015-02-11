@@ -207,6 +207,9 @@ set complete-=i
 set completeopt=longest,menuone,preview
 set colorcolumn=+1
 set lazyredraw
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.o,*.obj,.DS_Store    " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.exe   " Windows
 set wildmode=longest:full,full
 
 " Keep search matches in the middle of the window.
@@ -311,15 +314,13 @@ let NERDTreeShowHidden=1
 
 "------------------------------------------------------------
 " CtrlP.
-set wildignore+=*/tmp/*,*.so,*.swp,*.o,*.obj,.DS_Store    " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.exe   " Windows
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
 
 if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+  let g:ctrlp_user_command = 'ag %s --ignore-case --nocolor --nogroup --hidden
         \ --ignore .git
         \ --ignore .svn
         \ --ignore .hg
