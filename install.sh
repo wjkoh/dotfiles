@@ -4,7 +4,7 @@ EASY_INSTALL="sudo easy_install -q --upgrade"
 PIP_INSTALL="sudo -H pip -q install --upgrade"
 
 INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
-MAC_SYNC_DIR="${HOME}/Dropbox/Mac Sync"
+MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
 # Zsh.
 echo "* Changing a login shell to Zsh..."
@@ -22,15 +22,15 @@ do
 done
 popd &> /dev/null
 
-if [ -z "$VIRTUAL_ENV" ]
-then
-    echo "* Installing distribute and pip..."
-    $EASY_INSTALL setuptools || exit
-    $EASY_INSTALL pip || exit
-fi
-
 # Warning! The following are already installed by MacPorts or APT in
 # bootstrap_[mac|linux].sh.
+#if [ -z "$VIRTUAL_ENV" ]
+#then
+#    echo "* Installing distribute and pip..."
+#    $EASY_INSTALL setuptools || exit
+#    $EASY_INSTALL pip || exit
+#fi
+#
 #echo "* Installing Mercurial..."
 #$PIP_INSTALL mercurial
 #echo "* Installing iPython and numpy/scipy..."
@@ -41,6 +41,7 @@ fi
 #$PIP_INSTALL scikit-image
 #$PIP_INSTALL scikit-learn
 #$PIP_INSTALL PyOpenGL PyOpenGL_accelerate
+#
 #echo "* Installing Mercurial extensions..."
 #$PIP_INSTALL hg-git
 #$PIP_INSTALL hgsubversion
