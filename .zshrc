@@ -30,47 +30,43 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# * Key settings
+# Key settings.
 bindkey -v
 bindkey ^R history-incremental-search-backward
 
-# * Set Environment Variables
-# Locales
+# Set Environment Variables.
+# Locales.
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# EDITOR
+# EDITOR.
 export EDITOR=vim
 export VISUAL=vim
 
-# autojump installed via MacPorts
-#export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-#if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-#    . /opt/local/etc/profile.d/autojump.zsh
-#fi
+# Autojump.
 autoload -U compinit; compinit -u
 export AUTOJUMP_IGNORE_CASE=1
 export AUTOJUMP_KEEP_SYMLINKS=1
 
-# Python startup file
+# Python startup file.
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
 # Et cetera.
 export REPORTTIME=1
 
-# * Aliases
-alias matlab="matlab -nodesktop -nosplash"
-
-alias -s md=vim
-alias -s tex=vim
+# Aliases.
 alias -s cpp=vim
 alias -s h=vim
+alias -s hpp=vim
 alias -s html=safari
+alias -s md=vim
+alias -s tex=vim
+alias matlab="matlab -nodesktop -nosplash"
 
 alias tmux="TERM=screen-256color-bce tmux"
 case `uname` in
     Darwin)
-        # Use MacVim if it exists
+        # Use MacVim if it exists.
         if hash mvim &> /dev/null; then
             export EDITOR="mvim -v"
             alias vim="mvim -v"
@@ -82,29 +78,29 @@ case `uname` in
             alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
         fi
 
-        # Back to My Mac (SSH)
+        # Back to My Mac (SSH).
         if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
 
-        # Colorize default `ls` command
+        # Colorize default `ls` command.
         export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-        # Colorize GNU `ls` command
+        # Colorize GNU `ls` command.
         alias gls='gls --color=auto'
         DIRCOLORS=gdircolors
 
-        # D-Bus for X11 applications, such as Meld
+        # D-Bus for X11 applications, such as Meld.
         launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
         launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 
         alias matlab="/Applications/MATLAB_R2014a.app/bin/matlab -nodesktop -nosplash"
         ;;
     Linux)
-        # Colorize GNU `ls` command
+        # Colorize GNU `ls` command.
         DIRCOLORS=dircolors
 
-        # Aliases
+        # Aliases.
         alias open=gnome-open
         ;;
 esac
@@ -115,7 +111,7 @@ __git_files () {
     _wanted files expl 'local files' _files
 }
 
-# Initiate tmux
+# Initiate tmux.
 if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
     SESSION=$USER
     tmux has-session -t $SESSION

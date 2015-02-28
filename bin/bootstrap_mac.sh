@@ -91,7 +91,7 @@ $PORT_INSTALL opencv +python27 +eigen || exit
 $PORT_INSTALL suitesparse || exit
 
 # For Matplotlib and PIL. Pillow is okay?
-sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype
+#sudo ln -s /opt/local/include/freetype2 /opt/local/include/freetype
 
 # Install XQuartz.
 open "http://xquartz.macosforge.org"
