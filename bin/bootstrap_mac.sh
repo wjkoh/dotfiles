@@ -115,3 +115,7 @@ defaults delete NSGlobalDomain KeyRepeat
 defaults delete NSGlobalDomain InitialKeyRepeat
 defaults write NSGlobalDomain KeyRepeat -int 0
 #defaults write NSGlobalDomain InitialKeyRepeat -int 4
+
+# Use Google's public DNS servers. It's 2015.
+sudo networksetup -setdnsservers Ethernet 8.8.8.8 8.8.4.4
+sudo networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4

@@ -282,7 +282,7 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd VimResized * wincmd =  " Resize splits when the window is resized
 
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
-autocmd FileType text,plaintex,gitcommit,hgcommit setlocal spell
+autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
 
 autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
