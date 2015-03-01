@@ -28,6 +28,7 @@ $PORT_INSTALL py27-matplotlib || exit
 $PORT_INSTALL py27-pandas || exit
 $PORT_INSTALL py27-sympy || exit
 $PORT_INSTALL py27-nose || exit
+$PORT_INSTALL py27-Pillow || exit
 
 $PORT_INSTALL py27-scikit-learn || exit
 $PORT_INSTALL py27-scikit-image || exit
@@ -52,10 +53,12 @@ $PORT_INSTALL git +bash_completion +svn +credential_osxkeychain || exit
 $PORT_INSTALL grep || exit
 $PORT_INSTALL htop || exit
 $PORT_INSTALL imagemagick || exit
+$PORT_INSTALL iterm2 || exit
 $PORT_INSTALL macvim +python27 +breakindent || exit
 $PORT_INSTALL meld || exit
 $PORT_INSTALL mercurial +bash_completion +zsh_completion || exit
 $PORT_INSTALL mosh || exit
+$PORT_INSTALL mpv +screenshot +smb || exit
 $PORT_INSTALL nmap || exit
 $PORT_INSTALL pigz || exit
 $PORT_INSTALL s3cmd || exit

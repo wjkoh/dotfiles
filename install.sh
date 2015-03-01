@@ -46,9 +46,11 @@ popd &> /dev/null
 #$PIP_INSTALL hg-git
 #$PIP_INSTALL hgsubversion
 #$PIP_INSTALL mercurial_keyring
+#
+#echo "* Installing Python modules..."
+#$PIP_INSTALL Pillow  # A fork of PIL.
 
 echo "* Installing Python modules..."
-$PIP_INSTALL Pillow  # A fork of PIL.
 $PIP_INSTALL bokeh
 $PIP_INSTALL boto
 $PIP_INSTALL cvxopt
