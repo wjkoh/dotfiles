@@ -14,7 +14,7 @@ c78a6e6d937333fed276bddc4589f6313e277a8e .vim/bundle/delimitMate
 eb392a4502a035a2e7f53eb004fe58ef212a2861 .vim/bundle/tagbar
 56ac14840f47521be9b61fb5ae72930f35d5d8a9 .vim/bundle/ultisnips
 fa018f38252f58073f2987f8bf0d2d4a61e07277 .vim/bundle/undotree
-ca44fd467c1e94d05b9aca58c37697dbdb7fce44 .vim/bundle/vim-airline
+50e47ced42bc30eec99a91c96cd5b1910450a569 .vim/bundle/vim-airline
 f7b47666e62b36e6b825a7803a4f82f83ca448aa .vim/bundle/vim-buffergator
 528a59f26d12278698bb946f8fb82a63711eec21 .vim/bundle/vim-colors-solarized
 9c685131a5facfa0d643feca3a61b41c007d8170 .vim/bundle/vim-commentary
