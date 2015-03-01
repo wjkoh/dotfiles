@@ -49,23 +49,23 @@ popd &> /dev/null
 #
 #echo "* Installing Python modules..."
 #$PIP_INSTALL Pillow  # A fork of PIL.
+#$PIP_INSTALL bokeh
+#$PIP_INSTALL boto
+#$PIP_INSTALL cvxopt
+#$PIP_INSTALL fabric
+#$PIP_INSTALL flask
+#$PIP_INSTALL lxml
+#$PIP_INSTALL networkx
+#$PIP_INSTALL paramiko
+#$PIP_INSTALL psutil
+#$PIP_INSTALL sh
+#$PIP_INSTALL sqlalchemy flask-sqlalchemy
+#$PIP_INSTALL tabulate
+#$PIP_INSTALL wand
 
 echo "* Installing Python modules..."
-$PIP_INSTALL bokeh
-$PIP_INSTALL boto
-$PIP_INSTALL cvxopt
-$PIP_INSTALL fabric
-$PIP_INSTALL flask
-$PIP_INSTALL lxml
-$PIP_INSTALL networkx
 $PIP_INSTALL nose2
-$PIP_INSTALL paramiko
-$PIP_INSTALL psutil
 $PIP_INSTALL pyp
-$PIP_INSTALL sh
-$PIP_INSTALL sqlalchemy flask-sqlalchemy
-$PIP_INSTALL tabulate
-$PIP_INSTALL wand
 
 echo "* Checking out Koh..."
 mkdir -p ~/wjkoh-research/

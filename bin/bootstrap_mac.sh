@@ -28,16 +28,36 @@ $PORT_INSTALL py27-matplotlib || exit
 $PORT_INSTALL py27-pandas || exit
 $PORT_INSTALL py27-sympy || exit
 $PORT_INSTALL py27-nose || exit
-$PORT_INSTALL py27-Pillow || exit
 
+# SciKits.
 $PORT_INSTALL py27-scikit-learn || exit
 $PORT_INSTALL py27-scikit-image || exit
+
+# OpenGL.
 $PORT_INSTALL py27-opengl || exit
 $PORT_INSTALL py27-opengl-accelerate || exit
 
+# Mercurial-related modules.
 $PORT_INSTALL py27-hggit || exit
 $PORT_INSTALL py27-hgsubversion || exit
 $PORT_INSTALL py27-mercurial_keyring || exit
+
+echo "* Installing Python modules..."
+$PORT_INSTALL py27-Pillow || exit  # A fork of PIL.
+$PORT_INSTALL py27-bokeh || exit
+$PORT_INSTALL py27-boto || exit
+$PORT_INSTALL py27-cvxopt || exit
+$PORT_INSTALL py27-fabric || exit
+$PORT_INSTALL py27-flask || exit
+$PORT_INSTALL py27-flask-sqlalchemy || exit
+$PORT_INSTALL py27-lxml || exit
+$PORT_INSTALL py27-networkx || exit
+$PORT_INSTALL py27-paramiko || exit
+$PORT_INSTALL py27-psutil || exit
+$PORT_INSTALL py27-sh || exit
+$PORT_INSTALL py27-sqlalchemy || exit
+$PORT_INSTALL py27-tabulate || exit
+$PORT_INSTALL py27-wand || exit
 
 # Install compilers.
 $PORT_INSTALL gcc49 || exit
