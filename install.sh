@@ -62,16 +62,16 @@ popd &> /dev/null
 #$PIP_INSTALL sqlalchemy flask-sqlalchemy
 #$PIP_INSTALL tabulate
 #$PIP_INSTALL wand
-
-echo "* Installing Python modules..."
-$PIP_INSTALL nose2
-$PIP_INSTALL pyp
+#
+#echo "* Installing Python modules..."
+#$PIP_INSTALL nose2
+#$PIP_INSTALL pyp
 
 echo "* Checking out Koh..."
 mkdir -p ~/wjkoh-research/
 hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
-$PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
-$PIP_INSTALL -e ~/wjkoh-research/koh
+#$PIP_INSTALL -r ~/wjkoh-research/koh/requirements.txt
+#$PIP_INSTALL -e ~/wjkoh-research/koh
 
 # ssh_config.
 if [ -e "${MAC_SYNC_DIR}/ssh/config" ]
@@ -89,7 +89,12 @@ fi
 
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
-echo "* Installing YouCompleteMe..."
-install_ycm.sh
+echo "* Building YouCompleteMe plugin..."
+~/bin/install_ycm.sh
+
+echo "* Installing the Powerline fonts..."
+pushd $(mktemp -d)
+git clone https://github.com/powerline/fonts.git . && ./install.sh
+popd
 
 echo "* SUCCESSFULLY DONE!"
