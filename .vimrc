@@ -164,12 +164,8 @@ if exists('+relativenumber')
     set relativenumber
 endif
 
-" `==?`: The case-insensitive equality no matter what the user has set.
-if ($COLORTERM ==? 'gnome-terminal')
-  set t_Co=16
-  let g:solarized_termtrans=1
-endif
 set background=dark
+set t_Co=16
 colorscheme solarized
 
 if exists('+macmeta')
