@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Install Ubuntu Tweak (http://ubuntu-tweak.com/) for natural scrolling.
+# Install GNOME Tweak Tool (https://apps.ubuntu.com/cat/applications/gnome-tweak-tool/).
+
 APT_GET="sudo apt-get -y"
 
 # Update apt-get.

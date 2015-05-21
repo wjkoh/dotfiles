@@ -49,6 +49,9 @@
 [submodule ".vim/bundle/DirDiff.vim"]
 	path = .vim/bundle/DirDiff.vim
 	url = https://github.com/vim-scripts/DirDiff.vim.git
+[submodule ".zprezto"]
+	path = .zprezto
+	url = https://github.com/sorin-ionescu/prezto.git
 [submodule ".vim/bundle/vim-colors-solarized"]
 	path = .vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git

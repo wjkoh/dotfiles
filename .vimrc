@@ -163,10 +163,15 @@ set number
 if exists('+relativenumber')
     set relativenumber
 endif
+
+" `==?`: The case-insensitive equality no matter what the user has set.
+if ($COLORTERM ==? 'gnome-terminal')
+  set t_Co=16
+  let g:solarized_termtrans=1
+endif
 set background=dark
-set t_Co=16
-let g:solarized_termcolors=16
 colorscheme solarized
+
 if exists('+macmeta')
     set macmeta
 endif
@@ -379,9 +384,9 @@ let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
 let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'

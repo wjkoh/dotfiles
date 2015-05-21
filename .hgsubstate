@@ -29,4 +29,5 @@ d9fbf5a137773c3737cf5f0cdfc3e155c393b96d .vim/bundle/vim-repeat
 36f67c4ce92aef35bd60ba6020c5d11a82988225 .vim/bundle/vim-snippets
 3548479cc154154cbdbb6737ca08a47937cc7113 .vim/bundle/vim-unimpaired
 15 .vim/bundle/web-indent
+fe64f91f52bbadc3e627fe7910b28a6d5df064e8 .zprezto
 8f0ebb76ef6ee8b74bbb4de63bf9d56b1f0691d0 tmux-powerline

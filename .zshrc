@@ -1,69 +1,40 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="blinks"
+# Make the GNOME terminal work with vim-colors-solarized.
+if [ -z "$TMUX" ]; then
+  case $COLORTERM in
+    gnome-terminal)
+      export TERM=xterm-256color
+      ;;
+  esac
+fi
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(vi-mode osx macports autojump cp rsync mosh python pip git mercurial svn zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
 # Customize to your needs...
 
-# Key settings.
-bindkey -v
-bindkey ^R history-incremental-search-backward
-
-# Set Environment Variables.
-# Locales.
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-# EDITOR.
-export EDITOR=vim
-export VISUAL=vim
-
-# Autojump.
-autoload -U compinit; compinit -u
+# Set up Autojump.
 export AUTOJUMP_IGNORE_CASE=1
 export AUTOJUMP_KEEP_SYMLINKS=1
+source "${ZDOTDIR:-$HOME}/bin/autojump.plugin.zsh"
 
-# Python startup file.
+# Set the Python startup file.
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
 # Et cetera.
 export REPORTTIME=1
 
 # Aliases.
-alias -s cpp=vim
-alias -s h=vim
-alias -s hpp=vim
-alias -s html=safari
-alias -s md=vim
-alias -s tex=vim
 alias matlab="matlab -nodesktop -nosplash"
 
-alias tmux="TERM=screen-256color-bce tmux"
 case `uname` in
     Darwin)
         # Use MacVim if it exists.
@@ -90,7 +61,7 @@ case `uname` in
         alias gls='gls --color=auto'
         DIRCOLORS=gdircolors
 
-        # D-Bus for X11 applications, such as Meld.
+        # D-Bus for X11 applications such as Meld.
         launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
         launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
 
@@ -105,22 +76,3 @@ case `uname` in
         ;;
 esac
 eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
-
-# http://stackoverflow.com/questions/9810327/git-tab-autocompletion-is-useless-can-i-turn-it-off-or-optimize-it/9810485#9810485
-__git_files () {
-    _wanted files expl 'local files' _files
-}
-
-# Initiate tmux.
-if hash tmux &> /dev/null && [ -z "$TMUX" ]; then
-    SESSION=$USER
-    tmux has-session -t $SESSION
-    if [ $? -eq 0 ]; then
-        #echo "Session $SESSION already exists. Attaching."
-        #sleep 1
-        tmux new-session -t $SESSION \; set-option destroy-unattached on
-    else
-        tmux new-session -s $SESSION
-    fi
-fi
-# DO NOT ADD ANY CONFIGURATION BELOW THIS LINE.
