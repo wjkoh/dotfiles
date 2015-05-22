@@ -1,7 +1,5 @@
 8e4e9c5a2e16248ad4a448447a7a58172257e076 .dircolors-solarized
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
-e55c715508a2f652fed741f2047c66dda2c6e5b0 .oh-my-zsh
-3dc574190071ef59054f6d693132410b37aa3ae4 .oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 6c111f8b10c464afa45c6b62820bf3b50828c627 .vim/bundle/DirDiff.vim
 06c1e16a4dcfd1b8b1764e96482af4b063ca7c8a .vim/bundle/MatlabFilesEdition
 de32351778d00f1b9892018f1f7b373889ca3a03 .vim/bundle/YouCompleteMe
