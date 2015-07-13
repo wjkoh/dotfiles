@@ -84,7 +84,7 @@ $PORT_INSTALL pigz || exit
 $PORT_INSTALL s3cmd || exit
 $PORT_INSTALL scons || exit
 $PORT_INSTALL swig swig-python || exit  # for SciPy
-$PORT_INSTALL texlive texlive-latex-extra texlive-science || exit
+$PORT_INSTALL texlive texlive-latex-extra texlive-science texlive-bibtex-extra || exit
 $PORT_INSTALL the_silver_searcher || exit
 $PORT_INSTALL tig || exit
 $PORT_INSTALL tmux libmpdclient || exit
