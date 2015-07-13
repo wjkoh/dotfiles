@@ -66,6 +66,7 @@ sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit
 # Install utilities.
 $PORT_INSTALL aspell-dict-en || exit
 $PORT_INSTALL autojump || exit
+$PORT_INSTALL biblatex-biber || exit
 $PORT_INSTALL ccache || exit
 $PORT_INSTALL coreutils || exit
 $PORT_INSTALL ctags || exit
