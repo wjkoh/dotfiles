@@ -67,6 +67,12 @@ popd &> /dev/null
 #$PIP_INSTALL nose2
 #$PIP_INSTALL pyp
 
+# Install Prezto.
+echo "* Installing Prezto..."
+pushd ~/.zprezto
+git pull && git submodule update --init --recursive
+popd
+
 echo "* Checking out Koh..."
 mkdir -p ~/wjkoh-research/
 hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
