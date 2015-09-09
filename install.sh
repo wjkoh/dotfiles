@@ -76,6 +76,7 @@ hg clone https://wjkoh@bitbucket.org/wjkoh/koh ~/wjkoh-research/koh
 # ssh_config.
 if [ -e "${MAC_SYNC_DIR}/ssh/config" ]
 then
+  mkdir -p "${HOME}/.ssh"
   rm -f "${HOME}/.ssh/config"
   ln -s "${MAC_SYNC_DIR}/ssh/config" "${HOME}/.ssh/config"
 fi
@@ -88,7 +89,10 @@ then
 fi
 
 # VPN.
-${MAC_SYNC_DIR}/vpn/install.sh
+if [ -e "${MAC_SYNC_DIR}/vpn/install.sh" ]
+then
+  ${MAC_SYNC_DIR}/vpn/install.sh
+fi
 
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
@@ -96,6 +100,12 @@ echo "* Building YouCompleteMe plugin..."
 ~/bin/install_ycm.sh
 
 echo "* Installing the Powerline fonts..."
+# Mac OS.
+pushd $(mktemp -d -t powerline)
+git clone https://github.com/powerline/fonts.git . && ./install.sh
+popd
+
+# Linux.
 pushd $(mktemp -d)
 git clone https://github.com/powerline/fonts.git . && ./install.sh
 popd
