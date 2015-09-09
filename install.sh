@@ -87,6 +87,9 @@ then
   ln -s "${MAC_SYNC_DIR}/weechat/irc.conf" "${HOME}/.weechat/irc.conf"
 fi
 
+# VPN.
+${MAC_SYNC_DIR}/vpn/install.sh
+
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
 echo "* Building YouCompleteMe plugin..."
