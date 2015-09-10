@@ -62,10 +62,11 @@ popd &> /dev/null
 #$PIP_INSTALL sqlalchemy flask-sqlalchemy
 #$PIP_INSTALL tabulate
 #$PIP_INSTALL wand
-#
-#echo "* Installing Python modules..."
+
+echo "* Installing Python modules..."
 #$PIP_INSTALL nose2
 #$PIP_INSTALL pyp
+$PIP_INSTALL imgurpython
 
 # Install Prezto.
 echo "* Installing Prezto..."
