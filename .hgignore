@@ -7,7 +7,9 @@ syntax: glob
 tags
 
 .vim/tmp/
+.virtualenvs/
 .weechat/irc.conf
 .weechat/logs/
+.weechat/script/plugins.xml.gz
+.weechat/urlserver_list.txt
 .weechat/weechat.log
-.virtualenvs/
