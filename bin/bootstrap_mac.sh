@@ -43,6 +43,7 @@ $PORT_INSTALL py27-hgsubversion || exit
 $PORT_INSTALL py27-mercurial_keyring || exit
 
 echo "* Installing Python modules..."
+$PORT_INSTALL py-google-api || exit
 $PORT_INSTALL py27-Pillow || exit  # A fork of PIL.
 $PORT_INSTALL py27-bokeh || exit
 $PORT_INSTALL py27-boto || exit
@@ -62,6 +63,11 @@ $PORT_INSTALL py27-wand || exit
 # Install compilers.
 $PORT_INSTALL gcc49 || exit
 sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit
+
+# Install MacPort's Clang to use OpenMp.
+$PORT_INSTALL clang-3.7 || exit
+$PORT_SELECT clang mp-clang-3.7 || exit
+$PORT_INSTALL libomp || exit
 
 # Install utilities.
 $PORT_INSTALL aspell-dict-en || exit
@@ -111,7 +117,7 @@ $PORT_INSTALL glm || exit
 $PORT_INSTALL jpeg || exit
 $PORT_INSTALL libevent || exit  # for gevent/bokeh
 $PORT_INSTALL libpng || exit
-$PORT_INSTALL opencv +python27 +eigen || exit
+$PORT_INSTALL opencv +contrib +eigen +python27 || exit
 $PORT_INSTALL suitesparse || exit
 
 # For Matplotlib and PIL. Pillow is okay?
