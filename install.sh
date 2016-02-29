@@ -8,7 +8,9 @@ MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
 # Zsh.
 echo "* Changing a login shell to Zsh..."
+sudo sh -c 'echo /opt/local/bin/zsh >> /etc/shells'
 chsh -s /bin/zsh || exit
+chsh -s /opt/local/bin/zsh || exit
 
 # Dotfiles.
 echo "* Installing dotfiles..."
@@ -71,7 +73,9 @@ $PIP_INSTALL imgurpython
 # Install Prezto.
 echo "* Installing Prezto..."
 pushd ~/.zprezto
-git pull && git submodule update --init --recursive
+git checkout master
+git pull
+git submodule update --init --recursive
 popd
 
 echo "* Checking out Koh..."

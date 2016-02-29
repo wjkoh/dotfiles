@@ -40,6 +40,12 @@
 #                    Now using 'name' from irc_channel infolist.
 #     version 0.2.4: Added support for key-protected channels
 #
+# 2014-05-22, Nathaniel Wesley Filardo <PADEBR2M2JIQN02N9OO5JM0CTN8K689P@cmx.ietfng.org>
+#     version 0.2.5: Fix keyed channel support
+#
+# 2016-01-13, The fox in the shell <KellerFuchs@hashbang.sh>
+#     version 0.2.6: Support keeping chan list as secured data
+#
 # @TODO: add options to ignore certain buffers
 # @TODO: maybe add an option to enable autosaving on part/join messages
 
@@ -48,7 +54,7 @@ import re
 
 SCRIPT_NAME    = "autojoin"
 SCRIPT_AUTHOR  = "xt <xt@bash.no>"
-SCRIPT_VERSION = "0.2.4"
+SCRIPT_VERSION = "0.2.6"
 SCRIPT_LICENSE = "GPL3"
 SCRIPT_DESC    = "Configure autojoin for all servers according to currently joined channels"
 SCRIPT_COMMAND = "autojoin"
@@ -86,9 +92,7 @@ def autosave_channels_on_quit(signal, callback, callback_data):
 
     # print/execute commands
     for server, channels in items.iteritems():
-        channels = channels.rstrip(',')
-        command = "/set irc.server.%s.autojoin '%s'" % (server, channels)
-        w.command('', command)
+        process_server(server, channels)
 
     return w.WEECHAT_RC_OK
 
@@ -108,10 +112,7 @@ def autosave_channels_on_activity(signal, callback, callback_data):
         match = re.match(pattern, callback_data)
 
         if match: # check if nick is my nick. In that case: save
-            channel = match.group(2)
-            channels = channels.rstrip(',')
-            command = "/set irc.server.%s.autojoin '%s'" % (server, channels)
-            w.command('', command)
+            process_server(server, channels)
         else: # someone else: ignore
             continue
 
@@ -123,18 +124,37 @@ def autojoin_cb(data, buffer, args):
     """But I can't believe somebody would want that behaviour"""
     items = find_channels()
 
+    if args == '--run':
+        run = True
+    else:
+        run = False
+
     # print/execute commands
     for server, channels in items.iteritems():
+        process_server(server, channels, run)
+
+    return w.WEECHAT_RC_OK
+
+def process_server(server, channels, run=True):
+        option   = "irc.server.%s.autojoin" % server
         channels = channels.rstrip(',')
+        oldchans = w.config_string(w.config_get(option))
+
         if not channels: # empty channel list
-            continue
-        command = '/set irc.server.%s.autojoin %s' % (server, channels)
-        if args == '--run':
+            return
+
+        # Note: re already caches the result of regexp compilation
+        sec = re.match('^\${sec\.data\.(.*)}$', oldchans)
+        if sec:
+            secvar = sec.group(1)
+            command = "/secure set %s %s" % (secvar, channels)
+        else:
+            command = "/set irc.server.%s.autojoin '%s'" % (server, channels)
+
+        if run:
             w.command('', command)
         else:
             w.prnt('', command)
-
-    return w.WEECHAT_RC_OK
 
 def find_channels():
     """Return list of servers and channels"""
@@ -150,7 +170,8 @@ def find_channels():
     # populate channels per server
     for server in items.keys():
         keys = []
-        channels = []
+        keyed_channels = []
+        unkeyed_channels = []
         items[server] = '' #init if connected but no channels
         infolist = w.infolist_get('irc_channel', '',  server)
         while w.infolist_next(infolist):
@@ -158,11 +179,13 @@ def find_channels():
                 #parted but still open in a buffer: bit hackish
                 continue
             if w.infolist_integer(infolist, 'type') == 0:
-                channels.append(w.infolist_string(infolist, "name"))
                 key = w.infolist_string(infolist, "key")
                 if len(key) > 0:
                     keys.append(key)
-        items[server] = ','.join(channels)
+                    keyed_channels.append(w.infolist_string(infolist, "name"))
+                else :
+                    unkeyed_channels.append(w.infolist_string(infolist, "name"))
+        items[server] = ','.join(keyed_channels + unkeyed_channels)
         if len(keys) > 0:
             items[server] += ' %s' % ','.join(keys)
         w.infolist_free(infolist)
