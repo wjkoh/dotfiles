@@ -24,7 +24,6 @@
 .vim/bundle/vim-signify = [git]https://github.com/mhinz/vim-signify.git
 .vim/bundle/vim-snippets = [git]https://github.com/honza/vim-snippets.git
 .vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
-.vim/bundle/web-indent = [svn]http://web-indent.googlecode.com/svn/trunk
 
 .dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git
 .zprezto = [git]https://github.com/sorin-ionescu/prezto.git
