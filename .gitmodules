@@ -16,9 +16,6 @@
 [submodule ".vim/bundle/vim-repeat"]
 	path = .vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule ".vim/bundle/YouCompleteMe"]
-	path = .vim/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule ".dircolors-solarized"]
 	path = .dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
@@ -31,6 +28,9 @@
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = git://github.com/majutsushi/tagbar
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline.git

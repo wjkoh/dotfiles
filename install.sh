@@ -7,10 +7,10 @@ INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
 # Zsh.
-echo "* Changing a login shell to Zsh..."
-sudo sh -c 'echo /opt/local/bin/zsh >> /etc/shells'
-chsh -s /bin/zsh || exit
-chsh -s /opt/local/bin/zsh || exit
+#echo "* Changing a login shell to Zsh..."
+#sudo sh -c 'echo /opt/local/bin/zsh >> /etc/shells'
+#chsh -s /bin/zsh || exit
+#chsh -s /opt/local/bin/zsh || exit
 
 # Dotfiles.
 echo "* Installing dotfiles..."

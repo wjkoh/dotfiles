@@ -26,6 +26,11 @@ export AUTOJUMP_IGNORE_CASE=1
 export AUTOJUMP_KEEP_SYMLINKS=1
 source "${ZDOTDIR:-$HOME}/bin/autojump.plugin.zsh"
 
+# Google only.
+if [ -f ~/.at_google ]; then
+  source /etc/bash_completion.d/g4d
+fi
+
 # Set the Python startup file.
 export PYTHONSTARTUP=$HOME/.pythonstartup
 

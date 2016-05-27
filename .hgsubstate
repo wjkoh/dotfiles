@@ -2,7 +2,7 @@
 30bdbd5f6173041fa3e8726195dc21f8fd6082ea .hgext/onsub
 6c111f8b10c464afa45c6b62820bf3b50828c627 .vim/bundle/DirDiff.vim
 06c1e16a4dcfd1b8b1764e96482af4b063ca7c8a .vim/bundle/MatlabFilesEdition
-a2808ee3ff7e8f4e90f6157f062c2aac6057c087 .vim/bundle/YouCompleteMe
+4984767509e3d05ca051e253c8a8b37de784be45 .vim/bundle/Vundle.vim
 2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
 b5d3fe66a58a13d2ff8b6391f4387608496a030f .vim/bundle/ctrlp.vim
 8bc47fd1c40cdad9ea1f36c0cf13592c70ea65e9 .vim/bundle/delimitMate
@@ -26,6 +26,5 @@ b9fb0dfd811004010f5f6903edef42d6004ebea2 .vim/bundle/vim-pathogen
 d08f17873e3187da3f9998ddb81d81626ffb9ecf .vim/bundle/vim-signify
 42f55e26907bf0090e5f040ee1279e1123a6d575 .vim/bundle/vim-snippets
 23f471ad0f00e2fab097f9d67ffd770881d4b35a .vim/bundle/vim-unimpaired
-15 .vim/bundle/web-indent
-f2a826e963f06a204dc0e09c05fc3e5419799f52 .zprezto
+4f19700919c8ebbaf75755fc0d03716d13183f49 .zprezto
 c95dd078af3b3093df6c7fbdaae3ad9b7cfd6109 tmux-powerline
