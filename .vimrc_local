@@ -1,2 +1,8 @@
 source /usr/share/vim/google/google.vim
+
+Glug grok
 Glug youcompleteme-google
+
+let g:grok_show_result_list=1
+let g:grok_reuse_window=1
+let g:grok_result_list="quickfix"

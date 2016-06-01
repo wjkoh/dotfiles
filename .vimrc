@@ -20,6 +20,11 @@ if filereadable(expand('~/.at_google'))
 else
   " Non-Google only
   Plugin 'Valloric/YouCompleteMe'
+
+  "------------------------------------------------------------
+  " YouCompleteMe.
+  let g:ycm_confirm_extra_conf = 0
+  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 endif
 
 " All of your Plugins must be added before the following line
@@ -381,9 +386,7 @@ nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 
 "------------------------------------------------------------
 " YouCompleteMe.
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-nnoremap <Leader>j :YcmCompleter GoTo<CR>
+nnoremap <C-]> :YcmCompleter GoTo<CR>
 
 
 "------------------------------------------------------------
