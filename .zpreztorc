@@ -25,13 +25,11 @@ zstyle ':prezto:*:*' color 'yes'
 # The order matters.
 zstyle ':prezto:load' pmodule \
   'command-not-found' \
-  'completion' \
   'directory' \
   'editor' \
   'environment' \
   'history' \
   'history-substring-search' \
-  'macports' \
   'osx' \
   'prompt' \
   'spectrum' \
@@ -40,6 +38,8 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'tmux' \
   'utility'
+  #'macports' \
+  #'completion' \
 
 #
 # Editor

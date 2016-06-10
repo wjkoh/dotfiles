@@ -1,8 +1,46 @@
 source /usr/share/vim/google/google.vim
 
-Glug grok
+" :PiperSelectActiveFiles comes by default from google.vim. It's so useful that
+" we map it to <Leader>p (i.e., ,p).
+" Use :h piper for more details about the piper integration
+noremap <unique> <Leader>p :PiperSelectActiveFiles<CR>
+
+" Loads youcompleteme, the awesomest autocompletion engine.
+" See go/ycm for more details.
 Glug youcompleteme-google
 
-let g:grok_show_result_list=1
-let g:grok_reuse_window=1
-let g:grok_result_list="quickfix"
+" Load the code formatting plugin. We first load the open-source version. Then,
+" we load the internal google settings. Then, we automatically enable formatting
+" when we write the file for Go, BUILD, proto, and c/cpp files.
+" Use :h codefmt-google or :h codefmt for more details.
+Glug codefmt
+Glug codefmt-google
+
+" Wrap autocmds inside an augroup to protect against reloading this script.
+" For more details, see:
+" http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
+augroup autoformat
+  autocmd!
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+augroup END
+
+" Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
+" Use :h g4 for more details about this plugin
+Glug g4
+
+" Load the Critique integration. Use :h critique for more details
+Glug critique
+
+" Load the Related Files plugin. Use :h relatedfiles for more details
+Glug relatedfiles
+nnoremap <unique> <Leader>rf :RelatedFilesWindow<CR>
+Glaive relatedfiles window_position="topleft"
+
+" Enable the corpweb plugin, which allows us to open codesearch from vim
+Glug corpweb
+" search in critique for the word under the cursor
+nnoremap <Leader>ws :CorpWebCs <cword> <Cr>
+" search in critique for the current file
+nnoremap <Leader>wf :CorpWebCsFile<CR>

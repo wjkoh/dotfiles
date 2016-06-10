@@ -7,8 +7,8 @@ call pathogen#helptags()
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+
+let mapleader=','
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -21,6 +21,14 @@ else
   " Non-Google only
   Plugin 'Valloric/YouCompleteMe'
 
+  " Add maktaba and codefmt to the runtimepath.
+  " (The latter must be installed before it can be used.)
+  Plugin 'google/vim-maktaba'
+  Plugin 'google/vim-codefmt'
+  " Also add Glaive, which is used to configure codefmt's maktaba flags. See
+  " `:help :Glaive` for usage.
+  Plugin 'google/vim-glaive'
+
   "------------------------------------------------------------
   " YouCompleteMe.
   let g:ycm_confirm_extra_conf = 0
@@ -30,6 +38,13 @@ endif
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -203,7 +218,6 @@ if has('gui_running')
     set guioptions-=T	" Remove toolbar
     set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 endif
-let mapleader=','
 set scrolloff=2		" Keep some context
 set sidescrolloff=5	" Keep some context
 set incsearch
@@ -299,7 +313,8 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-" '\b' matches a word boundary. ! in grep! prevents a jump to the first occurence.
+" '\b' matches a word boundary. ! in grep! prevents a jump to the first
+" occurence.
 nnoremap <Leader>* :grep! "\b<C-R><C-W>\b" %<CR>:cwindow<CR>:redraw!<CR>
 nnoremap <Leader>g* :grep! "\b<C-R><C-W>\b" *<CR>:cwindow<CR>:redraw!<CR>
 
@@ -346,6 +361,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
+let g:ctrlp_root_markers = ['README.md']
+let g:ctrlp_match_window = 'top'
 
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s --ignore-case --nocolor --nogroup --hidden
@@ -355,7 +372,7 @@ if executable('ag')
         \ --ignore .DS_Store
         \ --ignore "**/*.pyc"
         \ -g ""'
-  let g:ctrlp_clear_cache_on_exit = 1
+  "let g:ctrlp_clear_cache_on_exit = 1
 else
   let g:ctrlp_user_command = {
         \ 'types': {
