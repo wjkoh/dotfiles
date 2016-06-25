@@ -6,6 +6,7 @@ syntax: glob
 .DS_Store
 tags
 
+.vim/cache/
 .vim/tmp/
 .virtualenvs/
 .weechat/irc.conf

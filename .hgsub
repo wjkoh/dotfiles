@@ -25,8 +25,8 @@
 .vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
 .vim/bundle/Vundle.vim = [git]https://github.com/VundleVim/Vundle.vim.git
 
+.base16-shell = [git]https://github.com/chriskempson/base16-shell.git
 .dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git
-.zprezto = [git]https://github.com/sorin-ionescu/prezto.git
-tmux-powerline = [git]https://github.com/erikw/tmux-powerline.git
-
 .hgext/onsub = https://bitbucket.org/lantiq/onsub
+.tmux/plugins/tpm = [git]https://github.com/tmux-plugins/tpm
+.zprezto = [git]https://github.com/sorin-ionescu/prezto.git

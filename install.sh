@@ -121,4 +121,8 @@ pushd $(mktemp -d)
 git clone https://github.com/powerline/fonts.git . && ./install.sh
 popd
 
+# Install Base16 GNOME Terminal themes.
+source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-default.dark.sh)
+source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-eighties.dark.sh)
+
 echo "* SUCCESSFULLY DONE!"

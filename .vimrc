@@ -35,6 +35,9 @@ else
   let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 endif
 
+Plugin 'chriskempson/base16-vim'
+Plugin 'edkolev/tmuxline.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -207,8 +210,8 @@ if exists('+relativenumber')
 endif
 
 set background=dark
-set t_Co=16
-colorscheme solarized
+let base16colorspace=256
+colorscheme base16-eighties
 
 if exists('+macmeta')
     set macmeta
@@ -403,7 +406,7 @@ nnoremap <Leader>t :TagbarOpenAutoClose<CR>
 
 "------------------------------------------------------------
 " YouCompleteMe.
-nnoremap <C-]> :YcmCompleter GoTo<CR>
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
 
 
 "------------------------------------------------------------
@@ -413,20 +416,19 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 
 "------------------------------------------------------------
 " Airline.
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 0
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+" Tmuxline.
+" Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
+let g:tmuxline_preset = {
+	\'a'       : '#(whoami)@#(hostname -s)#{online_status}#{prefix_highlight}',
+	\'b disabled'       : '',
+	\'c disabled'       : '',
+	\'win'     : ['#I', '#W'],
+	\'cwin'    : ['#I', '#W'],
+	\'x'       : ['#{cpu_icon}#{cpu_percentage}', '#{battery_icon}#{battery_percentage}'],
+	\'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
+	\'z'       : '#S:#I',
+	\'options' : {'status-justify': 'left'}}

@@ -44,6 +44,10 @@ export REPORTTIME=1
 # Aliases.
 alias matlab="matlab -nodesktop -nosplash"
 
+# Base16 Shell.
+BASE16_SHELL="$HOME/.base16-shell/base16-eighties.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
 case `uname` in
     Darwin)
         # Use MacVim if it exists.

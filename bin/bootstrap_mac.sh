@@ -88,6 +88,7 @@ $PORT_INSTALL mosh || exit
 $PORT_INSTALL mpv +screenshot +smb || exit
 $PORT_INSTALL nmap || exit
 $PORT_INSTALL pigz || exit
+$PORT_INSTALL ranger || exit
 $PORT_INSTALL s3cmd || exit
 $PORT_INSTALL scons || exit
 $PORT_INSTALL swig swig-python || exit  # for SciPy
@@ -96,6 +97,7 @@ $PORT_INSTALL the_silver_searcher || exit
 $PORT_INSTALL tig || exit
 $PORT_INSTALL tmux libmpdclient || exit
 $PORT_INSTALL tmux-pasteboard
+$PORT_INSTALL urlview || exit
 $PORT_INSTALL watch || exit
 $PORT_INSTALL weechat +aspell +perl +python +tls || exit  # Install aspell-dict-en as well.
 $PORT_INSTALL wget || exit

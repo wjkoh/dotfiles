@@ -1,9 +1,10 @@
 source /usr/share/vim/google/google.vim
 
-" :PiperSelectActiveFiles comes by default from google.vim. It's so useful that
-" we map it to <Leader>p (i.e., ,p).
-" Use :h piper for more details about the piper integration
-noremap <unique> <Leader>p :PiperSelectActiveFiles<CR>
+" This adds useful keymappings for Piper.
+" 1. <Leader>pf :PiperSelectActiveFiles<CR>
+" 2. <Leader>po :PiperOpenPath 
+" and so on.
+Glug piper plugin[mappings]='<Leader>p'
 
 " Loads youcompleteme, the awesomest autocompletion engine.
 " See go/ycm for more details.
@@ -27,20 +28,18 @@ augroup autoformat
 augroup END
 
 " Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
-" Use :h g4 for more details about this plugin
+" Use :h g4 for more details about this plugin.
 Glug g4
 
-" Load the Critique integration. Use :h critique for more details
+" Load the Critique integration. Use :h critique for more details.
 Glug critique
 
-" Load the Related Files plugin. Use :h relatedfiles for more details
-Glug relatedfiles
-nnoremap <unique> <Leader>rf :RelatedFilesWindow<CR>
-Glaive relatedfiles window_position="topleft"
+" Load the Related Files plugin. Use :h relatedfiles for more details.
+" The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
+" -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
+Glug relatedfiles plugin[mappings] window_position="topleft"
 
-" Enable the corpweb plugin, which allows us to open codesearch from vim
-Glug corpweb
-" search in critique for the word under the cursor
-nnoremap <Leader>ws :CorpWebCs <cword> <Cr>
-" search in critique for the current file
-nnoremap <Leader>wf :CorpWebCsFile<CR>
+" Enable the corpweb plugin, which allows us to open codesearch from vim.
+" <Leader>ww: search in critique for the word under the cursor
+" <Leader>wf: search in critique for the current file
+Glug corpweb plugin[mappings]='<Leader>w'

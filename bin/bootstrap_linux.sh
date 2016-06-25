@@ -69,6 +69,7 @@ $APT_GET install mosh || exit
 $APT_GET install mpv || exit
 $APT_GET install nmap || exit
 $APT_GET install pigz || exit
+$APT_GET install ranger || exit
 $APT_GET install s3cmd || exit
 $APT_GET install scons || exit
 $APT_GET install silversearcher-ag || exit
@@ -77,6 +78,7 @@ $APT_GET install swig || exit  # for SciPy
 $APT_GET install texlive-full || exit
 $APT_GET install tig || exit
 $APT_GET install tmux || exit
+$APT_GET install urlview || exit
 $APT_GET install watch || exit
 $APT_GET install weechat || exit
 $APT_GET install wget || exit
