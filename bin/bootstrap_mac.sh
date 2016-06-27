@@ -75,6 +75,7 @@ $PORT_INSTALL autojump || exit
 $PORT_INSTALL biblatex-biber || exit
 $PORT_INSTALL ccache || exit
 $PORT_INSTALL coreutils || exit
+$PORT_INSTALL cowsay || exit
 $PORT_INSTALL ctags || exit
 $PORT_INSTALL git +bash_completion +svn +credential_osxkeychain || exit
 $PORT_INSTALL grep || exit
@@ -154,9 +155,4 @@ sudo networksetup -setdnsservers Ethernet 8.8.8.8 8.8.4.4
 sudo networksetup -setdnsservers Wi-Fi 8.8.8.8 8.8.4.4
 
 # Install Solarized color scheme to Terminal.
-curl -o /tmp/solarized.terminal -L https://raw.githubusercontent.com/altercation/solarized/master/osx-terminal.app-colors-solarized/Solarized%20Dark%20ansi.terminal
-open -a Terminal.app /tmp/solarized.terminal
-
 # Install Solarized color scheme to iTerm2.
-curl -o /tmp/solarized.itermcolors -L https://raw.githubusercontent.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors
-open -a iTerm2.app /tmp/solarized.itermcolors

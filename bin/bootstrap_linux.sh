@@ -58,6 +58,7 @@ $APT_GET install aspell-en || exit
 $APT_GET install autojump || exit
 $APT_GET install ccache || exit
 $APT_GET install cmake || exit  # For YouCompleteMe plugin.
+$APT_GET install cowsay || exit
 $APT_GET install ctags || exit
 $APT_GET install curl || exit
 $APT_GET install git-core || exit
