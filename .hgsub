@@ -1,17 +1,16 @@
+.vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
+.vim/bundle/MatlabFilesEdition = [git]https://github.com/vim-scripts/MatlabFilesEdition.git
+.vim/bundle/Vundle.vim = [git]https://github.com/VundleVim/Vundle.vim.git
 .vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
 .vim/bundle/delimitMate = [git]https://github.com/Raimondi/delimitMate.git
-.vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git
-.vim/bundle/MatlabFilesEdition = [git]https://github.com/vim-scripts/MatlabFilesEdition.git
 .vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
 .vim/bundle/tabular = [git]https://github.com/godlygeek/tabular.git
 .vim/bundle/tagbar = [git]git://github.com/majutsushi/tagbar
 .vim/bundle/ultisnips = [git]https://github.com/SirVer/ultisnips.git
 .vim/bundle/undotree = [git]https://github.com/mbbill/undotree.git
-.vim/bundle/vim-airline = [git]https://github.com/bling/vim-airline.git
 .vim/bundle/vim-buffergator = [git]https://github.com/jeetsukumaran/vim-buffergator.git
-.vim/bundle/vim-colors-solarized = [git]https://github.com/altercation/vim-colors-solarized.git
 .vim/bundle/vim-commentary = [git]https://github.com/tpope/vim-commentary.git
 .vim/bundle/vim-dispatch = [git]https://github.com/tpope/vim-dispatch.git
 .vim/bundle/vim-eunuch = [git]https://github.com/tpope/vim-eunuch.git
@@ -20,13 +19,10 @@
 .vim/bundle/vim-lawrencium = https://bitbucket.org/ludovicchabant/vim-lawrencium
 .vim/bundle/vim-pathogen = [git]https://github.com/tpope/vim-pathogen.git
 .vim/bundle/vim-repeat = [git]https://github.com/tpope/vim-repeat.git
-.vim/bundle/vim-signify = [git]https://github.com/mhinz/vim-signify.git
 .vim/bundle/vim-snippets = [git]https://github.com/honza/vim-snippets.git
 .vim/bundle/vim-unimpaired = [git]https://github.com/tpope/vim-unimpaired.git
-.vim/bundle/Vundle.vim = [git]https://github.com/VundleVim/Vundle.vim.git
 
 .base16-shell = [git]https://github.com/chriskempson/base16-shell.git
-.dircolors-solarized = [git]https://github.com/seebi/dircolors-solarized.git
 .hgext/onsub = https://bitbucket.org/lantiq/onsub
 .tmux/plugins/tpm = [git]https://github.com/tmux-plugins/tpm
 .zprezto = [git]https://github.com/sorin-ionescu/prezto.git

@@ -98,6 +98,7 @@ $PORT_INSTALL tig || exit
 $PORT_INSTALL tmux libmpdclient || exit
 $PORT_INSTALL tmux-pasteboard
 $PORT_INSTALL urlview || exit
+$PORT_INSTALL urlview || exit
 $PORT_INSTALL watch || exit
 $PORT_INSTALL weechat +aspell +perl +python +tls || exit  # Install aspell-dict-en as well.
 $PORT_INSTALL wget || exit

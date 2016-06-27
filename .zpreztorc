@@ -30,6 +30,7 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'history' \
   'history-substring-search' \
+  'macports' \
   'osx' \
   'prompt' \
   'spectrum' \
@@ -38,7 +39,6 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'tmux' \
   'utility'
-  #'macports' \
   #'completion' \
 
 #

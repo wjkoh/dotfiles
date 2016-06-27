@@ -6,6 +6,8 @@ syntax: glob
 .DS_Store
 tags
 
+.tmux/plugins/
+.vim/bundle/
 .vim/cache/
 .vim/tmp/
 .virtualenvs/

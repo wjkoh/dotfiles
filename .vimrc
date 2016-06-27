@@ -8,7 +8,7 @@ call pathogen#helptags()
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-let mapleader=','
+let mapleader=' '
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -37,6 +37,9 @@ endif
 
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'mhinz/vim-signify'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -165,7 +168,7 @@ set number
 set notimeout ttimeout ttimeoutlen=200
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
+set pastetoggle=<Leader>z
 
 
 "------------------------------------------------------------
@@ -299,6 +302,7 @@ nnoremap <Leader>a :A<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
+nnoremap <Leader>s :w<CR>
 
 
 "------------------------------------------------------------
@@ -419,6 +423,7 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 0
+let g:airline_theme='base16'
 
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
@@ -428,7 +433,7 @@ let g:tmuxline_preset = {
 	\'c disabled'       : '',
 	\'win'     : ['#I', '#W'],
 	\'cwin'    : ['#I', '#W'],
-	\'x'       : ['#{cpu_icon}#{cpu_percentage}', '#{battery_icon}#{battery_percentage}'],
+	\'x'       : ['#{battery_icon}#{battery_percentage}', '#{cpu_icon}#{cpu_percentage}'],
 	\'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
 	\'z'       : '#S:#I',
 	\'options' : {'status-justify': 'left'}}

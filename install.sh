@@ -108,17 +108,22 @@ fi
 # This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
 # directory .vim until install.sh links .vim to ~/.vim.
 echo "* Building YouCompleteMe plugin..."
-~/bin/install_ycm.sh
-
-echo "* Installing the Powerline fonts..."
-# Mac OS.
-pushd $(mktemp -d -t powerline)
-git clone https://github.com/powerline/fonts.git . && ./install.sh
+pushd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
 popd
 
-# Linux.
+echo "* Installing the Powerline fonts..."
+# Mac OS and Linux.
 pushd $(mktemp -d)
 git clone https://github.com/powerline/fonts.git . && ./install.sh
+
+curl -fLo base16-default.dark.256.itermcolors \
+https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-default.dark.256.itermcolors \
+&& open base16-default.dark.256.itermcolors
+
+curl -fLo base16-eighties.dark.256.itermcolors \
+https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-eighties.dark.256.itermcolors \
+&& open base16-eighties.dark.256.itermcolors
 popd
 
 # Install Base16 GNOME Terminal themes.

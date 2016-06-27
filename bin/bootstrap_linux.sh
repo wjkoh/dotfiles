@@ -53,13 +53,13 @@ $APT_GET install python-sqlalchemy || exit
 $APT_GET install python-wand || exit
 
 # Install utilities.
+#$APT_GET install ffmpeg || exit  # Not available.
 $APT_GET install aspell-en || exit
 $APT_GET install autojump || exit
 $APT_GET install ccache || exit
 $APT_GET install cmake || exit  # For YouCompleteMe plugin.
 $APT_GET install ctags || exit
 $APT_GET install curl || exit
-#$APT_GET install ffmpeg || exit  # Not available.
 $APT_GET install git-core || exit
 $APT_GET install htop || exit
 $APT_GET install imagemagick || exit
@@ -78,6 +78,7 @@ $APT_GET install swig || exit  # for SciPy
 $APT_GET install texlive-full || exit
 $APT_GET install tig || exit
 $APT_GET install tmux || exit
+$APT_GET install urlview || exit
 $APT_GET install urlview || exit
 $APT_GET install watch || exit
 $APT_GET install weechat || exit

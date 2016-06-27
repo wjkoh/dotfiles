@@ -67,25 +67,10 @@ case `uname` in
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
 
-        # Colorize default `ls` command.
-        export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
-
-        # Colorize GNU `ls` command.
-        alias gls='gls --color=auto'
-        DIRCOLORS=gdircolors
-
-        # D-Bus for X11 applications such as Meld.
-        launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
-        launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist
-
         alias matlab="/Applications/MATLAB_R2014a.app/bin/matlab -nodesktop -nosplash"
         ;;
     Linux)
-        # Colorize GNU `ls` command.
-        DIRCOLORS=dircolors
-
         # Aliases.
         alias open=gnome-open
         ;;
 esac
-eval `$DIRCOLORS ~/.dircolors-solarized/dircolors.ansi-universal`
