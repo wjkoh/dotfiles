@@ -302,7 +302,8 @@ nnoremap <Leader>a :A<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
-nnoremap <Leader>s :w<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
 
 
 "------------------------------------------------------------

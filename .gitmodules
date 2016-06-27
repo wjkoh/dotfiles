@@ -73,4 +73,7 @@
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bin/PathPicker"]
+	path = bin/PathPicker
+	url = https://github.com/facebook/PathPicker.git
 

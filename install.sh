@@ -24,6 +24,11 @@ do
 done
 popd &> /dev/null
 
+#echo "* Installing Facebook PathPicker..."
+#pushd "${INSTALL_SH_DIR}/bin"
+#ln -s ./PathPicker/fpp fpp
+#popd
+
 # Warning! The following are already installed by MacPorts or APT in
 # bootstrap_[mac|linux].sh.
 #if [ -z "$VIRTUAL_ENV" ]
@@ -105,15 +110,14 @@ then
   ${MAC_SYNC_DIR}/vpn/install.sh
 fi
 
-# This one should be in install.sh, not bootstap_*.sh, because we don't know the path to
-# directory .vim until install.sh links .vim to ~/.vim.
+# This one should be in install.sh, not bootstap_*.sh, because we don't know the
+# path to directory .vim until install.sh links .vim to ~/.vim.
 echo "* Building YouCompleteMe plugin..."
 pushd ~/.vim/bundle/YouCompleteMe
 ./install.py --clang-completer
 popd
 
 echo "* Installing the Powerline fonts..."
-# Mac OS and Linux.
 pushd $(mktemp -d)
 git clone https://github.com/powerline/fonts.git . && ./install.sh
 
