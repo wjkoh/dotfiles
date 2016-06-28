@@ -76,7 +76,7 @@ $PORT_INSTALL biblatex-biber || exit
 $PORT_INSTALL ccache || exit
 $PORT_INSTALL coreutils || exit
 $PORT_INSTALL cowsay || exit
-$PORT_INSTALL ctags || exit
+$PORT_INSTALL ctags || exit  # For vim-tagbar plugin.
 $PORT_INSTALL git +bash_completion +svn +credential_osxkeychain || exit
 $PORT_INSTALL grep || exit
 $PORT_INSTALL htop || exit

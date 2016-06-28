@@ -302,8 +302,10 @@ nnoremap <Leader>a :A<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
-nnoremap <Leader>w :w<CR>
+nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :q<CR>
+nnoremap <S-h> :tabprev<CR>
+nnoremap <S-l> :tabnext<CR>
 
 
 "------------------------------------------------------------
@@ -406,12 +408,13 @@ let g:tagbar_compact = 1
 let g:tagbar_indent = 1
 let g:tagbar_left = 1
 let g:tagbar_width = 30
-nnoremap <Leader>t :TagbarOpenAutoClose<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
 
 
 "------------------------------------------------------------
 " YouCompleteMe.
 nnoremap <Leader>] :YcmCompleter GoTo<CR>
+nnoremap <Leader>g] :tab split <Bar> YcmCompleter GoTo<CR>
 
 
 "------------------------------------------------------------
@@ -435,6 +438,6 @@ let g:tmuxline_preset = {
 	\'win'     : ['#I', '#W'],
 	\'cwin'    : ['#I', '#W'],
 	\'x'       : ['#{battery_icon}#{battery_percentage}', '#{cpu_icon}#{cpu_percentage}'],
-	\'y'       : ['%a', '%Y-%m-%d', '%l:%M%p'],
+	\'y'       : ['%l:%M%p', '%a', '%Y-%m-%d'],
 	\'z'       : '#S:#I',
 	\'options' : {'status-justify': 'left'}}

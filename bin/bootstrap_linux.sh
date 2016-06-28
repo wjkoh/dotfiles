@@ -61,6 +61,7 @@ $APT_GET install cmake || exit  # For YouCompleteMe plugin.
 $APT_GET install cowsay || exit
 $APT_GET install ctags || exit
 $APT_GET install curl || exit
+$APT_GET install exuberant-ctags || exit  # For vim-tagbar plugin.
 $APT_GET install git-core || exit
 $APT_GET install htop || exit
 $APT_GET install imagemagick || exit

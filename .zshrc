@@ -43,6 +43,7 @@ export REPORTTIME=1
 
 # Aliases.
 alias matlab="matlab -nodesktop -nosplash"
+alias fpp="fpp --no-file-checks"
 
 # Base16 Shell.
 BASE16_SHELL="$HOME/.base16-shell/base16-eighties.dark.sh"
