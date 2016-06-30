@@ -8,7 +8,11 @@ call pathogen#helptags()
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-let mapleader=' '
+" http://stackoverflow.com/questions/446269/can-i-use-space-as-mapleader-in-vim
+" If this makes a dealy when you type space in insert mode, check :imap <leader>
+" and remove all of them. A.vim is a common culprit.
+nnoremap <Space> <Nop>
+let mapleader = "\<Space>"  " Use double quotes here to enable escaping.
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -209,7 +213,7 @@ set infercase
 set shiftround
 set number
 if exists('+relativenumber')
-    set relativenumber
+  set relativenumber
 endif
 
 set background=dark
@@ -217,12 +221,12 @@ let base16colorspace=256
 colorscheme base16-eighties
 
 if exists('+macmeta')
-    set macmeta
+  set macmeta
 endif
 if has('gui_running')
-    set cursorline
-    set guioptions-=T	" Remove toolbar
-    set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
+  set cursorline
+  set guioptions-=T	" Remove toolbar
+  set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 endif
 set scrolloff=2		" Keep some context
 set sidescrolloff=5	" Keep some context
@@ -232,7 +236,7 @@ set viminfo^=!
 set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
 if has('unnamedplus')
-    set clipboard=unnamedplus
+  set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set path+=/opt/local/include,../include,../external
@@ -241,8 +245,8 @@ set autoread
 set autowrite
 set backup
 if has('persistent_undo')
-    set undofile
-    set undodir=~/.vim/tmp/undo//
+  set undofile
+  set undodir=~/.vim/tmp/undo//
 endif
 set backupdir=~/.vim/tmp/backup//   " include full path
 set spellfile=~/.vim/spell/en.utf-8.add
@@ -298,14 +302,13 @@ runtime macros/matchit.vim	" Enable matchit
 " Mappings.
 map <tab> %
 nnoremap <Leader>. :e .<CR>
-nnoremap <Leader>a :A<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <S-h> :tabprev<CR>
-nnoremap <S-l> :tabnext<CR>
+nnoremap <Leader>h :tabprev<CR>
+nnoremap <Leader>l :tabnext<CR>
 
 
 "------------------------------------------------------------
@@ -319,14 +322,16 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 "------------------------------------------------------------
 " Grep.
 if executable('ag')
-  set grepprg=ag\ --vimgrep\ $*
+  " --vimgrep option is nice but not availabe in ag prior to 0.25. For example,
+  " 0.19.2 in Goobuntu doesn't have it.
+  "set grepprg=ag\ --vimgrep
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
   set grepformat=%f:%l:%c:%m
 endif
 
 " '\b' matches a word boundary. ! in grep! prevents a jump to the first
 " occurence.
-nnoremap <Leader>* :grep! "\b<C-R><C-W>\b" %<CR>:cwindow<CR>:redraw!<CR>
-nnoremap <Leader>g* :grep! "\b<C-R><C-W>\b" *<CR>:cwindow<CR>:redraw!<CR>
+nnoremap <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cwindow<CR>
 
 
 "------------------------------------------------------------
@@ -367,31 +372,16 @@ let NERDTreeShowHidden=1
 
 "------------------------------------------------------------
 " CtrlP.
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_mruf_relative = 1
-let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|nerdtree'
-let g:ctrlp_root_markers = ['README.md']
 let g:ctrlp_match_window = 'top'
-
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s --ignore-case --nocolor --nogroup --hidden
-        \ --ignore .git
-        \ --ignore .svn
-        \ --ignore .hg
-        \ --ignore .DS_Store
-        \ --ignore "**/*.pyc"
-        \ -g ""'
-  "let g:ctrlp_clear_cache_on_exit = 1
-else
-  let g:ctrlp_user_command = {
-        \ 'types': {
-          \ 1: ['.git', 'cd %s && git ls-files'],
-          \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-          \ },
-        \ 'fallback': 'find %s -type f'
-        \ }
-endif
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore .git5_specs
+      \ --ignore review
+      \ -g ""'
 
 
 "------------------------------------------------------------
@@ -429,15 +419,16 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='base16'
 
+
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
 let g:tmuxline_preset = {
-	\'a'       : '#(whoami)@#(hostname -s)#{online_status}#{prefix_highlight}',
-	\'b disabled'       : '',
-	\'c disabled'       : '',
-	\'win'     : ['#I', '#W'],
-	\'cwin'    : ['#I', '#W'],
-	\'x'       : ['#{battery_icon}#{battery_percentage}', '#{cpu_icon}#{cpu_percentage}'],
-	\'y'       : ['%l:%M%p', '%a', '%Y-%m-%d'],
-	\'z'       : '#S:#I',
-	\'options' : {'status-justify': 'left'}}
+      \'a'       : '#(whoami)@#(hostname -s)#{online_status}#{prefix_highlight}',
+      \'b disabled'       : '',
+      \'c disabled'       : '',
+      \'win'     : ['#I', '#W'],
+      \'cwin'    : ['#I', '#W'],
+      \'x'       : ['#{battery_icon}#{battery_percentage}', '#{cpu_icon}#{cpu_percentage}'],
+      \'y'       : ['%l:%M%p', '%a', '%Y-%m-%d'],
+      \'z'       : '#S:#I',
+      \'options' : {'status-justify': 'left'}}

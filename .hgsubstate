@@ -4,7 +4,6 @@
 6c111f8b10c464afa45c6b62820bf3b50828c627 .vim/bundle/DirDiff.vim
 06c1e16a4dcfd1b8b1764e96482af4b063ca7c8a .vim/bundle/MatlabFilesEdition
 4984767509e3d05ca051e253c8a8b37de784be45 .vim/bundle/Vundle.vim
-2cbe946206ec622d9d8cf2c99317f204c4d41885 .vim/bundle/a.vim
 b5d3fe66a58a13d2ff8b6391f4387608496a030f .vim/bundle/ctrlp.vim
 8bc47fd1c40cdad9ea1f36c0cf13592c70ea65e9 .vim/bundle/delimitMate
 852ddb0c6590bbc41c508d7f5d2fc17112492def .vim/bundle/grep.vim

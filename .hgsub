@@ -1,7 +1,6 @@
 .vim/bundle/DirDiff.vim = [git]https://github.com/vim-scripts/DirDiff.vim.git
 .vim/bundle/MatlabFilesEdition = [git]https://github.com/vim-scripts/MatlabFilesEdition.git
 .vim/bundle/Vundle.vim = [git]https://github.com/VundleVim/Vundle.vim.git
-.vim/bundle/a.vim = [git]https://github.com/vim-scripts/a.vim.git
 .vim/bundle/ctrlp.vim = [git]https://github.com/kien/ctrlp.vim.git
 .vim/bundle/delimitMate = [git]https://github.com/Raimondi/delimitMate.git
 .vim/bundle/grep.vim = [git]https://github.com/vim-scripts/grep.vim.git

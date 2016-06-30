@@ -52,9 +52,6 @@
 [submodule ".vim/bundle/MatlabFilesEdition"]
 	path = .vim/bundle/MatlabFilesEdition
 	url = https://github.com/vim-scripts/MatlabFilesEdition.git
-[submodule ".vim/bundle/a.vim"]
-	path = .vim/bundle/a.vim
-	url = https://github.com/vim-scripts/a.vim.git
 [submodule ".vim/bundle/vim-commentary"]
 	path = .vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
