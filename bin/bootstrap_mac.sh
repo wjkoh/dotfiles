@@ -89,7 +89,7 @@ $PORT_INSTALL mosh || exit
 $PORT_INSTALL mpv +screenshot +smb || exit
 $PORT_INSTALL nmap || exit
 $PORT_INSTALL pigz || exit
-$PORT_INSTALL ranger || exit
+$PORT_INSTALL ranger libcaca highlight atool w3m poppler mediainfo || exit
 $PORT_INSTALL s3cmd || exit
 $PORT_INSTALL scons || exit
 $PORT_INSTALL swig swig-python || exit  # for SciPy
@@ -105,6 +105,9 @@ $PORT_INSTALL weechat +aspell +perl +python +tls || exit  # Install aspell-dict-
 $PORT_INSTALL wget || exit
 $PORT_INSTALL wireshark || exit
 $PORT_INSTALL x264 +asm ffmpeg || exit
+
+rehash
+ranger --copy-config=all
 
 # Install libraries.
 # Do not mix libc++ and libstdc++. http://www.alecjacobson.com/weblog/?p=3145

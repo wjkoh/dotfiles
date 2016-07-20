@@ -1,15 +1,14 @@
-"------------------------------------------------------------
-" Pathogen.
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
+"------------------------------------------------------------
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
 call vundle#begin()
 
 " http://stackoverflow.com/questions/446269/can-i-use-space-as-mapleader-in-vim
-" If this makes a dealy when you type space in insert mode, check :imap <leader>
+" If this makes a delay when you type space in insert mode, check :imap <leader>
 " and remove all of them. A.vim is a common culprit.
 nnoremap <Space> <Nop>
 let mapleader = "\<Space>"  " Use double quotes here to enable escaping.
@@ -39,9 +38,23 @@ else
   let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 endif
 
+Plugin 'ajh17/VimCompletesMe'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'justinmk/vim-dirvish'
+Plugin 'majutsushi/tagbar'
+Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-signify'
+Plugin 'rstacruz/vim-closer'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'unblevable/quick-scope'  " You can repeat the motion command by ;.
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
@@ -249,10 +262,23 @@ if has('persistent_undo')
   set undodir=~/.vim/tmp/undo//
 endif
 set backupdir=~/.vim/tmp/backup//   " include full path
-set spellfile=~/.vim/spell/en.utf-8.add
+
 " What if &spellfile is a list of filenames?
+" zg to add word to word list
+" zw to reverse
+" zug to remove word from word list
+" z= to get list of possibilities
+set spellfile=~/.vim/spell/en.utf-8.add
 silent execute 'mkspell! ' . &spellfile
 set spelllang=en_us
+set spell
+
+highlight clear SpellBad
+highlight clear SpellCap
+highlight clear SpellRare
+highlight clear SpellLocal
+highlight SpellBad cterm=bold
+
 set dictionary+=/usr/share/dict/words
 set showmatch
 set complete-=i
@@ -305,6 +331,7 @@ nnoremap <Leader>. :e .<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
+" <Leader>w conflicts with <Leader>ww and <Leader>ws.
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>h :tabprev<CR>
@@ -364,24 +391,9 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 
 "------------------------------------------------------------
-" NERDTree.
-let NERDTreeChDirMode=2
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-
-
-"------------------------------------------------------------
-" CtrlP.
-let g:ctrlp_match_window = 'top'
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore .git5_specs
-      \ --ignore review
-      \ -g ""'
+" FZF.
+nnoremap <Leader><Leader> :FZF<CR>
+nnoremap <C-t> :FZF<CR>
 
 
 "------------------------------------------------------------
@@ -408,17 +420,18 @@ nnoremap <Leader>g] :tab split <Bar> YcmCompleter GoTo<CR>
 
 
 "------------------------------------------------------------
-" Ultisnips.
-let g:UltiSnipsExpandTrigger="<c-j>"
-
-
-"------------------------------------------------------------
 " Airline.
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='base16'
 
+"------------------------------------------------------------
+" Dirvish.
+" Sort directory at the top.
+autocmd FileType dirvish sort r /[^\/]$/
+
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.

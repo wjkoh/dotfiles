@@ -134,4 +134,8 @@ popd
 source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-default.dark.sh)
 source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-eighties.dark.sh)
 
+vim '+PluginInstall!' +qall
+
+~/.fzf/install
+
 echo "* SUCCESSFULLY DONE!"

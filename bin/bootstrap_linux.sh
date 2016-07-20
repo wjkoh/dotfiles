@@ -53,7 +53,6 @@ $APT_GET install python-sqlalchemy || exit
 $APT_GET install python-wand || exit
 
 # Install utilities.
-#$APT_GET install ffmpeg || exit  # Not available.
 $APT_GET install aspell-en || exit
 $APT_GET install autojump || exit
 $APT_GET install ccache || exit
@@ -62,6 +61,7 @@ $APT_GET install cowsay || exit
 $APT_GET install ctags || exit
 $APT_GET install curl || exit
 $APT_GET install exuberant-ctags || exit  # For vim-tagbar plugin.
+#$APT_GET install ffmpeg || exit  # Not available.
 $APT_GET install git-core || exit
 $APT_GET install htop || exit
 $APT_GET install imagemagick || exit
@@ -71,7 +71,7 @@ $APT_GET install mosh || exit
 $APT_GET install mpv || exit
 $APT_GET install nmap || exit
 $APT_GET install pigz || exit
-$APT_GET install ranger || exit
+$APT_GET install ranger caca-utils highlight atool w3m poppler-utils mediainfo || exit
 $APT_GET install s3cmd || exit
 $APT_GET install scons || exit
 $APT_GET install silversearcher-ag || exit
@@ -87,6 +87,9 @@ $APT_GET install weechat || exit
 $APT_GET install wget || exit
 $APT_GET install wireshark || exit
 $APT_GET install zsh || exit
+
+rehash
+ranger --copy-config=all
 
 # Install libraries.
 #$APT_GET install ceres-solver || exit  # Not available.

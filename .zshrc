@@ -29,6 +29,10 @@ source "${ZDOTDIR:-$HOME}/bin/autojump.plugin.zsh"
 # Google only.
 if [ -f ~/.at_google ]; then
   source /etc/bash_completion.d/g4d
+
+  autoload bashcompinit
+  bashcompinit
+  source /google/data/ro/projects/devtools/rebaser/bash_completion.sh
 fi
 
 if [ -n "$DISPLAY" ] ; then export G4MULTIDIFF=1 ; fi
@@ -48,6 +52,9 @@ alias fpp="fpp --no-file-checks"
 # Base16 Shell.
 BASE16_SHELL="$HOME/.base16-shell/base16-eighties.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+# FZF.
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 case `uname` in
     Darwin)
