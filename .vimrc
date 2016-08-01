@@ -52,6 +52,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'unblevable/quick-scope'  " You can repeat the motion command by ;.
@@ -112,8 +113,9 @@ set hidden
 " set confirm
 " set autowriteall
 
+" Already in vim-sensible.
 " Better command-line completion
-set wildmenu
+" set wildmenu
 
 " Show partial commands in the last line of the screen
 set showcmd
@@ -140,24 +142,28 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" Already in vim-sensible.
 " Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
+" set backspace=indent,eol,start
 
+" Already in vim-sensible.
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on. Useful for READMEs, etc.
-set autoindent
+" set autoindent
 
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
 set nostartofline
 
+" Already in vim-sensible.
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-set ruler
+" set ruler
 
+" Already in vim-sensible.
 " Always display the status line, even if only one window is displayed
-set laststatus=2
+" set laststatus=2
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
@@ -214,13 +220,31 @@ set expandtab
 " which is the default
 map Y y$
 
+" Already in vim-sensible.
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
-nnoremap <C-L> :nohl<CR><C-L>
+" nnoremap <C-L> :nohl<CR><C-L>
 
 
 "------------------------------------------------------------
 " Customizations.
+
+" Already in vim-sensible.
+" set scrolloff=2		" Keep some context
+" set sidescrolloff=5	" Keep some context
+" set incsearch
+" set history=1000
+" set viminfo^=!
+" set autoread
+" From https://github.com/tpope/vim-sensible.
+" set list
+" if &listchars ==# 'eol:$'
+"   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+" endif
+" runtime macros/matchit.vim	" Enable matchit
+" set tags=./tags;
+" set complete-=i
+
 set textwidth=90
 set infercase
 set shiftround
@@ -241,11 +265,6 @@ if has('gui_running')
   set guioptions-=T	" Remove toolbar
   set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 endif
-set scrolloff=2		" Keep some context
-set sidescrolloff=5	" Keep some context
-set incsearch
-set history=1000
-set viminfo^=!
 set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
 if has('unnamedplus')
@@ -253,8 +272,6 @@ if has('unnamedplus')
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
 set path+=/opt/local/include,../include,../external
-set tags=./tags;
-set autoread
 set autowrite
 set backup
 if has('persistent_undo')
@@ -281,7 +298,6 @@ highlight SpellBad cterm=bold
 
 set dictionary+=/usr/share/dict/words
 set showmatch
-set complete-=i
 set completeopt=longest,menuone,preview
 set colorcolumn=+1
 set lazyredraw
@@ -304,24 +320,18 @@ vnoremap L g_
 set notimeout
 set ttimeout
 set ttimeoutlen=10
+
 set fileformats+=mac
 
 set noignorecase " ignorecase has a problem with tag jump Ctrl-]
 map / /\c
 map ? /\c
 
-" From https://github.com/tpope/vim-sensible.
-set list
-if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-endif
-
 if exists('+breakindent')
   set breakindent  " https://retracile.net/wiki/VimBreakIndent
   set showbreak=\ +
 endif
 
-runtime macros/matchit.vim	" Enable matchit
 
 
 "------------------------------------------------------------
@@ -392,7 +402,7 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 "------------------------------------------------------------
 " FZF.
-nnoremap <Leader><Leader> :FZF<CR>
+" nnoremap <Leader><Leader> :FZF<CR>
 nnoremap <C-t> :FZF<CR>
 
 
