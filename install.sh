@@ -16,12 +16,21 @@ MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 echo "* Installing dotfiles..."
 pushd "${INSTALL_SH_DIR}" &> /dev/null
 shopt -s dotglob extglob
-for DOTFILE in !(.|..|.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md|*.swp)
+for DOTFILE in !(.|..|.DS_Store|.hg|.hgsub|.hgsubstate|.hgignore|tags|install.sh|install.bat|README.md|*.swp|.config)
 do
     echo "Linking ${DOTFILE}"
     rm -f "${HOME}/${DOTFILE}"
     ln -s "${INSTALL_SH_DIR}/${DOTFILE}" "${HOME}/${DOTFILE}"
 done
+
+pushd .config
+for DOTFILE in !(.|..|.DS_Store|.placeholder)
+do
+    echo "Linking ${DOTFILE}"
+    rm -f "${HOME}/.config/${DOTFILE}"
+    ln -s "${INSTALL_SH_DIR}/.config/${DOTFILE}" "${HOME}/.config/${DOTFILE}"
+done
+popd &> /dev/null
 popd &> /dev/null
 
 #echo "* Installing Facebook PathPicker..."
