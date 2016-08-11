@@ -1,0 +1,14 @@
+[alias]
+presubmit = export -p all --tap-options=detach,email --ignore-presubmit-warnings
+
+[mail]
+no-body = True
+
+[track]
+ignore-pending-commits = True
+
+[overlay]
+ignore-pending-commits = True
+
+[sync]
+rebase = True
