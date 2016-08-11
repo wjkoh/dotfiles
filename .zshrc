@@ -50,8 +50,8 @@ alias matlab="matlab -nodesktop -nosplash"
 alias fpp="fpp --no-file-checks"
 
 # Base16 Shell.
-BASE16_SHELL="$HOME/.base16-shell/base16-eighties.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

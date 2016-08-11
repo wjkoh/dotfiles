@@ -256,6 +256,9 @@ endif
 set background=dark
 let base16colorspace=256
 colorscheme base16-eighties
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+endif
 
 if exists('+macmeta')
   set macmeta
