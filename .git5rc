@@ -11,4 +11,4 @@ ignore-pending-commits = True
 ignore-pending-commits = True
 
 [sync]
-rebase = True
+#rebase = True
