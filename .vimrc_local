@@ -24,7 +24,7 @@ augroup autoformat
   autocmd!
   autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,javascript,cuda AutoFormatBuffer clang-format
 augroup END
 
 " Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
