@@ -4,7 +4,6 @@ filetype off                  " required
 "------------------------------------------------------------
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/.fzf
 call vundle#begin()
 
 " http://stackoverflow.com/questions/446269/can-i-use-space-as-mapleader-in-vim
@@ -22,31 +21,28 @@ if filereadable(expand('~/.at_google'))
   source ~/.vimrc_local
 else
   " Non-Google only
-  Plugin 'Valloric/YouCompleteMe'
 
   " Add maktaba and codefmt to the runtimepath.
   " (The latter must be installed before it can be used.)
   Plugin 'google/vim-maktaba'
   Plugin 'google/vim-codefmt'
+
   " Also add Glaive, which is used to configure codefmt's maktaba flags. See
   " `:help :Glaive` for usage.
   Plugin 'google/vim-glaive'
-
-  "------------------------------------------------------------
-  " YouCompleteMe.
-  let g:ycm_confirm_extra_conf = 0
-  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 endif
 
+Plugin 'airblade/vim-rooter'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'justinmk/vim-dirvish'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
+Plugin 'mhinz/vim-grepper'
 Plugin 'mhinz/vim-signify'
+Plugin 'romainl/vim-qlist'  " For :Ilist and :Dlist.
 Plugin 'rstacruz/vim-closer'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
@@ -68,7 +64,8 @@ call glaive#Install()
 
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
-
+" MacOS X with MacPorts only.
+Glaive codefmt clang_format_executable=/opt/local/libexec/llvm-3.8/bin/clang-format
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -191,7 +188,7 @@ set number
 set notimeout ttimeout ttimeoutlen=200
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<Leader>z
+set pastetoggle=<F11>
 
 
 "------------------------------------------------------------
@@ -245,7 +242,7 @@ map Y y$
 " set tags=./tags;
 " set complete-=i
 
-set textwidth=90
+set textwidth=80
 set infercase
 set shiftround
 set number
@@ -274,7 +271,7 @@ if has('unnamedplus')
   set clipboard=unnamedplus
 endif
 set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set path+=/opt/local/include,../include,../external
+set path+=**  " This works with vim-rooter and adds all the subdirectories in the project directory.
 set autowrite
 set backup
 if has('persistent_undo')
@@ -305,9 +302,10 @@ set completeopt=longest,menuone,preview
 set colorcolumn=+1
 set lazyredraw
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.o,*.obj,.DS_Store    " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.exe   " Windows
-set wildmode=longest:full,full
+set wildignore+=*.so,*.swp,*.o,*.obj,.DS_Store,*.jpg,*.png,*.exe
+set suffixes+=.sty,.bst,.cls  " Get lower priority in wildmenu.
+set wildignorecase
+set wildmode=list:longest,full
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -335,29 +333,18 @@ if exists('+breakindent')
   set showbreak=\ +
 endif
 
-
-
 "------------------------------------------------------------
 " Mappings.
 map <tab> %
-nnoremap <Leader>. :e .<CR>
 nnoremap D d$  " Make D behave.
 nnoremap j gj
 nnoremap k gk
-" <Leader>w conflicts with <Leader>ww and <Leader>ws.
-nnoremap <Leader>s :w<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>h :tabprev<CR>
-nnoremap <Leader>l :tabnext<CR>
-
 
 "------------------------------------------------------------
 " Undotree.
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_SplitWidth = 30
 let g:undotree_WindowLayout = 2
-nnoremap <Leader>u :UndotreeToggle<CR>
-
 
 "------------------------------------------------------------
 " Grep.
@@ -366,29 +353,16 @@ if executable('ag')
   " 0.19.2 in Goobuntu doesn't have it.
   "set grepprg=ag\ --vimgrep
   set grepprg=ag\ --nogroup\ --nocolor\ --column
-  set grepformat=%f:%l:%c:%m
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
-
-" '\b' matches a word boundary. ! in grep! prevents a jump to the first
-" occurence.
-nnoremap <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cwindow<CR>
-
 
 "------------------------------------------------------------
 " Autocommands.
-autocmd BufEnter * silent! lcd %:p:h
 autocmd VimResized * wincmd =  " Resize splits when the window is resized
-
 autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
 autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
-
 autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
-
-if executable('marked')
-  autocmd BufNewFile,BufRead *.md silent! execute '!marked ' . shellescape(expand('%'))
-endif
-
 
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /
@@ -402,49 +376,26 @@ endif
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-
-"------------------------------------------------------------
-" FZF.
-" nnoremap <Leader><Leader> :FZF<CR>
-nnoremap <C-t> :FZF<CR>
-
-
-"------------------------------------------------------------
-" Buffergator.
-let g:buffergator_split_size = 10
-let g:buffergator_suppress_keymaps = 1
-let g:buffergator_viewport_split_policy = 'T'
-nnoremap <Leader>b :BuffergatorOpen<CR>
-
-
 "------------------------------------------------------------
 " Tagbar.
 let g:tagbar_compact = 1
 let g:tagbar_indent = 1
 let g:tagbar_left = 1
 let g:tagbar_width = 30
-nnoremap <Leader>t :TagbarToggle<CR>
-
-
-"------------------------------------------------------------
-" YouCompleteMe.
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
-nnoremap <Leader>g] :tab split <Bar> YcmCompleter GoTo<CR>
-
 
 "------------------------------------------------------------
 " Airline.
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='base16'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ":t"  " Display filename only.
+let g:airline#extensions#tabline#fnamecollapse = 1
+
 "------------------------------------------------------------
 " Dirvish.
-" Sort directory at the top.
-autocmd FileType dirvish sort r /[^\/]$/
-
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+autocmd FileType dirvish sort r /[^\/]$/  " Sort directory at the top.
 
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
@@ -458,3 +409,93 @@ let g:tmuxline_preset = {
       \'y'       : ['%l:%M%p', '%a', '%Y-%m-%d'],
       \'z'       : '#S:#I',
       \'options' : {'status-justify': 'left'}}
+
+" Rooter.
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'METADATA']
+
+" Quickscope.
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
+nnoremap <Leader>b :b <C-d>
+nnoremap <Leader>c :cclose<CR>
+nnoremap <Leader>d :Dlist<Space>
+nnoremap <Leader>e :e **/
+nnoremap <Leader>g :grep<Space>
+nnoremap <Leader>h :tabprev<CR>
+nnoremap <Leader>i :Ilist<Space>
+nnoremap <Leader>j :tjump /
+nnoremap <Leader>l :tabnext<CR>
+nnoremap <Leader>m :make<CR>
+nnoremap <Leader>p <C-^>  " Go back to the previous file (alternate file.) Same as `:b#`.
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>s :w<CR>  " <Leader>w conflicts with <Leader>ww and <Leader>ws.
+nnoremap <Leader>t :TagbarToggle<CR>
+nnoremap <Leader>u :UndotreeToggle<CR>
+nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
+
+nnoremap <Left> :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+nnoremap <Up> :resize -2<CR>
+nnoremap <Down> :resize +2<CR>
+
+" This function requires vim-rooter.
+function! BaddFiles()
+    :Rooter
+    let file_list = []
+
+    " Git.
+    let git_cmd = "git"
+    if executable(git_cmd)
+      let git_args = "ls-files --full-name --modified --exclude-standard 2>/dev/null"
+      let file_list += systemlist(git_cmd . " " . git_args)
+    endif
+
+    " Mercurial.
+    let hg_cmd = "hg"
+    if executable(hg_cmd)
+      let hg_args = "status --no-status --added --modified 2>/dev/null"
+      let file_list += systemlist(hg_cmd . " " . hg_args)
+    endif
+
+    " Perforce. See http://stackoverflow.com/questions/7386625/perforce-how-to-get-the-list-of-files-that-have-been-modified-locally
+    let perforce_cmd = "p4"
+    if executable(perforce_cmd)
+      let perforce_args="diff -f -sa 2>/dev/null"
+      let file_list += systemlist(perforce_cmd . " " . perforce_args)
+    endif
+
+    " Add all the files to the buffer list.
+    for file in file_list
+      if filereadable(getcwd() . "/" . file)
+        execute "badd " . file
+      endif
+    endfor
+endfunction
+
+autocmd BufReadPost * call BaddFiles()
+
+" Vim Tips.
+"
+" 1. In Normal mode, `A` change to Insert mode at the end of the line and `I`
+" change to Insert mode at the beginning of the line.
+"
+" 2. In Command-line mode, use <C-w> to erase words and <C-u> to delete lines.
+"
+" 3. Try :earlier and :later.
+"
+" 4. `[I` list all the lines where the word under the cursor occurs.
+"
+" 5. `:%! sort -k2` will sort the buffer based on column 2, `:%! column -t` will
+" format the text in columns - useful when working with tabular data, and `:%!
+" markdown` will change the current markdown file to html.
+"
+" 6. While visually selecting a block, press 'o' to switch to the other end of
+" the block. This lets you adjust either the starting or ending positions of the
+" block until you're ready to issue a command. That is, you can expand or
+" contract either end of the visual block, you're not stuck changing just one
+" end.
+"
+" 7. Try `p` -> `gv` -> `y`.

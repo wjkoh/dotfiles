@@ -45,6 +45,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
+  /Developer/NVIDIA/CUDA-7.5/bin
 )
 
 #

@@ -61,13 +61,11 @@ $PORT_INSTALL py27-tabulate || exit
 $PORT_INSTALL py27-wand || exit
 
 # Install compilers.
-$PORT_INSTALL gcc49 || exit
-sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit
+#$PORT_INSTALL gcc49 || exit
+#sudo ln -sf /opt/local/bin/gfortran-mp-4.9 /opt/local/bin/gfortran || exit
 
-# Install MacPort's Clang to use OpenMp.
-$PORT_INSTALL clang-3.7 || exit
-$PORT_SELECT clang mp-clang-3.7 || exit
-$PORT_INSTALL libomp || exit
+# Install MacPort's Clang.
+$PORT_INSTALL clang-3.8 || exit  # clang -> clang-format -> vim-codefmt.
 
 # Install utilities.
 $PORT_INSTALL aspell-dict-en || exit
