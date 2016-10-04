@@ -11,4 +11,6 @@ ignore-pending-commits = True
 ignore-pending-commits = True
 
 [sync]
-rebase = True
+sync-at = green
+tap-project = chauffeur.onboard
+#rebase = True
