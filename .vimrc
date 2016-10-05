@@ -21,7 +21,6 @@ if filereadable(expand('~/.at_google'))
   source ~/.vimrc_local
 else
   " Non-Google only
-
   " Add maktaba and codefmt to the runtimepath.
   " (The latter must be installed before it can be used.)
   Plugin 'google/vim-maktaba'
@@ -415,7 +414,7 @@ let g:tmuxline_preset = {
 
 " Rooter.
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'METADATA']
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
 
 " Quickscope.
 " Trigger a highlight in the appropriate direction when pressing these keys:
@@ -439,10 +438,10 @@ nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
 
-nnoremap <Left> :vertical resize +2<CR>
-nnoremap <Right> :vertical resize -2<CR>
-nnoremap <Up> :resize -2<CR>
-nnoremap <Down> :resize +2<CR>
+nnoremap <Leader><Left> :vertical resize +2<CR>
+nnoremap <Leader><Right> :vertical resize -2<CR>
+nnoremap <Leader><Up> :resize -2<CR>
+nnoremap <Leader><Down> :resize +2<CR>
 
 " This function requires vim-rooter.
 function! BaddFiles()
@@ -463,19 +462,17 @@ function! BaddFiles()
       let file_list += systemlist(hg_cmd . " " . hg_args)
     endif
 
-    " Perforce. See http://stackoverflow.com/questions/7386625/perforce-how-to-get-the-list-of-files-that-have-been-modified-locally
-    let perforce_cmd = "p4"
-    if executable(perforce_cmd)
-      let perforce_args="diff -f -sa 2>/dev/null"
-      let file_list += systemlist(perforce_cmd . " " . perforce_args)
-    endif
-
     " Add all the files to the buffer list.
     for file in file_list
       if filereadable(getcwd() . "/" . file)
         execute "badd " . file
       endif
     endfor
+
+    " Piper.
+    if exists(":PiperLoadActiveAsBuffers") == 2
+      :silent PiperLoadActiveAsBuffers
+    endif
 endfunction
 
 autocmd BufReadPost * call BaddFiles()
