@@ -443,12 +443,20 @@ nnoremap <Leader><Right> :vertical resize -2<CR>
 nnoremap <Leader><Up> :resize -2<CR>
 nnoremap <Leader><Down> :resize +2<CR>
 
+function! IsTextFile(fname)
+  if executable("file")
+    return system("file -ib " . a:fname) =~# "^text/"
+  endif
+  return true
+endfunction
+
 " This function requires vim-rooter.
 function! BaddFiles()
+    " Run Rooter first.
     :Rooter
-    let file_list = []
 
     " Git.
+    let file_list = []
     let git_cmd = "git"
     if executable(git_cmd)
       let git_args = "ls-files --full-name --modified --exclude-standard 2>/dev/null"
@@ -464,7 +472,8 @@ function! BaddFiles()
 
     " Add all the files to the buffer list.
     for file in file_list
-      if filereadable(getcwd() . "/" . file)
+      let fname = getcwd() . "/" . file
+      if filereadable(fname) && IsTextFile(fname)
         execute "badd " . file
       endif
     endfor
