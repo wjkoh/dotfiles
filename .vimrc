@@ -36,6 +36,7 @@ Plugin 'ajh17/VimCompletesMe'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'justinmk/vim-dirvish'
+Plugin 'justinmk/vim-sneak'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
@@ -50,7 +51,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'unblevable/quick-scope'  " You can repeat the motion command by ;.
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
@@ -416,9 +416,8 @@ let g:tmuxline_preset = {
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
 
-" Quickscope.
-" Trigger a highlight in the appropriate direction when pressing these keys:
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" Sneak.
+let g:sneak#streak = 1
 
 nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
 nnoremap <Leader>b :b <C-d>
