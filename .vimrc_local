@@ -24,8 +24,9 @@ Glug codefmt-google
 augroup autoformat
   autocmd!
   autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType c,cpp,proto,javascript,cuda AutoFormatBuffer clang-format
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType python AutoFormatBuffer pyformat
 augroup END
 
 " Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
@@ -44,3 +45,12 @@ Glug relatedfiles plugin[mappings] window_position="topleft"
 " <Leader>ww: search in critique for the word under the cursor
 " <Leader>wf: search in critique for the current file
 Glug corpweb plugin[mappings]='<Leader>w'
+
+" Blaze key mappings, i.e., Glug blaze plugin[mappings]='<leader>b', conflict
+" with my own key mapping, i.e., nnoremap <Leader>b :b <C-d>. Use <Leader>m
+" instead to invoke the Blaze commands.
+Glug blaze
+
+" Use :BlazeDepsUpdate in files you're editing and blazedeps will determine the
+" BUILD target associated with the current file and update the deps for you.
+Glug blazedeps

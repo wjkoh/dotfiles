@@ -1,6 +1,7 @@
 bin/PathPicker = [git]https://github.com/facebook/PathPicker.git
 .config/base16-shell = [git]https://github.com/chriskempson/base16-shell.git
 .fzf = [git]https://github.com/junegunn/fzf.git
+.hgext/onsub = https://bitbucket.org/kvaster/onsub
 .tmux/plugins/tpm = [git]https://github.com/tmux-plugins/tpm
 .vim/bundle/Vundle.vim = [git]https://github.com/VundleVim/Vundle.vim.git
 .zprezto = [git]https://github.com/sorin-ionescu/prezto.git

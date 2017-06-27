@@ -11,6 +11,7 @@ call vundle#begin()
 " and remove all of them. A.vim is a common culprit.
 nnoremap <Space> <Nop>
 let mapleader = "\<Space>"  " Use double quotes here to enable escaping.
+let maplocalleader = ","
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -32,7 +33,7 @@ else
 endif
 
 Plugin 'airblade/vim-rooter'
-Plugin 'ajh17/VimCompletesMe'
+Plugin 'beloglazov/vim-online-thesaurus'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'justinmk/vim-dirvish'
@@ -44,6 +45,7 @@ Plugin 'mhinz/vim-grepper'
 Plugin 'mhinz/vim-signify'
 Plugin 'romainl/vim-qlist'  " For :Ilist and :Dlist.
 Plugin 'rstacruz/vim-closer'
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
@@ -63,8 +65,11 @@ call glaive#Install()
 
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
+if filereadable(expand('~/.at_google'))
+else
 " MacOS X with MacPorts only.
 Glaive codefmt clang_format_executable=/opt/local/libexec/llvm-3.8/bin/clang-format
+endif
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -102,6 +107,7 @@ syntax on
 " history for multiple files. Vim will complain if you try to quit without
 " saving, and swap files will keep you safe if your computer crashes.
 set hidden
+set noswapfile
 
 " Note that not everyone likes working this way (with the hidden option).
 " Alternatives include using tabs or split windows instead of re-using the same
@@ -264,7 +270,7 @@ if has('gui_running')
   set guioptions-=T	" Remove toolbar
   set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
 endif
-set viminfo+=%3		" Save and restore the buffer list
+"set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
 if has('unnamedplus')
   set clipboard=unnamedplus
@@ -414,22 +420,21 @@ let g:tmuxline_preset = {
 
 " Rooter.
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'BUILD']
 
 " Sneak.
 let g:sneak#streak = 1
 
-nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
 nnoremap <Leader>b :b <C-d>
 nnoremap <Leader>c :cclose<CR>
 nnoremap <Leader>d :Dlist<Space>
 nnoremap <Leader>e :e **/
 nnoremap <Leader>g :grep<Space>
+nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
 nnoremap <Leader>h :tabprev<CR>
 nnoremap <Leader>i :Ilist<Space>
 nnoremap <Leader>j :tjump /
 nnoremap <Leader>l :tabnext<CR>
-nnoremap <Leader>m :make<CR>
 nnoremap <Leader>p <C-^>  " Go back to the previous file (alternate file.) Same as `:b#`.
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>s :w<CR>  " <Leader>w conflicts with <Leader>ww and <Leader>ws.
@@ -437,10 +442,20 @@ nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
 
+nnoremap <Leader><Down> :resize +2<CR>
 nnoremap <Leader><Left> :vertical resize +2<CR>
 nnoremap <Leader><Right> :vertical resize -2<CR>
 nnoremap <Leader><Up> :resize -2<CR>
-nnoremap <Leader><Down> :resize +2<CR>
+
+if filereadable(expand('~/.at_google'))
+  nnoremap <Leader>m :Blaze <C-d>
+  " Run clang-include-fixer and BlazeDepsUpdate.
+  nnoremap <leader>cf :pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>:w<cr>:BlazeDepsUpdate<cr>
+else
+  nnoremap <Leader>m :make<CR>
+  " Run clang-include-fixer.
+  nnoremap <leader>cf :pyf path/to/llvm/source/tools/clang/tools/extra/include-fixer/tool/clang-include-fixer.py<cr>
+endif
 
 function! IsTextFile(fname)
   if executable("file")
