@@ -9,7 +9,7 @@ Glug piper plugin[mappings]='<Leader>p'
 " Loads youcompleteme, the awesomest autocompletion engine.
 " See go/ycm for more details.
 Glug youcompleteme-google
-nnoremap <C-]> :YcmCompleter GoTo<CR>  " Override the default jump key.
+"nnoremap <C-]> :YcmCompleter GoTo<CR>  " Override the default jump key.
 
 " Load the code formatting plugin. We first load the open-source version. Then,
 " we load the internal google settings. Then, we automatically enable formatting

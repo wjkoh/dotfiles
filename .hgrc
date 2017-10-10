@@ -43,7 +43,6 @@ hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
 hgext.onsub = ~/.hgext/onsub/onsub.py
-hggit =
 hgsubversion =
 mercurial_keyring =
 pager =

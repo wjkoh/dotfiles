@@ -32,18 +32,17 @@ else
   Plugin 'google/vim-glaive'
 endif
 
-Plugin 'airblade/vim-rooter'
+Plugin 'airblade/vim-rooter'  " For BAddFiles().
 Plugin 'beloglazov/vim-online-thesaurus'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'justinmk/vim-dirvish'
 Plugin 'justinmk/vim-sneak'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-grepper'
 Plugin 'mhinz/vim-signify'
-Plugin 'romainl/vim-qlist'  " For :Ilist and :Dlist.
+Plugin 'mileszs/ack.vim'
 Plugin 'rstacruz/vim-closer'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
@@ -359,6 +358,7 @@ if executable('ag')
   "set grepprg=ag\ --vimgrep
   set grepprg=ag\ --nogroup\ --nocolor\ --column
   set grepformat=%f:%l:%c:%m,%f:%l:%m
+  " let g:ackprg = 'ag --vimgrep'
 endif
 
 "------------------------------------------------------------
@@ -383,13 +383,6 @@ autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 " seem to happen.
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
-
-"------------------------------------------------------------
-" Tagbar.
-let g:tagbar_compact = 1
-let g:tagbar_indent = 1
-let g:tagbar_left = 1
-let g:tagbar_width = 30
 
 "------------------------------------------------------------
 " Airline.
@@ -420,25 +413,20 @@ let g:tmuxline_preset = {
 
 " Rooter.
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'BUILD']
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
 
 " Sneak.
 let g:sneak#streak = 1
+let g:sneak#label = 1
 
 nnoremap <Leader>b :b <C-d>
 nnoremap <Leader>c :cclose<CR>
-nnoremap <Leader>d :Dlist<Space>
 nnoremap <Leader>e :e **/
 nnoremap <Leader>g :grep<Space>
 nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
-nnoremap <Leader>h :tabprev<CR>
-nnoremap <Leader>i :Ilist<Space>
 nnoremap <Leader>j :tjump /
-nnoremap <Leader>l :tabnext<CR>
-nnoremap <Leader>p <C-^>  " Go back to the previous file (alternate file.) Same as `:b#`.
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>s :w<CR>  " <Leader>w conflicts with <Leader>ww and <Leader>ws.
-nnoremap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
 
@@ -465,7 +453,7 @@ function! IsTextFile(fname)
 endfunction
 
 " This function requires vim-rooter.
-function! BaddFiles()
+function! BAddFiles()
     " Run Rooter first.
     :Rooter
 
@@ -498,7 +486,20 @@ function! BaddFiles()
     endif
 endfunction
 
-autocmd BufReadPost * call BaddFiles()
+autocmd BufReadPost * call BAddFiles()
+
+" vim-signify.
+let g:signify_vcs_list = [ 'git', 'hg', 'svn', 'perforce' ]
+" See go/citcdiff.
+let g:signify_vcs_cmds = {'perforce':'DIFF=%d" -U0" citcdiff %f || [[ $? == 1 ]]'}
+
+" vim-gutentags.
+let g:gutentags_project_root = ['BUILD']
+let g:gutentags_add_default_project_roots = 1
+
+" vim-online-thesaurus.
+let g:online_thesaurus_map_keys = 0
+nnoremap <Leader>K :OnlineThesaurusCurrentWord<CR>
 
 " Vim Tips.
 "
@@ -522,3 +523,5 @@ autocmd BufReadPost * call BaddFiles()
 " end.
 "
 " 7. Try `p` -> `gv` -> `y`.
+"
+" 8. Use `:e %:h`
