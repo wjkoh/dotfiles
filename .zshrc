@@ -5,6 +5,10 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
+  /usr/games/fortune | /usr/games/cowsay
+fi
+
 # Make the GNOME terminal work with vim-colors-solarized.
 if [ -z "$TMUX" ]; then
   case $COLORTERM in

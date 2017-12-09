@@ -1,5 +1,6 @@
 [ui]
 username = Woojong Koh <wjngkoh@gmail.com>
+username = wjkoh  # for Fig.
 verbose = True
 commitsubrepos = False
 
@@ -43,7 +44,6 @@ hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
 hgext.onsub = ~/.hgext/onsub/onsub.py
-hgsubversion =
 mercurial_keyring =
 pager =
 progress =
