@@ -36,6 +36,10 @@ opts.imdiff = -c 'compare $0 $1 compared.png; gqview compared.png'
 meld.gui = True
 meld.priority = 1
 
+[subrepos]
+allowed = True
+git:allowed = True
+
 [extensions]
 color =
 hgext.convert =
@@ -43,7 +47,7 @@ hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
 hgext.onsub = ~/.hgext/onsub/onsub.py
-mercurial_keyring =
+#mercurial_keyring =
 pager =
 progress =
 purge =
