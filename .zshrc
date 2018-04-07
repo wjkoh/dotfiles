@@ -25,11 +25,6 @@ fi
 
 # Customize to your needs...
 
-# Set up Autojump.
-export AUTOJUMP_IGNORE_CASE=1
-export AUTOJUMP_KEEP_SYMLINKS=1
-source "${ZDOTDIR:-$HOME}/bin/autojump.plugin.zsh"
-
 # Google only.
 if [ -f ~/.at_google ]; then
   source /etc/bash_completion.d/g4d
@@ -39,6 +34,7 @@ if [ -f ~/.at_google ]; then
   source /google/data/ro/projects/devtools/rebaser/bash_completion.sh
 fi
 
+# Perforce and Piper.
 if [ -n "$DISPLAY" ] ; then export G4MULTIDIFF=1 ; fi
 export P4DIFF='bash -c "meld \${@/#:/--diff}" padding-to-occupy-argv0'
 export P4MERGE='bash -c "chmod u+w \$1 ; meld \$2 \$1 \$3 ; cp \$1 \$4" padding-to-occupy-argv0'
@@ -49,16 +45,34 @@ export PYTHONSTARTUP=$HOME/.pythonstartup
 # Et cetera.
 export REPORTTIME=1
 
-# Aliases.
-alias matlab="matlab -nodesktop -nosplash"
-alias fpp="fpp --no-file-checks"
-
 # Base16 Shell.
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
+# Fasd.
+eval "$(fasd --init posix-alias zsh-hook)"
+
 # FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+FZF_CTRL_T_COMMAND="fasd -Ral | sed -r 's|^/google/src/cloud/[^/]+/[^/]+/google3/*||' | sed '/^$/d'"
+FZF_CTRL_T_OPTS="-1 -0 --no-sort +m"
+
+# vf - fuzzy open with vim from anywhere
+# ex: vf word1 word2 ... (even part of a file name)
+# zsh autoload function
+vf() {
+  local files
+  if [ -f ~/.at_google ]; then
+    # TODO: Do we need to use --no-sort and/or --tac?
+    files=(${(f)"$(csearch -l -local "$@"| sed -r "s|^${PWD}/*||" | fzf -1 -0 -m --preview-window=up:65% --preview="head -$LINES {}")"})
+  else
+    files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
+  fi
+  if [[ -n $files ]]; then
+     vim -- $files
+     print -l $files[1]
+  fi
+}
 
 case `uname` in
     Darwin)
@@ -78,11 +92,13 @@ case `uname` in
         if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
             source ~/Dropbox/Mac\ Sync/.hostnames
         fi
-
-        alias matlab="/Applications/MATLAB_R2014a.app/bin/matlab -nodesktop -nosplash"
         ;;
     Linux)
         # Aliases.
-        alias open=gnome-open
+        if hash gnome-open &> /dev/null; then
+          alias open=gnome-open
+        elif hash gvfs-open &> /dev/null; then
+          alias open=gvfs-open
+        fi
         ;;
 esac

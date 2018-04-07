@@ -7,10 +7,10 @@ INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
 # Zsh.
-echo "* Changing a login shell to Zsh..."
-sudo sh -c 'echo /opt/local/bin/zsh >> /etc/shells'
+#echo "* Changing a login shell to Zsh..."
 #chsh -s /bin/zsh || exit
-chsh -s /opt/local/bin/zsh || exit
+#sudo sh -c 'echo /opt/local/bin/zsh >> /etc/shells'
+#chsh -s /opt/local/bin/zsh || exit
 
 # Dotfiles.
 echo "* Installing dotfiles..."
@@ -130,18 +130,18 @@ echo "* Installing the Powerline fonts..."
 pushd $(mktemp -d)
 git clone https://github.com/powerline/fonts.git . && ./install.sh
 
-curl -fLo base16-default.dark.256.itermcolors \
-https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-default.dark.256.itermcolors \
-&& open base16-default.dark.256.itermcolors
-
-curl -fLo base16-eighties.dark.256.itermcolors \
-https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-eighties.dark.256.itermcolors \
-&& open base16-eighties.dark.256.itermcolors
+# If MacOS.
+curl -fLo base16-default-dark-256.itermcolors \
+https://raw.githubusercontent.com/martinlindhe/base16-iterm2/master/itermcolors/base16-default-dark-256.itermcolors \
+&& open base16-default-dark-256.itermcolors
+curl -fLo base16-eighties-256.itermcolors \
+https://raw.githubusercontent.com/martinlindhe/base16-iterm2/master/itermcolors/base16-eighties-256.itermcolors \
+&& open base16-eighties-256.itermcolors
 popd
 
 # Install Base16 GNOME Terminal themes.
-source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-default.dark.sh)
-source <(curl -s https://raw.githubusercontent.com/chriskempson/base16-gnome-terminal/master/base16-eighties.dark.sh)
+source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-default-dark.sh)
+source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-eighties.sh)
 
 vim '+PluginInstall!' +qall
 

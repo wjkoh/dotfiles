@@ -1,3 +1,28 @@
+" Vim Tips.
+"
+" 1. In Normal mode, `A` change to Insert mode at the end of the line and `I`
+" change to Insert mode at the beginning of the line.
+"
+" 2. In Command-line mode, use <C-w> to erase words and <C-u> to delete lines.
+"
+" 3. Try :earlier and :later.
+"
+" 4. `[I` list all the lines where the word under the cursor occurs.
+"
+" 5. `:%! sort -k2` will sort the buffer based on column 2, `:%! column -t` will
+" format the text in columns - useful when working with tabular data, and `:%!
+" markdown` will change the current markdown file to html.
+"
+" 6. While visually selecting a block, press 'o' to switch to the other end of
+" the block. This lets you adjust either the starting or ending positions of the
+" block until you're ready to issue a command. That is, you can expand or
+" contract either end of the visual block, you're not stuck changing just one
+" end.
+"
+" 7. Try `p` -> `gv` -> `y`.
+"
+" 8. Use `:e %:h`
+"
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -16,7 +41,7 @@ let maplocalleader = ","
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" At work, or not:
+" Am I at work?
 if filereadable(expand('~/.at_google'))
   " Google-only
   source ~/.vimrc_local
@@ -267,7 +292,11 @@ endif
 if has('gui_running')
   set cursorline
   set guioptions-=T	" Remove toolbar
-  set guifont=Droid\ Sans\ Mono:h11,Monaco:h12
+  if has('unix')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+  elseif has('macunix')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,Monaco:h12
+  endif
 endif
 "set viminfo+=%3		" Save and restore the buffer list
 set clipboard=unnamed
@@ -500,28 +529,3 @@ let g:gutentags_add_default_project_roots = 1
 " vim-online-thesaurus.
 let g:online_thesaurus_map_keys = 0
 nnoremap <Leader>K :OnlineThesaurusCurrentWord<CR>
-
-" Vim Tips.
-"
-" 1. In Normal mode, `A` change to Insert mode at the end of the line and `I`
-" change to Insert mode at the beginning of the line.
-"
-" 2. In Command-line mode, use <C-w> to erase words and <C-u> to delete lines.
-"
-" 3. Try :earlier and :later.
-"
-" 4. `[I` list all the lines where the word under the cursor occurs.
-"
-" 5. `:%! sort -k2` will sort the buffer based on column 2, `:%! column -t` will
-" format the text in columns - useful when working with tabular data, and `:%!
-" markdown` will change the current markdown file to html.
-"
-" 6. While visually selecting a block, press 'o' to switch to the other end of
-" the block. This lets you adjust either the starting or ending positions of the
-" block until you're ready to issue a command. That is, you can expand or
-" contract either end of the visual block, you're not stuck changing just one
-" end.
-"
-" 7. Try `p` -> `gv` -> `y`.
-"
-" 8. Use `:e %:h`
