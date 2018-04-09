@@ -54,7 +54,7 @@ eval "$(fasd --init posix-alias zsh-hook)"
 
 # FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-FZF_CTRL_T_COMMAND="fasd -Ral | sed -r 's|^/google/src/cloud/[^/]+/[^/]+/google3/*||' | sed '/^$/d'"
+FZF_CTRL_T_COMMAND="fasd -Ral | sed -r 's|^/google/src/cloud/[^/]+/[^/]+/google3/*||; /^$/d' | awk '!seen[\$0]++'"
 FZF_CTRL_T_OPTS="-1 -0 --no-sort +m"
 
 # vf - fuzzy open with vim from anywhere
@@ -62,7 +62,7 @@ FZF_CTRL_T_OPTS="-1 -0 --no-sort +m"
 # zsh autoload function
 vf() {
   local files
-  if [ -f ~/.at_google ]; then
+  if hash csearch &> /dev/null; then
     # TODO: Do we need to use --no-sort and/or --tac?
     files=(${(f)"$(csearch -l -local "$@"| sed -r "s|^${PWD}/*||" | fzf -1 -0 -m --preview-window=up:65% --preview="head -$LINES {}")"})
   else
