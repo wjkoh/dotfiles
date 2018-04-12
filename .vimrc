@@ -401,6 +401,9 @@ autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
 autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 
+" Format BUILD file on save.
+autocmd FileType bzl AutoFormatBuffer buildifier
+
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
