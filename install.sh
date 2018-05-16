@@ -6,6 +6,12 @@ PIP_INSTALL="sudo -H pip -q install --upgrade"
 INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
+echo -n "Is this a corp machine (y/n)? "
+read answer
+if [ "$answer" != "${answer#[Yy]}" ] ;then
+    touch ~/.at_google
+fi
+
 # Zsh.
 #echo "* Changing a login shell to Zsh..."
 #chsh -s /bin/zsh || exit
@@ -118,13 +124,6 @@ if [ -e "${MAC_SYNC_DIR}/vpn/install.sh" ]
 then
   ${MAC_SYNC_DIR}/vpn/install.sh
 fi
-
-# This one should be in install.sh, not bootstap_*.sh, because we don't know the
-# path to directory .vim until install.sh links .vim to ~/.vim.
-echo "* Building YouCompleteMe plugin..."
-pushd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
-popd
 
 echo "* Installing the Powerline fonts..."
 pushd $(mktemp -d)
