@@ -6,7 +6,7 @@ PIP_INSTALL="sudo -H pip -q install --upgrade"
 INSTALL_SH_DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 MAC_SYNC_DIR="${HOME}/Dropbox/Mac_sync"
 
-echo -n "Is this a corp machine (y/n)? "
+echo -n "Is this a corp machine that has access to source (y/n)?"
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
     touch ~/.at_google
