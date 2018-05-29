@@ -32,6 +32,10 @@ if [ -f ~/.at_google ]; then
   autoload bashcompinit
   bashcompinit
   source /google/data/ro/projects/devtools/rebaser/bash_completion.sh
+
+  # Aliases.
+  alias screen="echo Use scrn instead."
+  alias tmux="echo Use tmx2 instead."
 fi
 
 # Perforce and Piper.
