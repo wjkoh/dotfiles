@@ -68,7 +68,7 @@ vf() {
   local files
   if hash csearch &> /dev/null; then
     # TODO: Do we need to use --no-sort and/or --tac?
-    files=(${(f)"$(csearch -l -local "$@"| sed -r "s|^${PWD}/*||" | fzf -1 -0 -m --preview-window=up:65% --preview="highlight {} --out-format ansi --line-numbers --quiet --force")"})
+    files=(${(f)"$(csearch -i -l -local "$@"| sed -r "s|^${PWD}/*||" | fzf -1 -0 -m --preview-window=up:65% --preview="highlight {} --out-format ansi --line-numbers --quiet --force")"})
   else
     files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
   fi
