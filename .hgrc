@@ -1,5 +1,5 @@
 [ui]
-username = Woojong Koh <wjngkoh@gmail.com>
+username = wjkoh
 verbose = True
 commitsubrepos = False
 # Use `merge = internal:merge` if you prefer markers. Tip: If anything goes
@@ -16,7 +16,6 @@ vimdiff.premerge = keep
 # Add a command called vimdiff that runs vimdiff with DirDiff plugin.
 cmd.vimdiff = vim
 opts.vimdiff = -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))'
-
 
 [subrepos]
 allowed = True
@@ -35,5 +34,8 @@ progress =
 purge =
 rebase =
 shelve =
+
+[google_hgext]
+pickcheckout.enable_curses_ui = true
 
 %include .hgrc_mac
