@@ -59,11 +59,11 @@ endif
 
 Plugin 'airblade/vim-rooter'  " For BAddFiles().
 Plugin 'beloglazov/vim-online-thesaurus'
+Plugin 'chrisbra/vim-diff-enhanced'
 Plugin 'chriskempson/base16-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'justinmk/vim-dirvish'
 Plugin 'justinmk/vim-sneak'
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-grepper'
 Plugin 'mhinz/vim-signify'
@@ -79,6 +79,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'will133/vim-dirdiff'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -532,3 +533,6 @@ let g:gutentags_add_default_project_roots = 1
 " vim-online-thesaurus.
 let g:online_thesaurus_map_keys = 0
 nnoremap <Leader>K :OnlineThesaurusCurrentWord<CR>
+
+" vim-diff-enhanced.
+let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
