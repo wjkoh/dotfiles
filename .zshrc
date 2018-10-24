@@ -36,6 +36,16 @@ if [ -f ~/.at_google ]; then
   # Aliases.
   alias screen="echo Use scrn instead."
   alias tmux="echo Use tmx2 instead."
+
+  renew_gcert_if_needed() {
+    # HOURS_TILL_EOB=$((20 - $(date +%-H)))h
+    # gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
+    if ! find "${HOME}/.sso/cookie" -mtime -6h | grep -q cookie; then
+        ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
+    fi
+  }
+
+  renew_gcert_if_needed
 fi
 
 # Perforce and Piper.
