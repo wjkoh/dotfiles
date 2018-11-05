@@ -9,6 +9,7 @@ tags
 .tmux/plugins/
 .vim/bundle/
 .vim/cache/
+.vim/plugged/
 .vim/tmp/
 .virtualenvs/
 .weechat/irc.conf
