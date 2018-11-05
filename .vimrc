@@ -26,11 +26,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-"------------------------------------------------------------
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
 " http://stackoverflow.com/questions/446269/can-i-use-space-as-mapleader-in-vim
 " If this makes a delay when you type space in insert mode, check :imap <leader>
 " and remove all of them. A.vim is a common culprit.
@@ -38,62 +33,67 @@ nnoremap <Space> <Nop>
 let mapleader = "\<Space>"  " Use double quotes here to enable escaping.
 let maplocalleader = ","
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Specify a directory for plugins.
+" - Avoid using standard Vim directory names like 'plugin'.
+call plug#begin('~/.vim/plugged')
 
 " Am I at work?
 if filereadable(expand('~/.at_google'))
   " Google-only
-  source ~/.vimrc_local
+  source ~/.vimrc_google
 else
   " Non-Google only
   " Add maktaba and codefmt to the runtimepath.
   " (The latter must be installed before it can be used.)
-  Plugin 'google/vim-maktaba'
-  Plugin 'google/vim-codefmt'
+  Plug 'google/vim-maktaba'
+  Plug 'google/vim-codefmt'
 
   " Also add Glaive, which is used to configure codefmt's maktaba flags. See
   " `:help :Glaive` for usage.
-  Plugin 'google/vim-glaive'
+  Plug 'google/vim-glaive'
 endif
 
-Plugin 'airblade/vim-rooter'  " For BAddFiles().
-Plugin 'beloglazov/vim-online-thesaurus'
-Plugin 'chrisbra/vim-diff-enhanced'
-Plugin 'chriskempson/base16-vim'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'justinmk/vim-dirvish'
-Plugin 'justinmk/vim-sneak'
-Plugin 'mbbill/undotree'
-Plugin 'mhinz/vim-grepper'
-Plugin 'mhinz/vim-signify'
-Plugin 'mileszs/ack.vim'
-Plugin 'rstacruz/vim-closer'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'will133/vim-dirdiff'
+Plug 'airblade/vim-rooter'  " For BAddFiles().
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'chriskempson/base16-vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-sneak'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-signify'
+Plug 'mileszs/ack.vim'
+Plug 'rstacruz/vim-closer'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'will133/vim-dirdiff'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Initialize plugin system
+call plug#end()
+filetype plugin indent on
 
-" the glaive#Install() should go after the "call vundle#end()"
+" It seems like the glaive#Install() should go after the "call plug#end()" and
+" "filetype plugin indent on". See https://github.com/google/vim-glaive for
+" details.
 call glaive#Install()
 
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
 if filereadable(expand('~/.at_google'))
 else
-" MacOS X with MacPorts only.
-Glaive codefmt clang_format_executable=/opt/local/libexec/llvm-3.8/bin/clang-format
+  " TODO(wjkoh): Check if MacOS or not as well.
+  " MacOS X with MacPorts only.
+  Glaive codefmt clang_format_executable=/opt/local/libexec/llvm-3.8/bin/clang-format
 endif
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
@@ -525,14 +525,6 @@ autocmd BufReadPost * call BAddFiles()
 let g:signify_vcs_list = [ 'git', 'hg', 'svn', 'perforce' ]
 " See go/citcdiff.
 let g:signify_vcs_cmds = {'perforce':'DIFF=%d" -U0" citcdiff %f || [[ $? == 1 ]]'}
-
-" vim-gutentags.
-let g:gutentags_project_root = ['BUILD']
-let g:gutentags_add_default_project_roots = 1
-
-" vim-online-thesaurus.
-let g:online_thesaurus_map_keys = 0
-nnoremap <Leader>K :OnlineThesaurusCurrentWord<CR>
 
 " vim-diff-enhanced.
 let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
