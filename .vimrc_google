@@ -21,17 +21,20 @@ Glug codefmt-google
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
-augroup autoformat
-  autocmd!
+augroup autoformat_settings
+  autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
   autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,cuda AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType jslayout AutoFormatBuffer jslfmt
+  autocmd FileType markdown AutoFormatBuffer mdformat
+  autocmd FileType ncl AutoFormatBuffer nclfmt
   autocmd FileType python AutoFormatBuffer pyformat
+  autocmd FileType textpb AutoFormatBuffer text-proto-format
+  " autocmd FileType html,css,json AutoFormatBuffer js-beautify
 augroup END
-
-" Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
-" Use :h g4 for more details about this plugin.
-Glug g4
 
 " Load the Critique integration. Use :h critique for more details.
 Glug critique
@@ -54,3 +57,7 @@ Glug blaze
 " Use :BlazeDepsUpdate in files you're editing and blazedeps will determine the
 " BUILD target associated with the current file and update the deps for you.
 Glug blazedeps
+
+" Syntastic.
+Glug syntastic-google checkers=`{'python': ['gpylint'], 'proto': ['glint'], 'borg': ['borgcfg']}`
+let g:syntastic_python_checker_args='--mode=style'
