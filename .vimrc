@@ -1,28 +1,4 @@
-" Vim Tips.
-"
-" 1. In Normal mode, `A` change to Insert mode at the end of the line and `I`
-" change to Insert mode at the beginning of the line.
-"
-" 2. In Command-line mode, use <C-w> to erase words and <C-u> to delete lines.
-"
-" 3. Try :earlier and :later.
-"
-" 4. `[I` list all the lines where the word under the cursor occurs.
-"
-" 5. `:%! sort -k2` will sort the buffer based on column 2, `:%! column -t` will
-" format the text in columns - useful when working with tabular data, and `:%!
-" markdown` will change the current markdown file to html.
-"
-" 6. While visually selecting a block, press 'o' to switch to the other end of
-" the block. This lets you adjust either the starting or ending positions of the
-" block until you're ready to issue a command. That is, you can expand or
-" contract either end of the visual block, you're not stuck changing just one
-" end.
-"
-" 7. Try `p` -> `gv` -> `y`.
-"
-" 8. Use `:e %:h`
-"
+" Launch Vimwiki (<Leader>ww) to see My Vim Tips.
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -54,6 +30,7 @@ else
 endif
 
 Plug 'airblade/vim-rooter'  " For BAddFiles().
+Plug 'chazy/dirsettings'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
@@ -76,6 +53,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-syntastic/syntastic'
+Plug 'vimwiki/vimwiki'
 Plug 'will133/vim-dirdiff'
 
 " Initialize plugin system
@@ -292,27 +271,32 @@ if exists('+macmeta')
 endif
 if has('gui_running')
   set cursorline
-  set guioptions-=T	" Remove toolbar
+  " Remove toolbar
+  set guioptions-=T
   if has('unix')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
   elseif has('macunix')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,Monaco:h12
   endif
 endif
-"set viminfo+=%3		" Save and restore the buffer list
+" Save and restore the buffer list
+"set viminfo+=%3
 set clipboard=unnamed
 if has('unnamedplus')
   set clipboard=unnamedplus
 endif
-set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set path+=**  " This works with vim-rooter and adds all the subdirectories in the project directory.
+" http://tech.groups.yahoo.com/group/vim-mac/message/12312
+set noimdisable
+" This works with vim-rooter and adds all the subdirectories in the project directory.
+set path+=**
 set autowrite
 set backup
 if has('persistent_undo')
   set undofile
   set undodir=~/.vim/tmp/undo//
 endif
-set backupdir=~/.vim/tmp/backup//   " include full path
+" include full path
+set backupdir=~/.vim/tmp/backup//
 
 " What if &spellfile is a list of filenames?
 " zg to add word to word list
@@ -337,7 +321,8 @@ set colorcolumn=+1
 set lazyredraw
 
 set wildignore+=*.so,*.swp,*.o,*.obj,.DS_Store,*.jpg,*.png,*.exe
-set suffixes+=.sty,.bst,.cls  " Get lower priority in wildmenu.
+" Get lower priority in wildmenu.
+set suffixes+=.sty,.bst,.cls
 set wildignorecase
 set wildmode=list:longest,full
 
@@ -358,19 +343,21 @@ set ttimeoutlen=10
 
 set fileformats+=mac
 
-set noignorecase " ignorecase has a problem with tag jump Ctrl-]
+" ignorecase has a problem with tag jump Ctrl-]
+set noignorecase
 map / /\c
 map ? /\c
 
 if exists('+breakindent')
-  set breakindent  " https://retracile.net/wiki/VimBreakIndent
+  " https://retracile.net/wiki/VimBreakIndent
+  set breakindent
   set showbreak=\ +
 endif
 
 "------------------------------------------------------------
 " Mappings.
-map <tab> %
-nnoremap D d$  " Make D behave.
+" Make D behave.
+nnoremap D d$
 nnoremap j gj
 nnoremap k gk
 
@@ -394,13 +381,10 @@ endif
 "------------------------------------------------------------
 " Autocommands.
 autocmd VimResized * wincmd =  " Resize splits when the window is resized
-autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
 autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
 
 autocmd BufNewFile,BufReadPost *.cu set filetype=cuda
 autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
-autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
 
 " Format BUILD file on save.
 autocmd FileType bzl AutoFormatBuffer buildifier
@@ -424,7 +408,8 @@ let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='base16'
 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ":t"  " Display filename only.
+" Display filename only.
+let g:airline#extensions#tabline#fnamemod = ":t"
 let g:airline#extensions#tabline#fnamecollapse = 1
 
 "------------------------------------------------------------
@@ -449,8 +434,8 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
 
 " Sneak.
-let g:sneak#streak = 1
 let g:sneak#label = 1
+let g:sneak#streak = 1
 
 nnoremap <Leader>b :b <C-d>
 nnoremap <Leader>c :cclose<CR>
@@ -459,9 +444,11 @@ nnoremap <Leader>g :grep<Space>
 nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
 nnoremap <Leader>j :tjump /
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>s :w<CR>  " <Leader>w conflicts with <Leader>ww and <Leader>ws.
+" <Leader>w conflicts with <Leader>ww and <Leader>ws.
+nnoremap <Leader>s :w<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
-nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
+" `set pastetoggle` doesn't work when the leader key is <Space>.
+nnoremap <Leader>z :set invpaste<CR>
 
 nnoremap <Leader><Down> :resize +2<CR>
 nnoremap <Leader><Left> :vertical resize +2<CR>
@@ -470,12 +457,8 @@ nnoremap <Leader><Up> :resize -2<CR>
 
 if filereadable(expand('~/.at_google'))
   nnoremap <Leader>m :Blaze <C-d>
-  " Run clang-include-fixer and BlazeDepsUpdate.
-  nnoremap <leader>cf :pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>:w<cr>:BlazeDepsUpdate<cr>
 else
   nnoremap <Leader>m :make<CR>
-  " Run clang-include-fixer.
-  nnoremap <leader>cf :pyf path/to/llvm/source/tools/clang/tools/extra/include-fixer/tool/clang-include-fixer.py<cr>
 endif
 
 function! IsTextFile(fname)
@@ -528,3 +511,29 @@ let g:signify_vcs_cmds = {'perforce':'DIFF=%d" -U0" citcdiff %f || [[ $? == 1 ]]
 
 " vim-diff-enhanced.
 let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+
+" Syntastic.
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+nnoremap <TAB> :bnext<CR>
+nnoremap <S-TAB> :bprevious<CR>
+
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki_personal_md/'
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext = '.md'
+
+let wiki_2 = {}
+let wiki_2.path = '~/vimwiki_work_md/'
+let wiki_2.syntax = 'markdown'
+let wiki_2.ext = '.md'
+
+let g:vimwiki_list = [wiki_1, wiki_2]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}

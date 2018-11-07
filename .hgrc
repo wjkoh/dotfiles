@@ -28,7 +28,6 @@ hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
 #hgext.onsub = ~/.hgext/onsub/onsub.py
-#mercurial_keyring =
 pager =
 progress =
 purge =
