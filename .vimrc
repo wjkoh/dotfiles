@@ -525,15 +525,18 @@ let g:syntastic_check_on_wq = 0
 nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>
 
+" Vimwiki.
 let wiki_1 = {}
-let wiki_1.path = '~/vimwiki_personal_md/'
+let wiki_1.path = '~/vimwiki-personal/'
 let wiki_1.syntax = 'markdown'
 let wiki_1.ext = '.md'
+let wiki_1.index = 'Home'
 
 let wiki_2 = {}
-let wiki_2.path = '~/vimwiki_work_md/'
+let wiki_2.path = '~/vimwiki-work/'
 let wiki_2.syntax = 'markdown'
 let wiki_2.ext = '.md'
+let wiki_2.index = 'Home'
 
 let g:vimwiki_list = [wiki_1, wiki_2]
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
