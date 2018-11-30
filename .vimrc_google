@@ -1,11 +1,5 @@
 source /usr/share/vim/google/google.vim
 
-" This adds useful keymappings for Piper.
-" 1. <Leader>pf :PiperSelectActiveFiles<CR>
-" 2. <Leader>po :PiperOpenPath 
-" and so on.
-Glug piper plugin[mappings]='<Leader>p'
-
 " Loads youcompleteme, the awesomest autocompletion engine.
 " See go/ycm for more details.
 Glug youcompleteme-google
@@ -36,28 +30,30 @@ augroup autoformat_settings
   " autocmd FileType html,css,json AutoFormatBuffer js-beautify
 augroup END
 
-" Load the Critique integration. Use :h critique for more details.
-Glug critique
-
 " Load the Related Files plugin. Use :h relatedfiles for more details.
 " The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
 " -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
 Glug relatedfiles plugin[mappings] window_position="topleft"
 
-" Enable the corpweb plugin, which allows us to open codesearch from vim.
-" <Leader>ww: search in critique for the word under the cursor
-" <Leader>wf: search in critique for the current file
-Glug corpweb plugin[mappings]='<Leader>w'
-
-" Blaze key mappings, i.e., Glug blaze plugin[mappings]='<leader>b', conflict
-" with my own key mapping, i.e., nnoremap <Leader>b :b <C-d>. Use <Leader>m
-" instead to invoke the Blaze commands.
-Glug blaze
-
 " Use :BlazeDepsUpdate in files you're editing and blazedeps will determine the
 " BUILD target associated with the current file and update the deps for you.
 Glug blazedeps
 
-" Syntastic.
-Glug syntastic-google checkers=`{'python': ['gpylint'], 'proto': ['glint'], 'borg': ['borgcfg']}`
-let g:syntastic_python_checker_args='--mode=style'
+" ALE.
+Glug glug sources+=`$HOME . '/.vim/local'`
+Glug glint-ale
+let g:ale_linters = {
+      \ 'borg': ['glint'],
+      \ 'bzl': ['glint'],
+      \ 'cpp': ['glint'],
+      \ 'dremel': ['glint'],
+      \ 'gcl': ['glint'],
+      \ 'go': ['glint'],
+      \ 'html': ['glint'],
+      \ 'java': ['glint'],
+      \ 'javascript': ['glint'],
+      \ 'jslayout': ['glint'],
+      \ 'proto': ['glint'],
+      \ 'python': ['glint'],
+      \ 'typescript': ['glint'],
+      \}

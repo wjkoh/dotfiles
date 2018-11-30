@@ -1,11 +1,14 @@
 [ui]
 username = wjkoh
-verbose = True
 commitsubrepos = False
 # Use `merge = internal:merge` if you prefer markers. Tip: If anything goes
 # wrong while merging, type `:cq` to exit Vim with an error. Then, hg ignores
 # the changes and doesn't resolve the conflict prematurely.
 merge = vimdiff
+ssh = ssh -C
+
+[pager]
+pager = less -FRX
 
 [merge-tools]
 vimdiff.executable = vimdiff
@@ -27,14 +30,24 @@ hgext.convert =
 hgext.extdiff =
 hgext.fetch =
 hgext.graphlog =
-#hgext.onsub = ~/.hgext/onsub/onsub.py
-pager =
 progress =
 purge =
 rebase =
 shelve =
 
+# Google-specific configurations. See
+# https://g3doc.corp.google.com/devtools/piper/g3doc/fig/user/customization.md?cl=head.
+[color]
+desc.here = green bold
+changeset.remaining = bold black
+
+[experimental]
+graphshorten = True
+
 [google_hgext]
 pickcheckout.enable_curses_ui = true
+
+[templatealias]
+google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 
 %include .hgrc_mac
