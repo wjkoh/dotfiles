@@ -64,16 +64,21 @@ set_root_dir() {
   ROOT_DIR=`git rev-parse --show-toplevel 2> /dev/null || hg root 2> /dev/null`
 }
 
-# Update g:project_dir_suffices in .vimrc as well.
-export PROJECT_DIR_SUFFICES=('/google3/third_party/car/simulator/agentsim/')
+# Note that this variable is also used as g:project_dir_suffices in .vimrc. It
+# is normal to see both parent and children directories in this variable because
+# not only fzf but also iblaze uses it and iblaze doesn't go recursively.
+export PROJECT_DIR_SUFFICES='/google3/third_party/car/simulator/agentsim/metrics:/google3/third_party/car/simulator/agentsim/trajectory_refiner:/google3/third_party/car/simulator/agentsim/'
 set_project_dirs() {
   set_root_dir
-  PROJECT_DIRS=(${ROOT_DIR}${^PROJECT_DIR_SUFFICES})
+  AS_ARR=("${(@s/:/)PROJECT_DIR_SUFFICES}")
+  # Add a prefix to each element in the given array and convert them back to an
+  # array using parentheses. See https://stackoverflow.com/q/20366609.
+  PROJECT_DIRS=(${AS_ARR[@]/#/${ROOT_DIR}})
 }
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --silent --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g ""'
-export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS . $HOME'
-export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS . $HOME 2> /dev/null'
+export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS[@] . $HOME'
+export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS[@] . $HOME 2> /dev/null'
 
 # Pipe Highlight to less.
 export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"

@@ -529,8 +529,8 @@ let g:vimwiki_autowriteall = 0
 
 " fzf.
 " Update $PROJECT_DIR_SUFFICES in .zshrc as well.
-let g:project_dir_suffices = ['/google3/third_party/car/simulator/agentsim/']
-command! Files call fzf#run({'source': eval('$FZF_DEFAULT_COMMAND') . ' ' . join(map(project_dir_suffices, 'FindRootDirectory() . v:val'), ' ') . ' . $HOME', 'sink': 'e', 'down': '30%'})
+let g:project_dir_suffices = split($PROJECT_DIR_SUFFICES, ':')
+command! Files call fzf#run({'source': eval('$FZF_DEFAULT_COMMAND') . ' ' . join(map(copy(g:project_dir_suffices), 'FindRootDirectory() . v:val'), ' ') . ' . $HOME', 'sink': 'e', 'down': '30%'})
 
 nnoremap <C-t> :Files<CR>
 nnoremap <Leader>e :Files<CR>
@@ -538,6 +538,11 @@ nnoremap <Leader>l :Lines<CR>
 
 " Note that :BlazeDepsUpdate is ran by iblaze automatically.
 command! ClangIncludeFixer :let g:clang_include_fixer_query_mode=0 | :pyf /usr/lib/clang-include-fixer/clang-include-fixer.py
+
+" typing "#i" and space will be expanded to "#include".
+iabbrev #i #include
+iabbrev #d #define
+iabbrev teh the
 
 " Limelight.
 autocmd! User GoyoEnter Limelight
@@ -580,3 +585,9 @@ command FixPyImportOrder call FixPyImportOrder()
 
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {'python': ['FixPyImportOrder', 'trim_whitespace', 'remove_trailing_lines']}
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
