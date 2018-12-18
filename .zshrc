@@ -90,6 +90,8 @@ alias more="less"
 # Use "highlight" in place of "cat".
 alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
 
+alias iblaze='~/bin/wjkoh_iblaze.sh'
+
 case `uname` in
     Darwin)
         # Use MacVim if it exists.

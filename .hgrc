@@ -38,7 +38,7 @@ shelve =
 # Google-specific configurations. See
 # https://g3doc.corp.google.com/devtools/piper/g3doc/fig/user/customization.md?cl=head.
 [color]
-desc.here = green bold
+desc.here = red bold
 changeset.remaining = bold black
 
 [experimental]
@@ -49,5 +49,40 @@ pickcheckout.enable_curses_ui = true
 
 [templatealias]
 google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
+
+[alias]
+# Prints the files in this revision that differ from the previous, as relative
+# to the cwd. See go/pappysfigconfig.
+whatsout = status --color=always --rev .^ -man
+
+# See go/pappysfigconfig.
+watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 1 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo $'\n\e[4mChanged in this CL\e[0m' && hg whatsout $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
+
+evolveall = evolve --all --any
+revertall = revert --all
+
+get_commit_message = parent --template '{desc}'
+
+# Usage:
+#   $ hg get_rev_and_cl | xargs ./trajectory_refiner_main.sh train_eval_borg --remove --variant=
+#get_rev_and_cl = !$HG push --quiet -r . && echo r`$HG parent --template '{rev}'`_cl`$HG exportedcl`
+get_rev_and_cl = !$HG push --quiet -r . && echo cl`$HG exportedcl`
+
+# Buildify BUILD files with changes occurring in this commit
+buildify = !$HG whatsout | grep BUILD$ | xargs buildifier
+
+# Note that you must add `-r .` if you want to push the current branch as well.
+# See alias `mc` for example.
+upload_exported = push -r "exportedchange() - obsolete() - troubled()"
+
+mamend = !$HG buildify; $HG amend; $HG upload_exported
+mcommit = !$HG buildify; $HG commit "$@" && $HG push -r .; $HG upload_exported
+mrebase = !$HG buildify; $HG rebase "$@"; $HG upload_exported
+msync = !$HG buildify; $HG sync; $HG upload_exported
+
+[nointerrupt]
+# Stops the "don't interrupt Mercurial" message when Ctrl-C'ing the "watch"
+# command.
+attend-watch=False
 
 %include .hgrc_mac
