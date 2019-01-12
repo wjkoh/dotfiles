@@ -16,6 +16,7 @@ Glug codefmt-google
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
 augroup autoformat_settings
+  autocmd!
   autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
   autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format

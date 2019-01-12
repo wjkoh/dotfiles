@@ -260,8 +260,9 @@ if exists('+relativenumber')
   set relativenumber
 endif
 
+" Set colorscheme.
 if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
+  let g:base16colorspace=256
   source ~/.vimrc_background
 endif
 
@@ -307,11 +308,13 @@ silent execute 'mkspell! ' . &spellfile
 set spelllang=en_us
 set spell
 
-highlight clear SpellBad
-highlight clear SpellCap
-highlight clear SpellRare
-highlight clear SpellLocal
-highlight SpellBad cterm=bold
+function! SetSpellCheckHighlights()
+  highlight clear SpellBad
+  highlight clear SpellCap
+  highlight clear SpellRare
+  highlight clear SpellLocal
+  highlight SpellBad cterm=bold
+endfunction
 
 set dictionary+=/usr/share/dict/words
 set showmatch
@@ -367,27 +370,52 @@ let g:undotree_SplitWidth = 30
 let g:undotree_WindowLayout = 2
 
 "------------------------------------------------------------
-" Autocommands.
-autocmd VimResized * wincmd =  " Resize splits when the window is resized
-autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
+" Autocommands. augroup and autocmd! are necessary. See
+" https://superuser.com/a/634037 for details.
+augroup WjkohAutocommands
+  autocmd!
+  autocmd VimResized * wincmd =  " Resize splits when the window is resized
+  autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
 
-autocmd BufNewFile,BufReadPost *.cu set filetype=cuda
-autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
+  autocmd BufNewFile,BufReadPost *.cu set filetype=cuda
+  autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
 
-" Format BUILD file on save.
-autocmd FileType bzl AutoFormatBuffer buildifier
+  " Format BUILD file on save.
+  autocmd FileType bzl AutoFormatBuffer buildifier
 
-" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+  " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+  " Automatically open, but do not go to (if there are errors) the quickfix /
+  " location list window, or close it when is has become empty.
+  "
+  " Note: Must allow nesting of autocmds to enable any customizations for quickfix
+  " buffers.
+  " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+  " (but not if it's already open). However, as part of the autocmd, this doesn't
+  " seem to happen.
+  autocmd QuickFixCmdPost [^l]* nested cwindow
+  autocmd QuickFixCmdPost    l* nested lwindow
+
+  "------------------------------------------------------------
+  " Dirvish.
+  autocmd FileType dirvish sort r /[^\/]$/  " Sort directory at the top.
+
+  " Rooter.
+  autocmd BufEnter * silent! lcd %:p:h
+
+  " BAddFiles.
+  autocmd BufReadPost * call BAddFiles()
+
+  " Limelight.
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
+
+  " Use user-defined completion key (<C-X><C-U>) for Emoji completion.
+  autocmd FileType vimwiki,markdown,text Goyo 80 | setlocal completefunc=emoji#complete
+  autocmd FileType vimwiki,markdown,text call ConcealEmojis()
+
+  call SetSpellCheckHighlights()
+  autocmd! ColorScheme * call SetSpellCheckHighlights()
+augroup END
 
 "------------------------------------------------------------
 " Airline.
@@ -399,10 +427,6 @@ let g:airline#extensions#tabline#enabled = 1
 " Display filename only.
 let g:airline#extensions#tabline#fnamemod = ":t"
 let g:airline#extensions#tabline#fnamecollapse = 1
-
-"------------------------------------------------------------
-" Dirvish.
-autocmd FileType dirvish sort r /[^\/]$/  " Sort directory at the top.
 
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
@@ -418,7 +442,6 @@ let g:tmuxline_preset = {
       \'options' : {'status-justify': 'left'}}
 
 " Rooter.
-autocmd BufEnter * silent! lcd %:p:h
 let g:rooter_manual_only = 1
 let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 
@@ -488,7 +511,6 @@ function! BAddFiles()
   :silent execute ':cd '. pwd
 endfunction
 
-autocmd BufReadPost * call BAddFiles()
 
 " vim-signify.
 let g:signify_vcs_list = [ 'git', 'hg', 'svn', 'perforce' ]
@@ -544,14 +566,6 @@ iabbrev #i #include
 iabbrev #d #define
 iabbrev teh the
 
-" Limelight.
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-" Use user-defined completion key (<C-X><C-U>) for Emoji completion.
-autocmd FileType vimwiki,markdown,text Goyo 80 | setlocal completefunc=emoji#complete
-autocmd FileType vimwiki,markdown,text call ConcealEmojis()
-
 function! ConcealEmojis()
   for [name, emoji] in items(emoji#data#dict())
     if type(emoji) == 0
@@ -576,10 +590,10 @@ command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(
 
 function FixPyImportOrder(buffer)
   return {
-	\   'command': '/google/bin/releases/python-team/public/importorder'
-	\       . ' --inplace %t',
-	\   'read_temporary_file': 1,
-	\}
+        \   'command': '/google/bin/releases/python-team/public/importorder'
+        \       . ' --inplace %t',
+        \   'read_temporary_file': 1,
+        \}
 endfunction
 command FixPyImportOrder call FixPyImportOrder()
 
