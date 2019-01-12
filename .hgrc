@@ -5,7 +5,6 @@ commitsubrepos = False
 # wrong while merging, type `:cq` to exit Vim with an error. Then, hg ignores
 # the changes and doesn't resolve the conflict prematurely.
 merge = vimdiff
-ssh = ssh -C
 
 [pager]
 pager = less -FRX
@@ -58,26 +57,35 @@ whatsout = status --color=always --rev .^ -man
 # See go/pappysfigconfig.
 watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 1 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo $'\n\e[4mChanged in this CL\e[0m' && hg whatsout $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
-evolveall = evolve --all --any
-revertall = revert --all
+evolve_all = !$HG evolve --all --any && $HG upload_exported
+revert_all = revert --all
 
-get_commit_message = parent --template '{desc}'
+print_msg = parent --template '{desc}'
+edit_msg = !$HG buildify; $HG commit --amend && $HG push -r .; $HG upload_exported
 
 # Usage:
-#   $ hg get_rev_and_cl | xargs ./trajectory_refiner_main.sh train_eval_borg --remove --variant=
-#get_rev_and_cl = !$HG push --quiet -r . && echo r`$HG parent --template '{rev}'`_cl`$HG exportedcl`
-get_rev_and_cl = !$HG push --quiet -r . && echo cl`$HG exportedcl`
+#   $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
+print_cl = !$HG push -r . --quiet && $HG exportedcl .
+print_rev = log --template '{node}\n'
 
 # Buildify BUILD files with changes occurring in this commit
+# NOTE(wjkoh): Use hg fix instead?
 buildify = !$HG whatsout | grep BUILD$ | xargs buildifier
 
 # Note that you must add `-r .` if you want to push the current branch as well.
 # See alias `mc` for example.
 upload_exported = push -r "exportedchange() - obsolete() - troubled()"
 
-mamend = !$HG buildify; $HG amend; $HG upload_exported
-mcommit = !$HG buildify; $HG commit "$@" && $HG push -r .; $HG upload_exported
-mrebase = !$HG buildify; $HG rebase "$@"; $HG upload_exported
+# feed revision numbers through stdin.
+# for example, hg print_rev -r xx -r yy -r aa::dd | hg rev_do 'echo cl/\`hg print_cl\`'
+# use single quotes if you use backtick inline execution. always dry run to see
+# the inline exectuion works as intended.
+rev_do = !xargs -I % sh -c '$HG up -r % --quiet && $HG parent --template "Processing... \"{desc}\"\n"; $@'
+lintdot = lint -r .
+
+mamend = !$HG amend; $HG upload_exported; $HG fixdot --no-amend; $HG lintdot
+mcommit = !$HG commit "$@" && $HG push -r .; $HG upload_exported; $HG fixdot --no-amend; $HG lintdot
+mrebase = !$HG rebase "$@"; $HG upload_exported
 msync = !$HG buildify; $HG sync; $HG upload_exported
 
 [nointerrupt]
