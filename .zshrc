@@ -5,10 +5,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
-  /usr/games/fortune | /usr/games/cowsay
-fi
-
 # Make the GNOME terminal work with vim-colors-solarized.
 if [ -z "$TMUX" ]; then
   case $COLORTERM in
@@ -37,16 +33,10 @@ if [ -f ~/.at_google ]; then
   alias screen="echo Use scrn instead."
   alias tmux="echo Use tmx2 instead."
 
-  renew_gcert_if_needed() {
-    # HOURS_TILL_EOB=$((20 - $(date +%-H)))h
-    # gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
-    if ! find "${HOME}/.sso/cookie" -mtime -6h | grep -q cookie; then
-        ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
-    fi
-  }
-
-  renew_gcert_if_needed
 fi
+
+# Used by renew_gcert_if_needed() in .zlogin.
+CORP_WORKSTATIONS=("wjkoh1.c.googlers.com" "wjkoh0.mtv.corp.google.com")
 
 # Perforce and Piper.
 if [ -n "$DISPLAY" ] ; then export G4MULTIDIFF=1 ; fi
@@ -62,9 +52,6 @@ export REPORTTIME=1
 # Base16 Shell.
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-# Fasd.
-eval "$(fasd --init posix-alias zsh-hook)"
 
 # FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
