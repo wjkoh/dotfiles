@@ -19,3 +19,4 @@ tags
 .weechat/script/plugins.xml.gz
 .weechat/urlserver_list.txt
 .weechat/weechat.log
+bin/auth-refresh-gtunnel.py
