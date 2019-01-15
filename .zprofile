@@ -46,6 +46,7 @@ path=(
   $HOME/homebrew/bin
   /usr/local/{bin,sbin}
   $path
+  /usr/games
   /Developer/NVIDIA/CUDA-7.5/bin
 )
 

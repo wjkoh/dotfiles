@@ -65,8 +65,8 @@ popd
 # source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-default-dark.sh)
 # source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-eighties.sh)
 
-vim '+PlugInstall!' +qall
-
 ~/.fzf/install --all
+
+vim '+PlugInstall!' +qall
 
 echo "* SUCCESSFULLY DONE!"
