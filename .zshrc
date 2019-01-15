@@ -5,8 +5,10 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-if [ -x /usr/games/cowsay -a -x /usr/games/fortune ]; then
+if [ -x "$(command -v /usr/games/cowsay)" -a -x "$(command -v /usr/games/fortune)" ]; then
   /usr/games/fortune | /usr/games/cowsay
+else
+  echo "Error: fortune or cowsay not found."
 fi
 
 # Make the GNOME terminal work with vim-colors-solarized.
@@ -36,10 +38,15 @@ if [ -f ~/.at_google ]; then
   # Aliases.
   alias screen="echo Use scrn instead."
   alias tmux="echo Use tmx2 instead."
+  alias iblaze='~/bin/wjkoh_iblaze.sh'
 
   renew_gcert_if_needed() {
-    HOURS_TILL_EOB=$((20 - $(date +%-H)))h
-    gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
+    if [ -x "$(command -v gcertstatus)" -a -x "$(command -v ~/bin/auth-refresh-gtunnel.py)" ]; then
+      HOURS_TILL_EOB=$((20 - $(date +%-H)))h
+      gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || ~/bin/auth-refresh-gtunnel.py wjkoh0.mtv.corp.google.com
+    else
+      echo "Error: gcertstatus or ~/bin/auth-refresh-gtunnel.py not found."
+    fi
   }
 
   renew_gcert_if_needed
@@ -76,9 +83,14 @@ set_project_dirs() {
   PROJECT_DIRS=(${AS_ARR[@]/#/${ROOT_DIR}})
 }
 
-export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --silent --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g ""'
+if [ -x "$(command -v ag)" -a -x "$(command -v bfs)" ]; then
+  export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --silent --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g ""'
+  export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS[@] . $HOME 2> /dev/null'
+else
+  echo "Error: ag or bfs not found."
+fi
 export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS[@] . $HOME'
-export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS[@] . $HOME 2> /dev/null'
+
 
 # Pipe Highlight to less.
 export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"
@@ -90,7 +102,6 @@ alias more="less"
 # Use "highlight" in place of "cat".
 alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
 
-alias iblaze='~/bin/wjkoh_iblaze.sh'
 
 case `uname` in
     Darwin)
