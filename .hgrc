@@ -77,7 +77,7 @@ buildify = !$HG whatsout | grep BUILD$ | xargs buildifier
 upload_exported = push -r "exportedchange() - obsolete() - troubled()"
 
 # feed revision numbers through stdin.
-# for example, hg print_rev -r xx -r yy -r aa::dd | hg rev_do 'echo cl/\`hg print_cl\`'
+# for example, hg print_rev -r xx -r yy -r aa::dd | hg rev_do 'echo cl/`hg print_cl`'
 # use single quotes if you use backtick inline execution. always dry run to see
 # the inline exectuion works as intended.
 rev_do = !xargs -I % sh -c '$HG up -r % --quiet && $HG parent --template "Processing... \"{desc}\"\n"; $@'
