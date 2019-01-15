@@ -37,6 +37,4 @@ renew_gcert_if_needed() {
 
 # Do not call this function inside of `~/.at_google` check because a corp laptop
 # doesn't have .at_google.
-if [ -f ~/.at_google ]; then
-  renew_gcert_if_needed
-fi
+renew_gcert_if_needed

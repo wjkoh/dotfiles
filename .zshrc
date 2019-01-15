@@ -35,7 +35,9 @@ if [ -f ~/.at_google ]; then
   alias iblaze='~/bin/wjkoh_iblaze.sh'
 fi
 
-# Used by renew_gcert_if_needed() in .zlogin.
+# Used by renew_gcert_if_needed() in .zlogin. Do not wrap this with
+# the `~/.at_google` check because a corp laptop doesn't have .at_google but
+# call renew_gcert_if_needed().
 CORP_WORKSTATIONS=("wjkoh1.c.googlers.com" "wjkoh0.mtv.corp.google.com")
 
 # Set the Python startup file.
