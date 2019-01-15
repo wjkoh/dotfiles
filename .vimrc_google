@@ -1,11 +1,5 @@
 source /usr/share/vim/google/google.vim
 
-" This adds useful keymappings for Piper.
-" 1. <Leader>pf :PiperSelectActiveFiles<CR>
-" 2. <Leader>po :PiperOpenPath 
-" and so on.
-Glug piper plugin[mappings]='<Leader>p'
-
 " Loads youcompleteme, the awesomest autocompletion engine.
 " See go/ycm for more details.
 Glug youcompleteme-google
@@ -21,36 +15,46 @@ Glug codefmt-google
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
-augroup autoformat
+augroup autoformat_settings
   autocmd!
+  autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
   autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,cuda AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType jslayout AutoFormatBuffer jslfmt
+  autocmd FileType markdown AutoFormatBuffer mdformat
+  autocmd FileType ncl AutoFormatBuffer nclfmt
   autocmd FileType python AutoFormatBuffer pyformat
+  autocmd FileType textpb AutoFormatBuffer text-proto-format
+  " autocmd FileType html,css,json AutoFormatBuffer js-beautify
 augroup END
-
-" Load the G4 plugin, which allows G4MoveFile, G4Edit, G4Pending, etc.
-" Use :h g4 for more details about this plugin.
-Glug g4
-
-" Load the Critique integration. Use :h critique for more details.
-Glug critique
 
 " Load the Related Files plugin. Use :h relatedfiles for more details.
 " The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
 " -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
 Glug relatedfiles plugin[mappings] window_position="topleft"
 
-" Enable the corpweb plugin, which allows us to open codesearch from vim.
-" <Leader>ww: search in critique for the word under the cursor
-" <Leader>wf: search in critique for the current file
-Glug corpweb plugin[mappings]='<Leader>w'
-
-" Blaze key mappings, i.e., Glug blaze plugin[mappings]='<leader>b', conflict
-" with my own key mapping, i.e., nnoremap <Leader>b :b <C-d>. Use <Leader>m
-" instead to invoke the Blaze commands.
-Glug blaze
-
 " Use :BlazeDepsUpdate in files you're editing and blazedeps will determine the
 " BUILD target associated with the current file and update the deps for you.
 Glug blazedeps
+
+" ALE.
+Glug glug sources+=`$HOME . '/.vim/local'`
+Glug glint-ale
+let g:ale_linters = {
+      \ 'borg': ['glint'],
+      \ 'bzl': ['glint'],
+      \ 'cpp': ['glint'],
+      \ 'dremel': ['glint'],
+      \ 'gcl': ['glint'],
+      \ 'go': ['glint'],
+      \ 'html': ['glint'],
+      \ 'java': ['glint'],
+      \ 'javascript': ['glint'],
+      \ 'jslayout': ['glint'],
+      \ 'proto': ['glint'],
+      \ 'python': ['glint'],
+      \ 'typescript': ['glint'],
+      \}
