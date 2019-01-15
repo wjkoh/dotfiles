@@ -35,11 +35,13 @@ popd &> /dev/null
 
 # Install Prezto.
 echo "* Installing Prezto..."
-pushd ~/.zprezto
-git checkout master
-git pull
-git submodule update --init --recursive
-popd
+# pushd ~/.zprezto
+# git checkout master
+# git pull
+# git submodule update --init --recursive
+#
+zprezto-update
+# popd
 
 # Note: Use 13pt DejaVu Sans Mono (Book).
 echo "* Installing the Powerline fonts..."

@@ -1,5 +1,5 @@
 [ui]
-username = wjkoh
+username = Woojong Koh <wjngkoh@gmail.com>
 commitsubrepos = False
 # Use `merge = internal:merge` if you prefer markers. Tip: If anything goes
 # wrong while merging, type `:cq` to exit Vim with an error. Then, hg ignores
