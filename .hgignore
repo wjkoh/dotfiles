@@ -6,6 +6,8 @@ syntax: glob
 .DS_Store
 tags
 
+.ssh/id_rsa*
+.ssh/known_hosts
 .tmux/plugins/
 .vim/bundle/
 .vim/cache/

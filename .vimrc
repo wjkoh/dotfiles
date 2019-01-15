@@ -1,28 +1,4 @@
-" Vim Tips.
-"
-" 1. In Normal mode, `A` change to Insert mode at the end of the line and `I`
-" change to Insert mode at the beginning of the line.
-"
-" 2. In Command-line mode, use <C-w> to erase words and <C-u> to delete lines.
-"
-" 3. Try :earlier and :later.
-"
-" 4. `[I` list all the lines where the word under the cursor occurs.
-"
-" 5. `:%! sort -k2` will sort the buffer based on column 2, `:%! column -t` will
-" format the text in columns - useful when working with tabular data, and `:%!
-" markdown` will change the current markdown file to html.
-"
-" 6. While visually selecting a block, press 'o' to switch to the other end of
-" the block. This lets you adjust either the starting or ending positions of the
-" block until you're ready to issue a command. That is, you can expand or
-" contract either end of the visual block, you're not stuck changing just one
-" end.
-"
-" 7. Try `p` -> `gv` -> `y`.
-"
-" 8. Use `:e %:h`
-"
+" Launch Vimwiki (<Leader>ww) to see My Vim Tips.
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -31,7 +7,7 @@ filetype off                  " required
 " and remove all of them. A.vim is a common culprit.
 nnoremap <Space> <Nop>
 let mapleader = "\<Space>"  " Use double quotes here to enable escaping.
-let maplocalleader = ","
+let maplocalleader = "\<Space>"
 
 " Specify a directory for plugins.
 " - Avoid using standard Vim directory names like 'plugin'.
@@ -53,29 +29,33 @@ else
   Plug 'google/vim-glaive'
 endif
 
+let s:darwin = has('mac')
+
 Plug 'airblade/vim-rooter'  " For BAddFiles().
+Plug 'chazy/dirsettings'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chriskempson/base16-vim'
-Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-emoji'
 Plug 'justinmk/vim-dirvish'
-Plug 'justinmk/vim-sneak'
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-grepper'
+Plug 'mattn/calendar-vim'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mhinz/vim-signify'
-Plug 'mileszs/ack.vim'
 Plug 'rstacruz/vim-closer'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vimwiki/vimwiki'
+Plug 'w0rp/ale'
 Plug 'will133/vim-dirdiff'
 
 " Initialize plugin system
@@ -280,10 +260,9 @@ if exists('+relativenumber')
   set relativenumber
 endif
 
-set background=dark
-let base16colorspace=256
-colorscheme base16-eighties
+" Set colorscheme.
 if filereadable(expand("~/.vimrc_background"))
+  let g:base16colorspace=256
   source ~/.vimrc_background
 endif
 
@@ -292,27 +271,32 @@ if exists('+macmeta')
 endif
 if has('gui_running')
   set cursorline
-  set guioptions-=T	" Remove toolbar
+  " Remove toolbar
+  set guioptions-=T
   if has('unix')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
   elseif has('macunix')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,Monaco:h12
   endif
 endif
-"set viminfo+=%3		" Save and restore the buffer list
+" Save and restore the buffer list
+"set viminfo+=%3
 set clipboard=unnamed
 if has('unnamedplus')
   set clipboard=unnamedplus
 endif
-set noimdisable		" http://tech.groups.yahoo.com/group/vim-mac/message/12312
-set path+=**  " This works with vim-rooter and adds all the subdirectories in the project directory.
+" http://tech.groups.yahoo.com/group/vim-mac/message/12312
+set noimdisable
+" This works with vim-rooter and adds all the subdirectories in the project directory.
+set path+=**
 set autowrite
 set backup
 if has('persistent_undo')
-  set undofile
   set undodir=~/.vim/tmp/undo//
+  set undofile
 endif
-set backupdir=~/.vim/tmp/backup//   " include full path
+" include full path
+set backupdir=~/.vim/tmp/backup//
 
 " What if &spellfile is a list of filenames?
 " zg to add word to word list
@@ -324,11 +308,13 @@ silent execute 'mkspell! ' . &spellfile
 set spelllang=en_us
 set spell
 
-highlight clear SpellBad
-highlight clear SpellCap
-highlight clear SpellRare
-highlight clear SpellLocal
-highlight SpellBad cterm=bold
+function! SetSpellCheckHighlights()
+  highlight clear SpellBad
+  highlight clear SpellCap
+  highlight clear SpellRare
+  highlight clear SpellLocal
+  highlight SpellBad cterm=bold
+endfunction
 
 set dictionary+=/usr/share/dict/words
 set showmatch
@@ -337,7 +323,8 @@ set colorcolumn=+1
 set lazyredraw
 
 set wildignore+=*.so,*.swp,*.o,*.obj,.DS_Store,*.jpg,*.png,*.exe
-set suffixes+=.sty,.bst,.cls  " Get lower priority in wildmenu.
+" Get lower priority in wildmenu.
+set suffixes+=.sty,.bst,.cls
 set wildignorecase
 set wildmode=list:longest,full
 
@@ -358,19 +345,21 @@ set ttimeoutlen=10
 
 set fileformats+=mac
 
-set noignorecase " ignorecase has a problem with tag jump Ctrl-]
+" ignorecase has a problem with tag jump Ctrl-]
+set noignorecase
 map / /\c
 map ? /\c
 
 if exists('+breakindent')
-  set breakindent  " https://retracile.net/wiki/VimBreakIndent
+  " https://retracile.net/wiki/VimBreakIndent
+  set breakindent
   set showbreak=\ +
 endif
 
 "------------------------------------------------------------
 " Mappings.
-map <tab> %
-nnoremap D d$  " Make D behave.
+" Make D behave.
+nnoremap D d$
 nnoremap j gj
 nnoremap k gk
 
@@ -381,41 +370,52 @@ let g:undotree_SplitWidth = 30
 let g:undotree_WindowLayout = 2
 
 "------------------------------------------------------------
-" Grep.
-if executable('ag')
-  " --vimgrep option is nice but not availabe in ag prior to 0.25. For example,
-  " 0.19.2 in Goobuntu doesn't have it.
-  "set grepprg=ag\ --vimgrep
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-  " let g:ackprg = 'ag --vimgrep'
-endif
+" Autocommands. augroup and autocmd! are necessary. See
+" https://superuser.com/a/634037 for details.
+augroup WjkohAutocommands
+  autocmd!
+  autocmd VimResized * wincmd =  " Resize splits when the window is resized
+  autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
 
-"------------------------------------------------------------
-" Autocommands.
-autocmd VimResized * wincmd =  " Resize splits when the window is resized
-autocmd BufEnter * if filereadable('SConstruct') || filereadable('SConscript') | silent! setlocal makeprg=scons\ -u | else | silent! setlocal makeprg= | endif
-autocmd FileType text,plaintex,tex,gitcommit,hgcommit setlocal spell
+  autocmd BufNewFile,BufReadPost *.cu set filetype=cuda
+  autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
 
-autocmd BufNewFile,BufReadPost *.cu set filetype=cuda
-autocmd BufNewFile,BufReadPost *.cuh set filetype=cuda
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown  " Since Vim detects *.md as Modula-2 except for README.md.
-autocmd BufNewFile,BufReadPost SConstruct,SConscript set filetype=python
+  " Format BUILD file on save.
+  autocmd FileType bzl AutoFormatBuffer buildifier
 
-" Format BUILD file on save.
-autocmd FileType bzl AutoFormatBuffer buildifier
+  " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+  " Automatically open, but do not go to (if there are errors) the quickfix /
+  " location list window, or close it when is has become empty.
+  "
+  " Note: Must allow nesting of autocmds to enable any customizations for quickfix
+  " buffers.
+  " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+  " (but not if it's already open). However, as part of the autocmd, this doesn't
+  " seem to happen.
+  autocmd QuickFixCmdPost [^l]* nested cwindow
+  autocmd QuickFixCmdPost    l* nested lwindow
 
-" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-" Automatically open, but do not go to (if there are errors) the quickfix /
-" location list window, or close it when is has become empty.
-"
-" Note: Must allow nesting of autocmds to enable any customizations for quickfix
-" buffers.
-" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
-" (but not if it's already open). However, as part of the autocmd, this doesn't
-" seem to happen.
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+  "------------------------------------------------------------
+  " Dirvish.
+  autocmd FileType dirvish sort r /[^\/]$/  " Sort directory at the top.
+
+  " Rooter.
+  autocmd BufEnter * silent! lcd %:p:h
+
+  " BAddFiles.
+  autocmd BufReadPost * call BAddFiles()
+
+  " Limelight.
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
+
+  " Use user-defined completion key (<C-X><C-U>) for Emoji completion.
+  autocmd FileType vimwiki,markdown,text Goyo 80 | setlocal completefunc=emoji#complete
+  autocmd FileType vimwiki,markdown,text call ConcealEmojis()
+
+  call SetSpellCheckHighlights()
+  autocmd! ColorScheme * call SetSpellCheckHighlights()
+augroup END
 
 "------------------------------------------------------------
 " Airline.
@@ -424,12 +424,9 @@ let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='base16'
 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ":t"  " Display filename only.
+" Display filename only.
+let g:airline#extensions#tabline#fnamemod = ":t"
 let g:airline#extensions#tabline#fnamecollapse = 1
-
-"------------------------------------------------------------
-" Dirvish.
-autocmd FileType dirvish sort r /[^\/]$/  " Sort directory at the top.
 
 " Tmuxline.
 " Run :Tmuxline airline and :TmuxlineSnapshot! ~/dotfiles/.tmuxline.conf in Vim.
@@ -445,23 +442,13 @@ let g:tmuxline_preset = {
       \'options' : {'status-justify': 'left'}}
 
 " Rooter.
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', 'WORKSPACE']
+let g:rooter_manual_only = 1
+let g:rooter_patterns = ['.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 
-" Sneak.
-let g:sneak#streak = 1
-let g:sneak#label = 1
-
-nnoremap <Leader>b :b <C-d>
-nnoremap <Leader>c :cclose<CR>
-nnoremap <Leader>e :e **/
-nnoremap <Leader>g :grep<Space>
-nnoremap <Leader>* :Grepper -tool ag -cword -noprompt<CR>
-nnoremap <Leader>j :tjump /
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>s :w<CR>  " <Leader>w conflicts with <Leader>ww and <Leader>ws.
+nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
-nnoremap <Leader>z :set invpaste<CR>  " `set pastetoggle` doesn't work when the leader key is <Space>.
+" `set pastetoggle` doesn't work when the leader key is <Space>.
+nnoremap <Leader>z :set invpaste<CR>
 
 nnoremap <Leader><Down> :resize +2<CR>
 nnoremap <Leader><Left> :vertical resize +2<CR>
@@ -470,12 +457,8 @@ nnoremap <Leader><Up> :resize -2<CR>
 
 if filereadable(expand('~/.at_google'))
   nnoremap <Leader>m :Blaze <C-d>
-  " Run clang-include-fixer and BlazeDepsUpdate.
-  nnoremap <leader>cf :pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<cr>:w<cr>:BlazeDepsUpdate<cr>
 else
   nnoremap <Leader>m :make<CR>
-  " Run clang-include-fixer.
-  nnoremap <leader>cf :pyf path/to/llvm/source/tools/clang/tools/extra/include-fixer/tool/clang-include-fixer.py<cr>
 endif
 
 function! IsTextFile(fname)
@@ -487,39 +470,47 @@ endfunction
 
 " This function requires vim-rooter.
 function! BAddFiles()
-    " Run Rooter first.
-    :Rooter
+  " Normal buffer only.
+  if &buftype != ''
+    return
+  endif
 
-    " Git.
-    let file_list = []
-    let git_cmd = "git"
-    if executable(git_cmd)
-      let git_args = "ls-files --full-name --modified --exclude-standard 2>/dev/null"
-      let file_list += systemlist(git_cmd . " " . git_args)
-    endif
+  " Save the current working directory before calling Rooter.
+  let pwd = getcwd()
 
-    " Mercurial.
-    let hg_cmd = "hg"
-    if executable(hg_cmd)
-      let hg_args = "status --no-status --added --modified 2>/dev/null"
-      let file_list += systemlist(hg_cmd . " " . hg_args)
-    endif
+  " Run Rooter first.
+  :silent Rooter
 
-    " Add all the files to the buffer list.
-    for file in file_list
-      let fname = getcwd() . "/" . file
-      if filereadable(fname) && IsTextFile(fname)
-        execute "badd " . file
-      endif
+  " Git.
+  let file_list = []
+  let git_cmd = "git"
+  if executable(git_cmd)
+    let git_args = "ls-files --full-name --modified --exclude-standard"
+    let file_list += systemlist(git_cmd . " " . git_args . " 2>/dev/null")
+  endif
+
+  " Mercurial.
+  let hg_cmd = "hg"
+  if executable(hg_cmd)
+    let from_commit = "status --no-status --change ."
+    let from_working_copy = "status --no-status --added --modified --unknown"
+    for hg_arg in [from_working_copy, from_commit]
+      let file_list += systemlist(hg_cmd . " " . hg_arg . " 2>/dev/null")
     endfor
+  endif
 
-    " Piper.
-    if exists(":PiperLoadActiveAsBuffers") == 2
-      :silent PiperLoadActiveAsBuffers
+  " Add all the files to the buffer list.
+  for file in file_list
+    let fname = getcwd() . "/" . file
+    if filereadable(fname) && IsTextFile(fname)
+      execute "badd " . file
     endif
+  endfor
+
+  " Recover the working directory.
+  :silent execute ':cd '. pwd
 endfunction
 
-autocmd BufReadPost * call BAddFiles()
 
 " vim-signify.
 let g:signify_vcs_list = [ 'git', 'hg', 'svn', 'perforce' ]
@@ -528,3 +519,89 @@ let g:signify_vcs_cmds = {'perforce':'DIFF=%d" -U0" citcdiff %f || [[ $? == 1 ]]
 
 " vim-diff-enhanced.
 let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+
+" ALE.
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_open_list = 1
+
+" Buffer keys.
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+
+" Vimwiki.
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki-personal/'
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext = '.md'
+let wiki_1.index = 'Home'
+
+let wiki_2 = {}
+let wiki_2.path = '~/vimwiki-work/'
+let wiki_2.syntax = 'markdown'
+let wiki_2.ext = '.md'
+let wiki_2.index = 'Home'
+
+let g:vimwiki_list = [wiki_1, wiki_2]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_autowriteall = 0
+
+" fzf.
+" Update $PROJECT_DIR_SUFFICES in .zshrc as well.
+let g:project_dir_suffices = split($PROJECT_DIR_SUFFICES, ':')
+command! Files call fzf#run({'source': eval('$FZF_DEFAULT_COMMAND') . ' ' . join(map(copy(g:project_dir_suffices), 'FindRootDirectory() . v:val'), ' ') . ' . $HOME', 'sink': 'e', 'down': '30%'})
+
+nnoremap <C-t> :Files<CR>
+nnoremap <Leader>e :Files<CR>
+nnoremap <Leader>l :Lines<CR>
+
+" Note that :BlazeDepsUpdate is ran by iblaze automatically.
+command! ClangIncludeFixer :let g:clang_include_fixer_query_mode=0 | :pyf /usr/lib/clang-include-fixer/clang-include-fixer.py
+
+" typing "#i" and space will be expanded to "#include".
+iabbrev #i #include
+iabbrev #d #define
+iabbrev teh the
+
+function! ConcealEmojis()
+  for [name, emoji] in items(emoji#data#dict())
+    if type(emoji) == 0
+      execute 'syntax match Emoji ":'. name .':" conceal cchar='.nr2char(emoji)
+    else
+      " See https://stackoverflow.com/a/8777809 for concealing multi-char emojis.
+    endif
+  endfor
+endfunction
+
+" vim-easy-align.
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" ----------------------------------------------------------------------------
+" vim-emoji :dog: :cat: :rabbit:!
+" ----------------------------------------------------------------------------
+command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+
+function FixPyImportOrder(buffer)
+  return {
+        \   'command': '/google/bin/releases/python-team/public/importorder'
+        \       . ' --inplace %t',
+        \   'read_temporary_file': 1,
+        \}
+endfunction
+command FixPyImportOrder call FixPyImportOrder()
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {'python': ['FixPyImportOrder', 'trim_whitespace', 'remove_trailing_lines']}
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)

@@ -32,16 +32,11 @@ if [ -f ~/.at_google ]; then
   # Aliases.
   alias screen="echo Use scrn instead."
   alias tmux="echo Use tmx2 instead."
-
+  alias iblaze='~/bin/wjkoh_iblaze.sh'
 fi
 
 # Used by renew_gcert_if_needed() in .zlogin.
 CORP_WORKSTATIONS=("wjkoh1.c.googlers.com" "wjkoh0.mtv.corp.google.com")
-
-# Perforce and Piper.
-if [ -n "$DISPLAY" ] ; then export G4MULTIDIFF=1 ; fi
-export P4DIFF='bash -c "meld \${@/#:/--diff}" padding-to-occupy-argv0'
-export P4MERGE='bash -c "chmod u+w \$1 ; meld \$2 \$1 \$3 ; cp \$1 \$4" padding-to-occupy-argv0'
 
 # Set the Python startup file.
 export PYTHONSTARTUP=$HOME/.pythonstartup
@@ -49,31 +44,39 @@ export PYTHONSTARTUP=$HOME/.pythonstartup
 # Et cetera.
 export REPORTTIME=1
 
-# Base16 Shell.
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-FZF_CTRL_T_COMMAND="fasd -Ral | sed -r 's|^/google/src/cloud/[^/]+/[^/]+/google3/*||; /^$/d' | awk '!seen[\$0]++'"
-FZF_CTRL_T_OPTS="-1 -0 --no-sort +m"
 
-# vf - fuzzy open with vim from anywhere
-# ex: vf word1 word2 ... (even part of a file name)
-# zsh autoload function
-vf() {
-  local files
-  if hash csearch &> /dev/null; then
-    # TODO: Do we need to use --no-sort and/or --tac?
-    files=(${(f)"$(csearch -i -l -local "$@"| sed -r "s|^${PWD}/*||" | fzf -1 -0 -m --preview-window=up:65% --preview="highlight {} --out-format ansi --line-numbers --quiet --force")"})
-  else
-    files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
-  fi
-  if [[ -n $files ]]; then
-     vim -- $files
-     print -l $files[1]
-  fi
+set_root_dir() {
+  ROOT_DIR=`git rev-parse --show-toplevel 2> /dev/null || hg root 2> /dev/null`
 }
+
+# Note that this variable is also used as g:project_dir_suffices in .vimrc. It
+# is normal to see both parent and children directories in this variable because
+# not only fzf but also iblaze uses it and iblaze doesn't go recursively.
+export PROJECT_DIR_SUFFICES='/google3/third_party/car/simulator/agentsim/metrics:/google3/third_party/car/simulator/agentsim/trajectory_refiner:/google3/third_party/car/simulator/agentsim/'
+set_project_dirs() {
+  set_root_dir
+  AS_ARR=("${(@s/:/)PROJECT_DIR_SUFFICES}")
+  # Add a prefix to each element in the given array and convert them back to an
+  # array using parentheses. See https://stackoverflow.com/q/20366609.
+  PROJECT_DIRS=(${AS_ARR[@]/#/${ROOT_DIR}})
+}
+
+if [ -x "$(command -v ag)" -a -x "$(command -v bfs)" ]; then
+  export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --silent --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g ""'
+  export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS[@] . $HOME 2> /dev/null'
+else
+  echo "Error: ag or bfs not found."
+fi
+export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS[@] . $HOME'
+
 
 # Pipe Highlight to less.
 export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"
@@ -84,6 +87,7 @@ alias more="less"
 
 # Use "highlight" in place of "cat".
 alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
+
 
 case `uname` in
     Darwin)
