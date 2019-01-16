@@ -22,16 +22,21 @@ else
 fi
 
 renew_gcert_if_needed() {
-  if ! [ -x "$(command -v gcertstatus)" -a -x "$(command -v ~/bin/auth-refresh-gtunnel.py)" ]; then
-    echo "Error: gcertstatus or ~/bin/auth-refresh-gtunnel.py not found."
-    return
-  fi
-
-  HOURS_TILL_EOB=$((20 - $(date +%-H)))h
+  HOURS_TILL_EOB=$((20 - $(date +%-H)))
   if [[ ${CORP_WORKSTATIONS[(r)$(hostname)]} == $(hostname) ]]; then
-    gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || prodaccess
+    prodcertstatus --check_remaining_hours=${HOURS_TILL_EOB}
+    if [ $? -ne 0 ]; then
+      prodaccess
+    fi
   else
-    gcertstatus -ssh_cert_comment=corp/normal -check_remaining=$HOURS_TILL_EOB || ~/bin/auth-refresh-gtunnel.py ${CORP_WORKSTATIONS}
+    if ! [ -x "$(command -v gcertstatus)" -a -x "$(command -v ~/bin/auth-refresh-gtunnel.py)" ]; then
+      echo "Error: gcertstatus or ~/bin/auth-refresh-gtunnel.py not found."
+      return
+    fi
+    gcertstatus -ssh_cert_comment=corp/normal -check_remaining=${HOURS_TILL_EOB}h
+    if [ $? -ne 0 ]; then
+      ~/bin/auth-refresh-gtunnel.py ${CORP_WORKSTATIONS}
+    fi
   fi
 }
 
