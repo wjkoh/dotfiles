@@ -80,16 +80,18 @@ fi
 export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS[@] . $HOME'
 
 
-# Pipe Highlight to less.
-export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"
 export LESS=" -R"
+if [ -x "$(command -v highlight)" ]; then
+  # Pipe Highlight to less.
+  export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"
+  # Use "highlight" in place of "cat".
+  alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
+else
+  echo "Error: highlight not found."
+fi
 
 alias less="less -m -N -g -i -J --line-numbers --underline-special"
 alias more="less"
-
-# Use "highlight" in place of "cat".
-alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
-
 
 case `uname` in
     Darwin)
@@ -103,11 +105,6 @@ case `uname` in
         elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
             export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
             alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-        fi
-
-        # Back to My Mac (SSH).
-        if [ -f ~/Dropbox/Mac\ Sync/.hostnames ]; then
-            source ~/Dropbox/Mac\ Sync/.hostnames
         fi
         ;;
     Linux)
