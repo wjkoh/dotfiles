@@ -403,7 +403,7 @@ augroup WjkohAutocommands
   autocmd BufEnter * silent! lcd %:p:h
 
   " BAddFiles.
-  autocmd BufReadPost * call BAddFiles()
+  autocmd VimEnter * if !&diff | call BAddFiles() | endif
 
   " Limelight.
   autocmd! User GoyoEnter Limelight
@@ -556,6 +556,8 @@ command! Files call fzf#run({'source': eval('$FZF_DEFAULT_COMMAND') . ' ' . join
 
 nnoremap <C-t> :Files<CR>
 nnoremap <Leader>e :Files<CR>
+
+" Use this instead of :grep.
 nnoremap <Leader>l :Lines<CR>
 
 " Note that :BlazeDepsUpdate is ran by iblaze automatically.
@@ -605,3 +607,11 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Keep the cursor at the middle of the screen.
+nnoremap j jzz
+nnoremap k kzz
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
+
+set cursorline
