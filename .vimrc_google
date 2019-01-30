@@ -12,6 +12,9 @@ Glug youcompleteme-google
 Glug codefmt
 Glug codefmt-google
 
+Glug outline-window
+nnoremap <Leader>g :GoogleOutlineWindow<CR>
+
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
