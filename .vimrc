@@ -25,14 +25,34 @@ Plug 'will133/vim-dirdiff'
 " Initialize plugin system
 call plug#end()
 
-syntax on
-color dracula
+source /usr/share/vim/google/google.vim
 
+color dracula
 let g:lightline = { 'colorscheme': 'dracula', }
 
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+if has('termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" Use patience diff. See https://github.com/chrisbra/vim-diff-enhanced.
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
+
+let mapleader      = ' '
+let maplocalleader = ' '
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>L        :Lines<CR>
 
 "------------------------------------------------------------
 " Autocommands. augroup and autocmd! are necessary. See
@@ -40,8 +60,3 @@ set termguicolors
 augroup WjkohAutocommands
   autocmd!
 augroup END
-
-" Use patience diff. See https://github.com/chrisbra/vim-diff-enhanced.
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:patience
-endif
