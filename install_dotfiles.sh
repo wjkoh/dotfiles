@@ -14,5 +14,4 @@ stow ssh
 stow tmux
 stow nethack
 
-source ~/.zshrc
 vim '+PlugInstall!' +qall
