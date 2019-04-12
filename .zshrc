@@ -19,6 +19,17 @@ antibody bundle marzocchi/zsh-notify
 antibody bundle zdharma/fast-syntax-highlighting
 antibody bundle zsh-users/zsh-autosuggestions
 antibody bundle zsh-users/zsh-completions
-#antibody bundle dracula/zsh
+
+source /etc/bash_completion.d/g4d
+# Mercurial secion causes slowness at Google when use Fig.
+SPACESHIP_HG_SHOW=false
+
+# Appends every command to the history file once it is executed.
+setopt inc_append_history
+# Reloads the history whenever you use it.
+setopt share_history
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='hg manifest'
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
