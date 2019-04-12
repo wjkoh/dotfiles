@@ -6,17 +6,11 @@ syntax: glob
 .DS_Store
 tags
 
-.ssh/id_rsa*
-.ssh/known_hosts
-.tmux/plugins/
-.vim/bundle/
-.vim/cache/
-.vim/plugged/
-.vim/tmp/
-.virtualenvs/
-.weechat/irc.conf
-.weechat/logs/
-.weechat/script/plugins.xml.gz
-.weechat/urlserver_list.txt
-.weechat/weechat.log
+ssh/.ssh/id_rsa*
+ssh/.ssh/known_hosts
+tmux/.tmux/plugins/
+vim/.vim/bundle/
+vim/.vim/cache/
+vim/.vim/plugged/
+vim/.vim/tmp/
 bin/auth-refresh-gtunnel.py
