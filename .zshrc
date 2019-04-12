@@ -1,118 +1,24 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+EDITOR=vim
 
-# Make the GNOME terminal work with vim-colors-solarized.
-if [ -z "$TMUX" ]; then
-  case $COLORTERM in
-    gnome-terminal)
-      export TERM=xterm-256color
-      ;;
-  esac
-fi
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
+export CLICOLOR=1
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+autoload -Uz compinit
 
-# Customize to your needs...
+# Open .zshrc to be edited in VS Code
+alias change="$EDITOR ~/.zshrc"
+# Re-run source command on .zshrc to update current terminal session with new settings
+alias update="source ~/.zshrc"
 
-# Google only.
-if [ -f ~/.at_google ]; then
-  source /etc/bash_completion.d/g4d
+source <(antibody init)
 
-  autoload bashcompinit
-  bashcompinit
-  source /google/data/ro/projects/devtools/rebaser/bash_completion.sh
+antibody bundle denysdovhan/spaceship-prompt
+antibody bundle marzocchi/zsh-notify
+antibody bundle zdharma/fast-syntax-highlighting
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-completions
+#antibody bundle dracula/zsh
 
-  # Aliases.
-  alias screen="echo Use scrn instead."
-  alias tmux="echo Use tmx2 instead."
-  alias iblaze='~/bin/wjkoh_iblaze.sh'
-fi
-
-# Used by renew_gcert_if_needed() in .zlogin. Do not wrap this with
-# the `~/.at_google` check because a corp laptop doesn't have .at_google but
-# call renew_gcert_if_needed().
-CORP_WORKSTATIONS=("wjkoh1.c.googlers.com" "wjkoh0.mtv.corp.google.com")
-
-# Set the Python startup file.
-export PYTHONSTARTUP=$HOME/.pythonstartup
-
-# Et cetera.
-export REPORTTIME=1
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-# FZF.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-set_root_dir() {
-  ROOT_DIR=`git rev-parse --show-toplevel 2> /dev/null || hg root 2> /dev/null`
-}
-
-# Note that this variable is also used as g:project_dir_suffices in .vimrc. It
-# is normal to see both parent and children directories in this variable because
-# not only fzf but also iblaze uses it and iblaze doesn't go recursively.
-export PROJECT_DIR_SUFFICES='/google3/third_party/car/simulator/agentsim/metrics:/google3/third_party/car/simulator/agentsim/trajectory_refiner:/google3/third_party/car/simulator/agentsim/'
-set_project_dirs() {
-  set_root_dir
-  AS_ARR=("${(@s/:/)PROJECT_DIR_SUFFICES}")
-  # Add a prefix to each element in the given array and convert them back to an
-  # array using parentheses. See https://stackoverflow.com/q/20366609.
-  PROJECT_DIRS=(${AS_ARR[@]/#/${ROOT_DIR}})
-}
-
-if [ -x "$(command -v ag)" -a -x "$(command -v bfs)" ]; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --silent --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g ""'
-  export FZF_ALT_C_COMMAND='set_project_dirs && bfs -nohidden -type d $PROJECT_DIRS[@] . $HOME 2> /dev/null'
-else
-  echo "Error: ag or bfs not found."
-fi
-export FZF_CTRL_T_COMMAND='set_project_dirs && '"$FZF_DEFAULT_COMMAND"' $PROJECT_DIRS[@] . $HOME'
-
-
-export LESS=" -R"
-if [ -x "$(command -v highlight)" ]; then
-  # Pipe Highlight to less.
-  export LESSOPEN="| highlight %s --out-format ansi --line-numbers --quiet --force"
-  # Use "highlight" in place of "cat".
-  alias cat="highlight $1 --out-format ansi --line-numbers --quiet --force"
-else
-  echo "Error: highlight not found."
-fi
-
-alias less="less -m -N -g -i -J --line-numbers --underline-special"
-alias more="less"
-
-case `uname` in
-    Darwin)
-        # Use MacVim if it exists.
-        if hash mvim &> /dev/null; then
-            export EDITOR="mvim -v"
-            alias vim="mvim -v"
-        elif hash Vim &> /dev/null; then
-            export EDITOR=Vim
-            alias vim=Vim
-        elif [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-            export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-            alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
-        fi
-        ;;
-    Linux)
-        # Aliases.
-        if hash gnome-open &> /dev/null; then
-          alias open=gnome-open
-        elif hash gvfs-open &> /dev/null; then
-          alias open=gvfs-open
-        fi
-        ;;
-esac

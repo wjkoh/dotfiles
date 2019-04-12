@@ -1,6 +1,0 @@
---exclude=.hg
---exclude=.git
---exclude=.svn
---exclude=.ropeproject
---exclude=build
---exclude=dist
