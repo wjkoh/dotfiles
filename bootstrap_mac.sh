@@ -17,6 +17,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # TODO: Install dracula iterm2 theme.
 brew install vim
 brew install hg
+brew install stow
 
 echo 'If you use ITerm2'
 echo 'Q: How do I make the option/alt key act like Meta or send escape codes?'
