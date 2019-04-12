@@ -33,40 +33,6 @@ done
 popd &> /dev/null
 popd &> /dev/null
 
-# Install Prezto.
-echo "* Installing Prezto..."
-# pushd ~/.zprezto
-# git checkout master
-# git pull
-# git submodule update --init --recursive
-#
-zprezto-update
-# popd
-
-# Note: Use 13pt DejaVu Sans Mono (Book).
-echo "* Installing the Powerline fonts..."
-pushd $(mktemp -d)
-git clone https://github.com/powerline/fonts.git . && ./install.sh
-
-# Note: Run `base16_ocean` or similar in shell first. You may not need to install
-# profiles due to base16-shell.
-# If MacOS.
-# curl -fLo base16-default-dark-256.itermcolors \
-# https://raw.githubusercontent.com/martinlindhe/base16-iterm2/master/itermcolors/base16-default-dark-256.itermcolors \
-# && open base16-default-dark-256.itermcolors
-# curl -fLo base16-eighties-256.itermcolors \
-# https://raw.githubusercontent.com/martinlindhe/base16-iterm2/master/itermcolors/base16-eighties-256.itermcolors \
-# && open base16-eighties-256.itermcolors
-popd
-
-# Note: Run `base16_ocean` or similar in shell first. You may not need to install
-# profiles due to base16-shell.
-# Install Base16 GNOME Terminal themes.
-# source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-default-dark.sh)
-# source <(curl -s https://raw.githubusercontent.com/aaron-williamson/base16-gnome-terminal/master/color-scripts/base16-eighties.sh)
-
-~/.fzf/install --all
-
 vim '+PlugInstall!' +qall
 
 echo "* SUCCESSFULLY DONE!"
