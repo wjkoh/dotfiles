@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./bootstrap_common.sh
+
 curl -sL git.io/antibody | sh -s
 
-apt install stow
+sudo apt install stow

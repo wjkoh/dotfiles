@@ -1,5 +1,7 @@
 #!/bin/sh
 
+./bootstrap_common.sh
+
 brew install getantibody/tap/antibody
 brew tap caskroom/fonts
 brew cask install font-fira-code
