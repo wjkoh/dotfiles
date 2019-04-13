@@ -6,11 +6,6 @@ syntax: glob
 .DS_Store
 tags
 
+bin/auth-refresh-gtunnel.py
 ssh/.ssh/id_rsa*
 ssh/.ssh/known_hosts
-tmux/.tmux/plugins/
-vim/.vim/bundle/
-vim/.vim/cache/
-vim/.vim/plugged/
-vim/.vim/tmp/
-bin/auth-refresh-gtunnel.py
