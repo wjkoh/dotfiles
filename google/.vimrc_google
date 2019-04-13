@@ -1,19 +1,11 @@
 source /usr/share/vim/google/google.vim
 
-" Loads youcompleteme, the awesomest autocompletion engine.
-" See go/ycm for more details.
-Glug youcompleteme-google
-"nnoremap <C-]> :YcmCompleter GoTo<CR>  " Override the default jump key.
-
 " Load the code formatting plugin. We first load the open-source version. Then,
 " we load the internal google settings. Then, we automatically enable formatting
 " when we write the file for Go, BUILD, proto, and c/cpp files.
 " Use :h codefmt-google or :h codefmt for more details.
-Glug codefmt
+" Glug codefmt
 Glug codefmt-google
-
-Glug outline-window
-nnoremap <Leader>g :GoogleOutlineWindow<CR>
 
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
@@ -31,7 +23,32 @@ augroup autoformat_settings
   autocmd FileType ncl AutoFormatBuffer nclfmt
   autocmd FileType python AutoFormatBuffer pyformat
   autocmd FileType textpb AutoFormatBuffer text-proto-format
-  " autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+augroup END
+
+"------------------------------------------------------------
+" Autocommands. augroup and autocmd! are necessary. See
+" https://superuser.com/a/634037 for details.
+augroup WjkohGoogleAutocommands
+  autocmd!
+  if executable('/google/bin/releases/grok/tools/kythe_languageserver')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'Kythe Language Server',
+          \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
+          \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto'],
+          \})
+  endif
+  if executable('/google/bin/releases/editor-devtools/ciderlsp')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'CiderLSP',
+          \ 'cmd': {server_info->[
+          \   '/google/bin/releases/editor-devtools/ciderlsp',
+          \   '--tooltag=vim-lsp',
+          \   '--noforward_sync_responses',
+          \ ]},
+          \ 'whitelist': ['c', 'cpp', 'proto', 'textproto', 'go'],
+          \})
+  endif
 augroup END
 
 " Load the Related Files plugin. Use :h relatedfiles for more details.
@@ -39,25 +56,21 @@ augroup END
 " -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
 Glug relatedfiles plugin[mappings] window_position="topleft"
 
-" Use :BlazeDepsUpdate in files you're editing and blazedeps will determine the
-" BUILD target associated with the current file and update the deps for you.
-Glug blazedeps
-
 " ALE.
-Glug glug sources+=`$HOME . '/.vim/local'`
-Glug glint-ale
-let g:ale_linters = {
-      \ 'borg': ['glint'],
-      \ 'bzl': ['glint'],
-      \ 'cpp': ['glint'],
-      \ 'dremel': ['glint'],
-      \ 'gcl': ['glint'],
-      \ 'go': ['glint'],
-      \ 'html': ['glint'],
-      \ 'java': ['glint'],
-      \ 'javascript': ['glint'],
-      \ 'jslayout': ['glint'],
-      \ 'proto': ['glint'],
-      \ 'python': ['glint'],
-      \ 'typescript': ['glint'],
-      \}
+" Glug glug sources+=`$HOME . '/.vim/local'`
+" Glug glint-ale
+" let g:ale_linters = {
+"       \ 'borg': ['glint'],
+"       \ 'bzl': ['glint'],
+"       \ 'cpp': ['glint'],
+"       \ 'dremel': ['glint'],
+"       \ 'gcl': ['glint'],
+"       \ 'go': ['glint'],
+"       \ 'html': ['glint'],
+"       \ 'java': ['glint'],
+"       \ 'javascript': ['glint'],
+"       \ 'jslayout': ['glint'],
+"       \ 'proto': ['glint'],
+"       \ 'python': ['glint'],
+"       \ 'typescript': ['glint'],
+"       \}
