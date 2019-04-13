@@ -21,6 +21,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vimwiki/vimwiki'
 Plug 'w0rp/ale'
 Plug 'will133/vim-dirdiff'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -60,6 +64,33 @@ nnoremap <silent> <Leader>L        :Lines<CR>
 " https://superuser.com/a/634037 for details.
 augroup WjkohAutocommands
   autocmd!
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'Kythe Language Server',
+        \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
+        \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto'],
+        \})
+
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'CiderLSP',
+      \ 'cmd': {server_info->[
+      \   '/google/bin/releases/editor-devtools/ciderlsp',
+      \   '--tooltag=vim-lsp',
+      \   '--noforward_sync_responses',
+      \ ]},
+      \ 'whitelist': ['c', 'cpp', 'proto', 'textproto', 'go'],
+      \})
 augroup END
 
 set cursorline
+
+nnoremap <Leader>] :LspDefinition<CR>
+nnoremap <Leader>[ :LspReferences<CR>
+nnoremap <Leader>i :LspHover<CR>
+
+
+" Send async completion requests.
+" WARNING: Might interfere with other completion plugins.
+let g:lsp_async_completion = 1
+
+set number
+set relativenumber
