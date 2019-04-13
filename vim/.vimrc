@@ -51,6 +51,7 @@ if $TERM =~ 'screen'
 endif
 
 nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader>F        :Files<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>L        :Lines<CR>
 
@@ -60,3 +61,5 @@ nnoremap <silent> <Leader>L        :Lines<CR>
 augroup WjkohAutocommands
   autocmd!
 augroup END
+
+set cursorline
