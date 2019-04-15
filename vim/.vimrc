@@ -5,6 +5,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chazy/dirsettings'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'fisadev/vim-isort'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
+Plug 'google/vim-maktaba'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -22,14 +26,9 @@ Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-unimpaired'
 Plug 'vimwiki/vimwiki'
 Plug 'will133/vim-dirdiff'
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
 
 " Initialize plugin system
 call plug#end()
@@ -76,6 +75,15 @@ augroup WjkohAutocommands
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
   endif
+  autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
+  autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
+  autocmd FileType c,cpp setlocal makeprg=/usr/local/opt/llvm/bin/clang-tidy
+      let errorformat =
+        \ '%E%f:%l:%c: fatal error: %m,' .
+        \ '%E%f:%l:%c: error: %m,' .
+        \ '%W%f:%l:%c: warning: %m,' .
+        \ '%-G%\m%\%%(LLVM ERROR:%\|No compilation database found%\)%\@!%.%#,' .
+        \ '%E%m'
 augroup END
 
 set completeopt+=preview
