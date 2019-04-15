@@ -14,5 +14,6 @@ stow --restow tmux
 stow --restow vim
 stow --restow vimwiki
 stow --restow zsh
+stow --restow bin
 
 vim '+PlugInstall!' +qall
