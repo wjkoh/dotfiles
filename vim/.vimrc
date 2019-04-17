@@ -52,12 +52,6 @@ endif
 let mapleader      = ' '
 let maplocalleader = ' '
 
-" Disable CTRL-A on tmux or on screen
-if $TERM =~ 'screen'
-  nnoremap <C-a> <nop>
-  nnoremap <Leader><C-a> <C-a>
-endif
-
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader>F        :Files<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
@@ -78,12 +72,6 @@ augroup WjkohAutocommands
   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
   autocmd FileType c,cpp setlocal makeprg=/usr/local/opt/llvm/bin/clang-tidy
-      let errorformat =
-        \ '%E%f:%l:%c: fatal error: %m,' .
-        \ '%E%f:%l:%c: error: %m,' .
-        \ '%W%f:%l:%c: warning: %m,' .
-        \ '%-G%\m%\%%(LLVM ERROR:%\|No compilation database found%\)%\@!%.%#,' .
-        \ '%E%m'
 augroup END
 
 set completeopt+=preview
@@ -93,6 +81,10 @@ set number
 set relativenumber
 set shiftwidth=2
 set tabstop=2
+set undofile  " Maintain undo history between sessions.
+if mkdir(expand('~/.vim/undofiles'), 'p', 0700)
+  set undodir=~/.vim/undofiles
+endif
 
 nnoremap <Leader>] :LspDefinition<CR>
 nnoremap <Leader>[ :LspReferences<CR>
