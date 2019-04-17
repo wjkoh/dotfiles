@@ -4,7 +4,6 @@ HISTSIZE=100000
 PAGER=less
 SAVEHIST=100000
 VISUAL=vim
-export CLICOLOR=1
 export PATH=$HOME/bin:$PATH
 
 autoload -Uz compinit
@@ -46,3 +45,5 @@ alias change="$EDITOR ~/.zshrc"
 alias update='source ~/.zshrc'
 # Vim: Load all modififed files in this mercurial repository into buffers.
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
+
+source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
