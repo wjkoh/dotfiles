@@ -7,5 +7,4 @@ syntax: glob
 tags
 
 bin/bin/auth-refresh-gtunnel.py
-ssh/.ssh/id_rsa*
-ssh/.ssh/known_hosts
+ssh/.ssh/
