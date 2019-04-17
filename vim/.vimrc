@@ -85,6 +85,7 @@ set undofile  " Maintain undo history between sessions.
 if mkdir(expand('~/.vim/undofiles'), 'p', 0700)
   set undodir=~/.vim/undofiles
 endif
+set hlsearch
 
 nnoremap <Leader>] :LspDefinition<CR>
 nnoremap <Leader>[ :LspReferences<CR>
@@ -108,6 +109,6 @@ let g:lsp_async_completion = 1
 " enable echo under cursor when in normal mode
 let g:lsp_diagnostics_echo_cursor = 1
 
-if filereadable('~/.vimrc_google')
+if filereadable(expand('~/.vimrc_google'))
   source ~/.vimrc_google
 endif
