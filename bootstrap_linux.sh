@@ -6,3 +6,4 @@ sudo apt install bfs
 sudo apt install stow
 
 ./post_bootstrap.sh
+sudo apt install python-pip
