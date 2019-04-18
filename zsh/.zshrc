@@ -46,4 +46,8 @@ alias update='source ~/.zshrc'
 # Vim: Load all modififed files in this mercurial repository into buffers.
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
