@@ -29,3 +29,4 @@ tic -x terminfo/xterm-256color-italic.terminfo
 
 ./post_bootstrap.sh
 brew install tavianator/tap/bfs
+brew install nvm
