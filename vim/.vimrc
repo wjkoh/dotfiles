@@ -76,9 +76,13 @@ augroup WjkohAutocommands
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
   endif
-  autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
-  autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
+  " https://gist.github.com/romainl/ce55ce6fdc1659c5fbc0f4224fd6ad29
   autocmd FileType c,cpp setlocal makeprg=/usr/local/opt/llvm/bin/clang-tidy
+  autocmd FileType javascript setlocal errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
+  autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
+  autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
+  autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
+  autocmd QuickFixCmdPost [^l]* cwindow
 augroup END
 
 set completeopt+=preview
