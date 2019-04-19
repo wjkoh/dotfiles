@@ -46,3 +46,4 @@ alias change="$EDITOR ~/.zshrc"
 alias update='source ~/.zshrc'
 # Vim: Load all modififed files in this mercurial repository into buffers.
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
+alias vimgit='vim $(git ls-files --modified .)'
