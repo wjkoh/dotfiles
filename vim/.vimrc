@@ -14,10 +14,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-dirvish'
+Plug 'leafgarland/typescript-vim'
 Plug 'mhinz/vim-signify'
+Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'rstacruz/vim-closer'
 Plug 'ryanolsonx/vim-lsp-javascript'
@@ -69,7 +70,7 @@ augroup WjkohAutocommands
           \ 'cmd': {server_info->['/usr/local/opt/llvm/bin/clangd', '-background-index']},
           \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
           \ })
-  elif executable('clangd')
+  elseif executable('clangd')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'clangd',
           \ 'cmd': {server_info->['clangd', '-background-index']},
