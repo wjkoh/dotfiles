@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chazy/dirsettings'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'fisadev/vim-isort'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'google/vim-maktaba'
@@ -28,6 +27,7 @@ Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'  " '[f', ']f': switch between source and header files.
 Plug 'vimwiki/vimwiki'
