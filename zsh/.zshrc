@@ -53,4 +53,4 @@ export NVM_DIR="$HOME/.nvm"
 
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 
-gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((18 * 60 * 60))s || prodaccess || gcert
+[ -f ~/.zshrc_google ] && source ~/.zsh_google
