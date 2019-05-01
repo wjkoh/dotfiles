@@ -33,10 +33,10 @@ SPACESHIP_HG_SHOW=false
 [ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null|| bfs -nohidden -type f'
+export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null; bfs -nohidden -type f'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-export FZF_ALT_C_COMMAND='bfs -nohidden -type d'
+export FZF_ALT_C_COMMAND='hg files . 2> /dev/null | xargs dirname | sort | uniq; bfs -nohidden -type d'
 
 alias ssh='TERM=xterm-256color ssh'
 # Open .zshrc to be edited in VS Code
