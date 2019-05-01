@@ -1,1 +1,4 @@
-# Empty for now.
+# go/borgtools.
+alias bgrep=/google/data/ro/teams/borgtools/bgrep
+alias bkill=/google/data/ro/teams/borgtools/bkill
+alias btail=/google/data/ro/teams/borgtools/btail

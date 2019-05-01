@@ -1,6 +1,6 @@
 startup --output_user_root=/tmp/blaze-cache
 common --color=yes --curses=yes
-build -c fastbuild --symlink_prefix=blaze-fastbuild-
+build -c opt
 build --jobs 600 --keep_going --show_timestamps
 query --keep_going
 test --test_output=errors
