@@ -52,3 +52,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
+
+gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((18 * 60 * 60))s || prodaccess || gcert
