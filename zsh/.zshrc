@@ -55,6 +55,6 @@ source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 
 # A corp laptop needs gcert but has no access to source code. Thus, we cannot
 # move the following `gcertstatus` to .zshrc_google.
-gcertstatus -check_remaining=$((18 * 60 * 60))s || prodaccess || gcert
+gcertstatus -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert
 
 [ -f ~/.zshrc_google ] && source ~/.zsh_google
