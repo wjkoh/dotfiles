@@ -1,1 +1,1 @@
-gcertstatus -check_remaining=$((18 * 60 * 60))s || prodaccess || gcert
+# Empty for now.
