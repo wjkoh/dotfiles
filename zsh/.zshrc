@@ -57,4 +57,4 @@ source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 # move the following `gcertstatus` to .zshrc_google.
 gcertstatus -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert
 
-[ -f ~/.zshrc_google ] && source ~/.zsh_google
+[ -f ~/.zshrc_google ] && source ~/.zshrc_google
