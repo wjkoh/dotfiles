@@ -1,3 +1,9 @@
+# G4d.
+[ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
+
+# Mercurial section causes slowness when using Fig at Google.
+SPACESHIP_HG_SHOW=false
+
 # go/borgtools.
 alias bgrep=/google/data/ro/teams/borgtools/bgrep
 alias bkill=/google/data/ro/teams/borgtools/bkill
