@@ -28,13 +28,9 @@ antibody bundle zdharma/fast-syntax-highlighting
 antibody bundle zsh-users/zsh-autosuggestions
 antibody bundle zsh-users/zsh-completions
 
-# Mercurial secion causes slowness at Google when use Fig.
-SPACESHIP_HG_SHOW=false
-[ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null; git ls-files . 2> /dev/null; fd --type f'
-# To apply the command to CTRL-T as well
+# Apply the default command to Ctrl-t as well.
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 # sort is required before uniq even though hg files and git ls-files output
 # sorted lists because they can be out of order once filenames are removed. For
@@ -50,9 +46,9 @@ alias update='source ~/.zshrc'
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
 alias vimgit='vim $(git ls-files --modified --cached .)'
 
-# A corp laptop needs gcert but has no access to source code. Thus, we cannot
-# move the following `gcertstatus` to .zshrc_google.
-(( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert)
-
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
+
+# We cannot move the following `gcertstatus` to .zshrc_google because a corp
+# laptop has no access to source code and other tools but still needs `gcert`.
+(( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert)
