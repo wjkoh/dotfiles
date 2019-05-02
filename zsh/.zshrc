@@ -33,10 +33,10 @@ SPACESHIP_HG_SHOW=false
 [ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null; bfs -nohidden -type f'
+export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null ; fd --type f'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-export FZF_ALT_C_COMMAND='hg files . 2> /dev/null | xargs dirname | sort | uniq; bfs -nohidden -type d'
+export FZF_ALT_C_COMMAND='hg files . 2> /dev/null | xargs dirname | sort | uniq ; fd --type d'
 
 alias ssh='TERM=xterm-256color ssh'
 # Open .zshrc to be edited in VS Code
@@ -47,14 +47,9 @@ alias update='source ~/.zshrc'
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
 alias vimgit='vim $(git ls-files --modified --cached .)'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-
-source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
-
 # A corp laptop needs gcert but has no access to source code. Thus, we cannot
 # move the following `gcertstatus` to .zshrc_google.
 gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert
 
+source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
