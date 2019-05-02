@@ -9,16 +9,19 @@ brew cask install font-fira-code
 # Install both Python 2 and Python 3.
 # Note: Use python3 venv instead of virtualenv.
 brew install python@2 python
-brew install terminal-notifier
-brew install tmux
 
 # TODO: Install dracula iterm2 theme.
-brew install vim
-brew install hg
-brew install stow
-brew install node
-brew install llvm
 brew install clang-format
+brew install fd
+brew install hg
+brew install llvm
+brew install node
+brew install nvm
+brew install stow
+brew install tavianator/tap/bfs
+brew install terminal-notifier
+brew install tmux
+brew install vim
 
 echo 'If you use ITerm2'
 echo 'Q: How do I make the option/alt key act like Meta or send escape codes?'
@@ -28,5 +31,3 @@ tic -x terminfo/tmux-256color.terminfo
 tic -x terminfo/xterm-256color-italic.terminfo
 
 ./post_bootstrap.sh
-brew install tavianator/tap/bfs
-brew install nvm
