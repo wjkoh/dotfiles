@@ -52,7 +52,7 @@ alias vimgit='vim $(git ls-files --modified --cached .)'
 
 # A corp laptop needs gcert but has no access to source code. Thus, we cannot
 # move the following `gcertstatus` to .zshrc_google.
-gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert
+(( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert)
 
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
