@@ -1,3 +1,7 @@
 [user]
-name = Woojong Koh
-email = wjngkoh@gmail.com
+  name = Woojong Koh
+  email = wjngkoh@gmail.com
+[alias]
+  # Retrieves the root directory. Example: `cd $(git root)`. See
+  # https://stackoverflow.com/a/23442470.
+  root = rev-parse --show-toplevel
