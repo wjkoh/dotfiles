@@ -33,10 +33,13 @@ SPACESHIP_HG_SHOW=false
 [ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null ; fd --type f'
+export FZF_DEFAULT_COMMAND='hg files . 2> /dev/null ; git ls-files . 2> /dev/null ; fd --type f'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-export FZF_ALT_C_COMMAND='hg files . 2> /dev/null | xargs dirname | sort | uniq ; fd --type d'
+# sort is required before uniq even though hg files and git ls-files output
+# sorted lists because they can be out of order once filenames are removed. For
+# example, [ "a/f.txt", "a/g/h.txt", "a/h.txt" ] -> [ "a", "a/b", "a" ].
+export FZF_ALT_C_COMMAND='hg files . 2> /dev/null | xargs -n 1 dirname | sort | uniq ; git ls-files . 2> /dev/null | xargs -n 1 dirname | sort | uniq ; fd --type d'
 
 alias ssh='TERM=xterm-256color ssh'
 # Open .zshrc to be edited in VS Code
