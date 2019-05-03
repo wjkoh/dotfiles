@@ -19,7 +19,7 @@ google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 whatsout = status --color=always --rev .^ -man
 
 # See go/pappysfigconfig.
-watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 10 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo $'\n\e[4mChanged in this CL\e[0m' && hg whatsout $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
+watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 5 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo $'\n\e[4mChanged in this CL\e[0m' && hg whatsout $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
 evolve_all = !$HG evolve --all --any && $HG upload_exported
 revert_all = revert --all
