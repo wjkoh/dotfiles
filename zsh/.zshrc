@@ -50,6 +50,6 @@ alias vimgit='vim $(git ls-files --modified --others --exclude-standard .)'
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
 
-# We cannot move the following `gcertstatus` to .zshrc_google because a corp
-# laptop has no access to source code and other tools but still needs `gcert`.
-(( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || prodaccess || gcert)
+# Gcert. We cannot move the following `gcertstatus` to .zshrc_google because a
+# corp laptop, which has no access to source code, still needs `gcert` to SSH.
+(( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || gcert)
