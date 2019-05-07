@@ -7,6 +7,11 @@ source /usr/share/vim/google/google.vim
 " Glug codefmt
 Glug codefmt-google
 
+" go/vim-csearch.
+Plug 'sso://user/mcdermottm/vim-csearch'
+nnoremap <leader>cs :CSearch<Space>
+nnoremap <leader>cw :CSearch <C-r><C-w><CR>
+
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
