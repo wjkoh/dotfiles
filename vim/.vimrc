@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'chazy/dirsettings'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'fisadev/vim-isort'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'google/vim-maktaba'
@@ -84,6 +85,7 @@ augroup WjkohAutocommands
   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
+  autocmd BufWritePre *.py Isort
   autocmd QuickFixCmdPost [^l]* cwindow
 augroup END
 

@@ -10,6 +10,7 @@ fi
 stow --restow bin
 stow --restow git
 stow --restow hg
+stow --restow isort
 stow --restow nethack
 stow --restow ssh
 stow --restow tmux
@@ -17,4 +18,4 @@ stow --restow vim
 stow --restow vimwiki
 stow --restow zsh
 
-vim '+PlugInstall!' +qall
+vim '+PlugUpgrade' '+PlugClean!' '+PlugUpdate' +qall
