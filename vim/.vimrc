@@ -85,7 +85,7 @@ augroup WjkohAutocommands
   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
-  autocmd BufWritePre *.py Isort
+  " autocmd BufWritePre *.py Isort
   autocmd QuickFixCmdPost [^l]* cwindow
 augroup END
 
