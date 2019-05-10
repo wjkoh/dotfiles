@@ -56,6 +56,14 @@ augroup WjkohGoogleAutocommands
   " endif
 augroup END
 
+command FixPyImportOrder silent %!/google/bin/releases/python-team/public/importorder --reformat_imports --filein %
+
+augroup PythonFixImports
+  " Reset the Isort autocommand in .vimrc.
+  autocmd!
+  autocmd BufWritePre *.py FixPyImportOrder
+augroup END
+
 " Load the Related Files plugin. Use :h relatedfiles for more details.
 " The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
 " -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
