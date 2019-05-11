@@ -51,6 +51,9 @@ alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --add
 # Load modified and untracked files. See https://stackoverflow.com/a/2299448.
 alias vimgit='vim $(git ls-files --modified --others --exclude-standard .)'
 
+alias tmux_two_verticals='tmux new-window \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \;'
+alias tmux_three_verticals='tmux new-window \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \;'
+
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
 
