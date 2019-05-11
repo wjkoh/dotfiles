@@ -56,7 +56,12 @@ augroup WjkohGoogleAutocommands
   " endif
 augroup END
 
-command FixPyImportOrder silent %!/google/bin/releases/python-team/public/importorder --reformat_imports --filein %
+function! FixPyImportOrder()
+  let save_pos = getpos('.')
+  silent %!/google/bin/releases/python-team/public/importorder --reformat_imports --filein %
+  call setpos('.', save_pos)
+endfunction
+command FixPyImportOrder call FixPyImportOrder()
 
 augroup PythonFixImports
   " Reset the Isort autocommand in .vimrc.
@@ -68,22 +73,3 @@ augroup END
 " The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
 " -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
 Glug relatedfiles plugin[mappings] window_position="topleft"
-
-" ALE.
-" Glug glug sources+=`$HOME . '/.vim/local'`
-" Glug glint-ale
-" let g:ale_linters = {
-"       \ 'borg': ['glint'],
-"       \ 'bzl': ['glint'],
-"       \ 'cpp': ['glint'],
-"       \ 'dremel': ['glint'],
-"       \ 'gcl': ['glint'],
-"       \ 'go': ['glint'],
-"       \ 'html': ['glint'],
-"       \ 'java': ['glint'],
-"       \ 'javascript': ['glint'],
-"       \ 'jslayout': ['glint'],
-"       \ 'proto': ['glint'],
-"       \ 'python': ['glint'],
-"       \ 'typescript': ['glint'],
-"       \}
