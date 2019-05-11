@@ -46,13 +46,18 @@ alias ssh='TERM=xterm-256color ssh'
 alias change="$EDITOR ~/.zshrc"
 # Re-run source command on .zshrc to update current terminal session with new settings
 alias update='source ~/.zshrc'
+
 # Vim: Load all modififed files in this mercurial repository into buffers.
 alias vimhg='vim $(hg status --no-status --change .; hg status --no-status --added --modified --unknown)'
 # Load modified and untracked files. See https://stackoverflow.com/a/2299448.
 alias vimgit='vim $(git ls-files --modified --others --exclude-standard .)'
 
-alias tmux_two_verticals='tmux new-window \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \;'
-alias tmux_three_verticals='tmux new-window \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \; select-pane -t 0 \; split-window -h -l 85 \;'
+MAIN_PANE_WIDTH=$(tmux show-options -gwvq main-pane-width)
+NEW_WINDOW='new-window \;'
+SPLIT="split-window -h -l $MAIN_PANE_WIDTH \\;"
+SELECT='select-pane -t 0 \;'
+alias tmux_two_verticals="tmux $NEW_WINDOW $SPLIT $SELECT $SPLIT"
+alias tmux_three_verticals="tmux $NEW_WINDOW $SPLIT $SELECT $SPLIT $SELECT $SPLIT"
 
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
