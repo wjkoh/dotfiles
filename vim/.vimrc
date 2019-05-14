@@ -39,6 +39,19 @@ call plug#end()
 " the glaive#Install() should go after the "call vundle#end()"
 call glaive#Install()
 
+set completeopt+=preview
+set cursorline
+set expandtab
+set number
+set relativenumber
+set shiftwidth=2
+set tabstop=2
+set undofile  " Maintain undo history between sessions.
+if mkdir(expand('~/.vim/undofiles'), 'p', 0700)
+  set undodir=~/.vim/undofiles
+endif
+set hlsearch
+
 color dracula
 let g:lightline = { 'colorscheme': 'dracula', }
 
@@ -52,14 +65,6 @@ endif
 if has("patch-8.1.0360")
   set diffopt+=internal,algorithm:patience
 endif
-
-let mapleader      = ' '
-let maplocalleader = ' '
-
-nnoremap <silent> <Leader>C        :Colors<CR>
-nnoremap <silent> <Leader>F        :Files<CR>
-nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>L        :Lines<CR>
 
 "------------------------------------------------------------
 " Autocommands. augroup and autocmd! are necessary. See
@@ -86,29 +91,15 @@ augroup WjkohAutocommands
   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
   autocmd QuickFixCmdPost [^l]* cwindow
+
+  " Unset paste on InsertLeave.
+  autocmd InsertLeave * silent! set nopaste
 augroup END
 
 augroup PythonFixImports
   autocmd!
   autocmd BufWritePre *.py Isort
 augroup END
-
-set completeopt+=preview
-set cursorline
-set expandtab
-set number
-set relativenumber
-set shiftwidth=2
-set tabstop=2
-set undofile  " Maintain undo history between sessions.
-if mkdir(expand('~/.vim/undofiles'), 'p', 0700)
-  set undodir=~/.vim/undofiles
-endif
-set hlsearch
-
-nnoremap <Leader>] :LspDefinition<CR>
-nnoremap <Leader>[ :LspReferences<CR>
-nnoremap <Leader>i :LspHover<CR>
 
 augroup autoformat_settings
   autocmd!
@@ -121,6 +112,29 @@ augroup autoformat_settings
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
 augroup END
+
+" Mappings.
+let mapleader      = ' '
+let maplocalleader = ' '
+
+" Blasphemy against the god of Esc!
+inoremap jj <Esc>
+
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader>F        :Files<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>L        :Lines<CR>
+nnoremap <silent> <Leader>A        :Ag<CR>
+" See an autocommand that unsets `paste` on InsertLeave.
+nnoremap <silent> <Leader>p        :set paste!<CR>
+nnoremap <Leader>] :LspDefinition<CR>
+nnoremap <Leader>[ :LspReferences<CR>
+nnoremap <Leader>i :LspHover<CR>
+
+" Run fzf + ag on the current file's parent directory and its subdirectories,
+" not the current working directory.
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>,
+      \ {'dir': expand('%:p:h')}, <bang>0)
 
 " Send async completion requests.
 " WARNING: Might interfere with other completion plugins.
