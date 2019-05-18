@@ -47,8 +47,9 @@ set relativenumber
 set shiftwidth=2
 set tabstop=2
 set undofile  " Maintain undo history between sessions.
-if mkdir(expand('~/.vim/undofiles'), 'p', 0700)
-  set undodir=~/.vim/undofiles
+let undofiles = expand('~/.vim/undofiles')
+if isdirectory(undofiles) || mkdir(undofiles, 'p', 0700)
+  let &undodir=undofiles
 endif
 set hlsearch
 
