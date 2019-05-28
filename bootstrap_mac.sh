@@ -18,7 +18,6 @@ brew install llvm
 brew install node
 brew install nvm
 brew install stow
-brew install tavianator/tap/bfs
 brew install terminal-notifier
 brew install tmux
 brew install vim
