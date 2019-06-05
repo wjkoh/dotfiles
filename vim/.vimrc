@@ -91,7 +91,7 @@ augroup WjkohAutocommands
   autocmd FileType javascript setlocal makeprg=eslint\ --format\ compact
   autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable
   autocmd BufWritePost *.py,*.js silent make! <afile> | silent redraw!
-  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost [^l]* cwindow 5
 
   " Unset paste on InsertLeave.
   autocmd InsertLeave * silent! set nopaste
