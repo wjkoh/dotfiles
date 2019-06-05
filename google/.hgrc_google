@@ -7,6 +7,9 @@ changeset.remaining = bold black
 [experimental]
 graphshorten = True
 
+[google]
+changes.autoresolve = true
+
 [google_hgext]
 pickcheckout.enable_curses_ui = true
 
