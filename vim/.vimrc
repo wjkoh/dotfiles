@@ -139,7 +139,7 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>,
 
 " Send async completion requests.
 " WARNING: Might interfere with other completion plugins.
-let g:lsp_async_completion = 1
+" let g:lsp_async_completion = 1
 " enable echo under cursor when in normal mode
 let g:lsp_diagnostics_echo_cursor = 1
 
