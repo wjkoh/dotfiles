@@ -131,6 +131,8 @@ nnoremap <silent> <Leader>p        :set paste!<CR>
 nnoremap <Leader>] :LspDefinition<CR>
 nnoremap <Leader>[ :LspReferences<CR>
 nnoremap <Leader>i :LspHover<CR>
+" Select the text you just pasted. `gv`: Select the last selected text.
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Run fzf + ag on the current file's parent directory and its subdirectories,
 " not the current working directory.
