@@ -52,6 +52,7 @@ if isdirectory(undofiles) || mkdir(undofiles, 'p', 0700)
   let &undodir=undofiles
 endif
 set hlsearch
+set previewheight=5  " Default: 12. Used for vim-lsp Hover command.
 
 color dracula
 let g:lightline = { 'colorscheme': 'dracula', }
