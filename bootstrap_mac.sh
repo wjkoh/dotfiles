@@ -1,6 +1,9 @@
 #!/bin/sh
 ./pre_bootstrap.sh
 
+# Update the homebrew formulae first.
+brew update
+
 echo 'Use Fira Code Regular 13pt'
 brew install getantibody/tap/antibody
 brew tap caskroom/fonts
@@ -19,6 +22,7 @@ brew install node
 brew install nvm
 brew install stow
 brew install terminal-notifier
+brew install the_silver_searcher
 brew install tmux
 brew install vim
 
