@@ -62,6 +62,9 @@ alias tmux_three_verticals="tmux $NEW_WINDOW $SPLIT $SELECT $SPLIT $SELECT $SPLI
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 [ -f ~/.zshrc_google ] && source ~/.zshrc_google
 
+# Mercurial section causes slowness.
+SPACESHIP_HG_SHOW=false
+
 # Gcert. We cannot move the following `gcertstatus` to .zshrc_google because a
 # corp laptop, which has no access to source code, still needs `gcert` to SSH.
 (( $+commands[gcertstatus] )) && (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || gcert)
