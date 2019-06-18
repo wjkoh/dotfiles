@@ -24,6 +24,7 @@ brew install stow
 brew install terminal-notifier
 brew install the_silver_searcher
 brew install tmux
+brew install urlview
 brew install vim
 
 echo 'If you use ITerm2'

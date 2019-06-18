@@ -7,3 +7,8 @@ pip3 install proselint
 pip3 install pylint
 pip3 install python-language-server
 pip3 install yapf
+
+# Install all tmux plugins managed by TPM.
+~/.tmux/plugins/tpm/bin/clean_plugins
+~/.tmux/plugins/tpm/bin/install_plugins
+~/.tmux/plugins/tpm/bin/update_plugins all
