@@ -1,7 +1,7 @@
 #!/bin/bash
-npm install -g eslint
-npm install -g tslint
-npm install -g typescript typescript-language-server
+sudo npm install -g eslint
+sudo npm install -g tslint
+sudo npm install -g typescript typescript-language-server
 pip3 install isort
 pip3 install proselint
 pip3 install pylint
