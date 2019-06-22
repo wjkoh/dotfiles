@@ -11,6 +11,7 @@ stow --restow bin
 stow --restow git
 stow --restow hg
 stow --restow isort
+stow --restow mutt
 stow --restow nethack
 stow --restow ssh
 stow --restow tmux
