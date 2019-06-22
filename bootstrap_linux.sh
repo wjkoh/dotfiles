@@ -7,6 +7,7 @@ sudo apt update
 curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin || exit
 sudo apt install fd-find
 sudo apt install htop
+sudo apt install mutt
 sudo apt install nodejs
 sudo apt install python3-pip
 sudo apt install python-pip
@@ -19,6 +20,7 @@ if [ -f ~/.at_google ]; then
   sudo glinux-add-repo -p 600 typescript stable
   sudo apt update
   sudo apt install nodejs
+  sudo apt install clsearch
   curl $FD_FIND_URL --output fd-find.deb
   sudo dpkg -i fd-find.deb
 fi

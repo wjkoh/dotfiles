@@ -19,6 +19,7 @@ brew install fd
 brew install hg
 brew install htop
 brew install llvm
+brew install mutt
 brew install node
 brew install nvm
 brew install stow
