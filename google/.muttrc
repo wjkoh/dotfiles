@@ -25,10 +25,12 @@ set smtp_authenticators="oauthbearer"
 set smtp_url="smtps://`whoami`@google.com@smtp.gmail.com:465"
 set smtp_oauth_refresh_command="~/bin/corp_mail_oauth2.par"
 
-# Sort threads in a reverse chronological order.
-set sort_aux=last-date-received
-# Sort messages in each thread.
-set sort=reverse-threads
+# Gmail-like thread sorting.
+set sort=threads
+set sort_aux=reverse-last-date-received
+
+set timeout = 30          # idle time before scanning
+set beep_new             # bell on new mails
 
 # Vi key bindings.
 bind pager j next-line
@@ -41,6 +43,8 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
+bind index N search-opposite
+bind pager N search-opposite
 
 # Sidebar navigation.
 bind index,pager <down> sidebar-next
@@ -55,10 +59,25 @@ bind index <space> collapse-thread
 # Do not ask.
 set fast_reply=yes
 set include=yes
-folder-hook . exec collapse-all
 
 # Sidebar.
 set sidebar_visible = yes
 set sidebar_width   = 24
+
+# Index View Options ---------------------------------
+set date_format = "%m/%d"
+set index_format = "[%Z]  %D  %-20.20F  %s"
+
+# Pager View Options ---------------------------------
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+
+macro pager \Cu "|urlview<enter>" "Call urlview to open links."
+folder-hook . exec collapse-all
+
+auto_view text/html                                      # view html automatically
+alternative_order text/plain text/enriched text/html     # save html for last
+
+set quit
 
 source ~/.mutt/dracula.muttrc
