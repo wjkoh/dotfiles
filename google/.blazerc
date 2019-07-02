@@ -1,7 +1,7 @@
-startup --output_user_root=/tmp/blaze-cache
 common --color=yes --curses=yes
 build -c opt
-build --jobs 600 --keep_going --show_timestamps
-query --keep_going
+build --show_timestamps
 test --test_output=errors
-test --symlink_prefix=blaze-test-
+
+# Literal %workspace% (enter as is) references your current google3 workspace.
+import %workspace%/javascript/typescript/blazerc
