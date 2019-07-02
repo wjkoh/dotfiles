@@ -29,8 +29,10 @@ set smtp_oauth_refresh_command="~/bin/corp_mail_oauth2.par"
 set sort=threads
 set sort_aux=reverse-last-date-received
 
-set timeout = 30          # idle time before scanning
+set timeout = 30         # idle time before scanning
 set beep_new             # bell on new mails
+set smart_wrap
+
 
 # Vi key bindings.
 bind pager j next-line
@@ -62,6 +64,7 @@ set include=yes
 
 # Sidebar.
 set sidebar_visible = yes
+set sidebar_divider_char   = '  │'
 set sidebar_width   = 24
 
 # Index View Options ---------------------------------
@@ -77,6 +80,9 @@ folder-hook . exec collapse-all
 
 auto_view text/html                                      # view html automatically
 alternative_order text/plain text/enriched text/html     # save html for last
+
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
 set quit
 
