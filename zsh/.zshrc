@@ -41,7 +41,9 @@ export FZF_DEFAULT_COMMAND="$FIND_MY_FILES; $HG_AND_GIT_FILES; fd --type f"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND="$FIND_MY_DIRECTORIES; $HG_AND_GIT_DIRECTORIES; fd --type d"
 
-alias ssh='TERM=xterm-256color ssh'
+# Disabled the following ssh alias after switching from iTerm2 to kitty.
+# alias ssh='TERM=xterm-256color ssh'
+
 # Open .zshrc to be edited in VS Code
 alias change="$EDITOR ~/.zshrc"
 # Re-run source command on .zshrc to update current terminal session with new settings
