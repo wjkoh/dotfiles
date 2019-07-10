@@ -7,11 +7,6 @@ source /usr/share/vim/google/google.vim
 " Glug codefmt
 Glug codefmt-google
 
-" go/vim-csearch.
-Plug 'sso://user/mcdermottm/vim-csearch'
-nnoremap <leader>cs :CSearch<Space>
-nnoremap <leader>cw :CSearch <C-r><C-w><CR>
-
 " Wrap autocmds inside an augroup to protect against reloading this script.
 " For more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
@@ -68,6 +63,10 @@ augroup PythonFixImports
   autocmd!
   autocmd BufWritePre *.py FixPyImportOrder
 augroup END
+
+" clang-include-fixer: Query mode.
+Glug blazedeps plugin[mappings]
+nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<CR>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>:w<CR>:BlazeDepsUpdate<CR>
 
 " Load the Related Files plugin. Use :h relatedfiles for more details.
 " The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r

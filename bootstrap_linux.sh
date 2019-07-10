@@ -17,10 +17,12 @@ sudo apt install urlview
 
 if [ -f ~/.at_google ]; then
   FD_FIND_URL='http://http.us.debian.org/debian/pool/main/r/rust-fd-find/fd-find_7.2.0-2_amd64.deb'
+  sudo glinux-add-repo clang-include-fixer stable
   sudo glinux-add-repo -p 600 typescript stable
   sudo apt update
-  sudo apt install nodejs
+  sudo apt install clang-include-fixer
   sudo apt install clsearch
+  sudo apt install nodejs
   curl $FD_FIND_URL --output fd-find.deb
   sudo dpkg -i fd-find.deb
 fi
