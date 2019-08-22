@@ -119,9 +119,6 @@ augroup END
 let mapleader      = ' '
 let maplocalleader = ' '
 
-" Blasphemy against the god of Esc!
-inoremap jj <Esc>
-
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader>F        :Files<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
