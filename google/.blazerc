@@ -1,10 +1,10 @@
 common --color=yes --curses=yes
-build -c opt
-build --show_timestamps
+build -c opt --show_timestamps
 test --test_output=errors
 
 # Literal %workspace% (enter as is) references your current google3 workspace.
 import %workspace%/javascript/typescript/blazerc
+
 # The following line was auto-added by the DeepMind .bashrc.
 # See http://go/dmtf.
 # If you don't want this behaviour, you may comment it out,

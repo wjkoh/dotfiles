@@ -1,20 +1,11 @@
 [ui]
 username = Woojong Koh <wjngkoh@gmail.com>
 commitsubrepos = False
-# Use `merge = internal:merge` if you prefer markers. Tip: If anything goes
-# wrong while merging, type `:cq` to exit Vim with an error. Then, hg ignores
-# the changes and doesn't resolve the conflict prematurely.
-merge = vimdiff
-
-[merge-tools]
-vimdiff.executable = vimdiff
-vimdiff.args = -f -d $output -M $local $base $other -c "wincmd J" -c "set modifiable" -c "set write"
-vimdiff.premerge = keep
+editor = vim
+merge = internal:merge
 
 [extdiff]
-# Add a command called vimdiff that runs vimdiff with DirDiff plugin.
-cmd.vimdiff = vim
-opts.vimdiff = -f '+next' '+execute "DirDiff" fnameescape(argv(0)) fnameescape(argv(1))'
+cmd.vimdiff = vimdiff
 
 [subrepos]
 allowed = True
@@ -22,6 +13,7 @@ git:allowed = True
 
 [extensions]
 color =
+extdiff =
 hgext.convert =
 hgext.extdiff =
 hgext.fetch =
@@ -30,5 +22,14 @@ progress =
 purge =
 rebase =
 shelve =
+
+[alias]
+colordiff = diff --color=always
+changed = status --no-status --added --modified --unknown
+changeddot = status --no-status --change .
+
+# https://github.com/junegunn/fzf/issues/1593#issuecomment-498007983.
+vdiff = !$HG changed | fzf --exit-0 --preview '$HG colordiff {}' --bind 'enter:execute($HG vimdiff {} < /dev/tty > /dev/tty 2>&1)'
+vdiffdot = !$HG changeddot | fzf --exit-0 --preview '$HG colordiff {} -c .' --bind 'enter:execute($HG vimdiff {} -c . < /dev/tty > /dev/tty 2>&1)'
 
 %include .hgrc_google

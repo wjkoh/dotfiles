@@ -1,74 +1,79 @@
 source /usr/share/vim/google/google.vim
 
-" Load the code formatting plugin. We first load the open-source version. Then,
-" we load the internal google settings. Then, we automatically enable formatting
-" when we write the file for Go, BUILD, proto, and c/cpp files.
-" Use :h codefmt-google or :h codefmt for more details.
-" Glug codefmt
+Glug glug sources+=`$HOME . '/.vim/local'`
 Glug codefmt-google
+Glug glint-ale
 
-" Wrap autocmds inside an augroup to protect against reloading this script.
-" For more details, see:
+" Wrap autocmds inside an augroup to protect against reloading this script.  For
+" more details, see:
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
 augroup autoformat_settings
   autocmd!
   autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,typescript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType jslayout AutoFormatBuffer jslfmt
+  autocmd FileType proto,javascript,typescript AutoFormatBuffer clang-format
   autocmd FileType markdown AutoFormatBuffer mdformat
-  autocmd FileType ncl AutoFormatBuffer nclfmt
-  autocmd FileType python AutoFormatBuffer pyformat
   autocmd FileType textpb AutoFormatBuffer text-proto-format
+  autocmd FileType proto AutoFormatBuffer protofmt
+  autocmd FileType sql AutoFormatBuffer format_sql
   autocmd FileType html,css,json AutoFormatBuffer js-beautify
 augroup END
 
-"------------------------------------------------------------
-" Autocommands. augroup and autocmd! are necessary. See
-" https://superuser.com/a/634037 for details.
-augroup WjkohGoogleAutocommands
-  autocmd!
-  " if executable('/google/bin/releases/grok/tools/kythe_languageserver')
-  "   au User lsp_setup call lsp#register_server({
-  "         \ 'name': 'Kythe Language Server',
-  "         \ 'cmd': {server_info->['/google/bin/releases/grok/tools/kythe_languageserver', '--google3']},
-  "         \ 'whitelist': ['python', 'go', 'java', 'cpp', 'proto'],
-  "         \})
-  " endif
-  " if executable('/google/bin/releases/editor-devtools/ciderlsp')
-  "   au User lsp_setup call lsp#register_server({
-  "         \ 'name': 'CiderLSP',
-  "         \ 'cmd': {server_info->[
-  "         \   '/google/bin/releases/editor-devtools/ciderlsp',
-  "         \   '--tooltag=vim-lsp',
-  "         \   '--noforward_sync_responses',
-  "         \ ]},
-  "         \ 'whitelist': ['c', 'cpp', 'proto', 'textproto', 'go'],
-  "         \})
-  " endif
-augroup END
+let g:lsc_server_commands = {
+      \ 'c': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
+      \ 'cpp': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
+      \ 'go': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
+      \ 'java': '/google/bin/releases/grok/tools/kythe_languageserver --google3',
+      \ 'proto': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
+      \ 'python': '/google/bin/releases/grok/tools/kythe_languageserver --google3',
+      \ 'textproto': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
+      \ }
 
-function! FixPyImportOrder()
-  let save_pos = getpos('.')
-  silent %!/google/bin/releases/python-team/public/importorder --reformat_imports --filein %
-  call setpos('.', save_pos)
+function Buildifier(buffer)
+  return {
+        \   'command': 'buildifier %t',
+        \   'read_temporary_file': 1,
+        \}
 endfunction
-command FixPyImportOrder call FixPyImportOrder()
 
-augroup PythonFixImports
-  " Reset the Isort autocommand in .vimrc.
-  autocmd!
-  autocmd BufWritePre *.py FixPyImportOrder
-augroup END
+function PyFormat(buffer)
+  return {
+        \   'command': '/google/data/ro/projects/devtools/pyformat/pyformat'
+        \       . ' --force_quote_type single --in_place %t',
+        \   'read_temporary_file': 1,
+        \}
+endfunction
 
-" clang-include-fixer: Query mode.
-Glug blazedeps plugin[mappings]
-nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<CR>:pyf /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>:w<CR>
+function PyImportOrder(buffer)
+  return {
+        \   'command': '/google/bin/releases/python-team/public/importorder'
+        \       . ' --inplace %t',
+        \   'read_temporary_file': 1,
+        \}
+endfunction
 
-" Load the Related Files plugin. Use :h relatedfiles for more details.
-" The default mapping to run :RelatedFilesWindow is <Leader>r. Thus, <Leader>r
-" -> b: BUILD file, t: test file, c: source file, h: header file, and so on.
-Glug relatedfiles plugin[mappings] window_position="topleft"
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'bzl': ['Buildifier'],
+      \ 'c': ['clang-format'],
+      \ 'cpp': ['clang-format'],
+      \ 'java': ['google-java-format'],
+      \ 'python': ['PyFormat', 'PyImportOrder'],
+      \}
+
+let g:ale_linters = {
+      \ 'borg': ['glint'],
+      \ 'bzl': ['glint'],
+      \ 'c': ['glint'],
+      \ 'cpp': ['glint'],
+      \ 'html': ['glint'],
+      \ 'java': ['glint'],
+      \ 'javascript': ['glint'],
+      \ 'json': ['glint'],
+      \ 'proto': ['glint'],
+      \ 'python': ['glint'],
+      \ 'sh': ['glint'],
+      \ 'typescript': ['glint'],
+      \}
+
+" Query mode.
+nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<CR>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>:w<CR>
