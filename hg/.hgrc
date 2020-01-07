@@ -24,12 +24,10 @@ rebase =
 shelve =
 
 [alias]
+changed = !($HG status --no-status --change . ; $HG status --no-status) | sort -u
 colordiff = diff --color=always
-changed = status --no-status --added --modified --unknown
-changeddot = status --no-status --change .
 
 # https://github.com/junegunn/fzf/issues/1593#issuecomment-498007983.
-vdiff = !$HG changed | fzf --exit-0 --preview '$HG colordiff {}' --bind 'enter:execute($HG vimdiff {} < /dev/tty > /dev/tty 2>&1)'
-vdiffdot = !$HG changeddot | fzf --exit-0 --preview '$HG colordiff {} -c .' --bind 'enter:execute($HG vimdiff {} -c . < /dev/tty > /dev/tty 2>&1)'
+vdiff = !$HG changed | fzf --exit-0 --preview '$HG colordiff {} -r .^' --bind 'enter:execute($HG vimdiff {} -r .^ < /dev/tty > /dev/tty 2>&1)'
 
 %include .hgrc_google

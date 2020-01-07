@@ -62,7 +62,6 @@ set nojoinspaces      " No to double-spaces when joining lines
 set noswapfile        " No backup files
 set nowrapscan
 set number
-set path=**
 set pumheight=20
 set relativenumber
 set shiftwidth=2
@@ -120,6 +119,14 @@ augroup autoformat_settings
   autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   autocmd FileType proto,javascript,typescript AutoFormatBuffer clang-format
 augroup END
+
+
+let g:signify_vcs_cmds = {
+      \ 'hg':       'hg diff --color=never --nodates -U0 -r .^ %f',
+      \ }
+let g:signify_vcs_cmds_diffmode = {
+      \ 'hg':       'hg cat -r .^ %f',
+      \ }
 
 let g:lightline = {
       \ 'colorscheme': 'dracula',
@@ -204,7 +211,8 @@ nnoremap <Leader>1       :set hlsearch!<CR>
 nnoremap <Leader>2       :w<CR>
 nnoremap <Leader><Enter> :Buffers<CR>
 nnoremap <Leader>a       :AgDot<CR>
-nnoremap <Leader>f       :Files<CR> nnoremap <Leader>h       :Helptags<CR>
+nnoremap <Leader>f       :Files<CR>
+nnoremap <Leader>h       :Helptags<CR>
 nnoremap <Leader>l       :Lines<CR>
 nnoremap <Leader>u       :UndotreeToggle<CR>
 
@@ -239,8 +247,15 @@ nnoremap <Leader>s :let @/='\<'.expand('<cword>').'\>'<CR>:set hlsearch<CR>cgn
 xnoremap <Leader>s "sy:let @/=@s<CR>:set hlsearch<CR>cgn
 
 " Edit and reload my .vimrc file.
-command Change :e $MYVIMRC
+command Change :tabe $MYVIMRC
 command Update :source $MYVIMRC
+
+" use :SignifyDiff instead.
+" command HgDiff :!hg vimdiff % -r .^
+
+if &diff
+  syntax off
+endif
 
 "-----------------------------
 " Center navigation mappings
