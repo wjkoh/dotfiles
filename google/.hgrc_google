@@ -16,6 +16,7 @@ pickcheckout.enable_curses_ui = true
 [templatealias]
 google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 
+
 [alias]
 # Prints the files in this revision that differ from the previous, as relative
 # to the cwd. See go/pappysfigconfig.
@@ -24,23 +25,16 @@ whatsout = status --color=always --rev .^ -man
 # See go/pappysfigconfig.
 watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 5 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
-evolve_all = !$HG evolve --all --any && $HG upload_exported
-revert_all = revert --all
-
 print_msg = parent --template '{desc}'
-edit_msg = !$HG buildify; $HG commit --amend && $HG push -r .; $HG upload_exported
+edit_msg = !$HG mcommit --amend
 
 # Usage:
 #   $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
 print_cl = !$HG push -r . --quiet && $HG exportedcl .
 print_rev = log --template '{node}\n'
 
-# Buildify BUILD files with changes occurring in this commit
-# NOTE(wjkoh): Use hg fix instead?
-buildify = !$HG whatsout | grep BUILD$ | xargs buildifier
-
 # Note that you must add `-r .` if you want to push the current branch as well.
-# See alias `mc` for example.
+# See alias `mcommit` for example.
 upload_exported = push -r "exportedchange() - obsolete() - troubled()"
 
 # feed revision numbers through stdin.
@@ -50,10 +44,8 @@ upload_exported = push -r "exportedchange() - obsolete() - troubled()"
 rev_do = !xargs -I % sh -c '$HG up -r % --quiet && $HG parent --template "Processing... \"{desc}\"\n"; $@'
 lintdot = lint -r .
 
-mamend = !$HG amend; $HG upload_exported; $HG fixdot --no-amend; $HG lintdot
-mcommit = !$HG commit "$@" && $HG push -r .; $HG upload_exported; $HG fixdot --no-amend; $HG lintdot
-mrebase = !$HG rebase "$@"; $HG upload_exported
-msync = !$HG buildify; $HG sync; $HG upload_exported
+mamend = !$HG amend && ($HG fixdot ; $HG lintdot ; $HG evolve --all ; $HG upload_exported)
+mcommit = !$HG commit "$@" && ($HG fixdot ; $HG lintdot ; $HG evolve --all ; $HG upload_exported)
 
 [nointerrupt]
 # Stops the "don't interrupt Mercurial" message when Ctrl-C'ing the "watch"

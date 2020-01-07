@@ -12,6 +12,8 @@ sudo apt install mutt
 sudo apt install nodejs
 sudo apt install python-pip
 sudo apt install python3-pip
+sudo apt install renameutils
+sudo apt install ripgrep
 sudo apt install silversearcher-ag
 sudo apt install stow
 sudo apt install urlview

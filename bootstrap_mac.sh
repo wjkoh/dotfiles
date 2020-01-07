@@ -16,6 +16,8 @@ brew install llvm
 brew install mutt
 brew install node
 brew install nvm
+brew install renameutils
+brew install ripgrep
 brew install stow
 brew install terminal-notifier
 brew install the_silver_searcher
