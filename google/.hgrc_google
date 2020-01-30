@@ -16,6 +16,7 @@ pickcheckout.enable_curses_ui = true
 [templatealias]
 google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 
+
 [alias]
 # Prints the files in this revision that differ from the previous, as relative
 # to the cwd. See go/pappysfigconfig.
