@@ -24,10 +24,19 @@ rebase =
 shelve =
 
 [alias]
-changed = !($HG status --no-status --change . ; $HG status --no-status) | sort -u
-colordiff = diff --color=always
+changed = !$HG statusdot --no-status | sed '/^#/d'
+ichanged = !$HG idiff
+conflicted = resolve --list
+
+# TODO(wjkoh): filter out comments starting with '#'.
+statusdot = status --rev .^
+diffdot = diff -r .^
+irevertdot = !$HG revert --interactive --rev .^
+vimdiffdot = vimdiff -r .^
 
 # https://github.com/junegunn/fzf/issues/1593#issuecomment-498007983.
-vdiff = !$HG changed | fzf --exit-0 --preview '$HG colordiff {} -r .^' --bind 'enter:execute($HG vimdiff {} -r .^ < /dev/tty > /dev/tty 2>&1)'
+idiffdot = !$HG statusdot --color=always | fzf --ansi --nth=2 --exit-0 --preview '$HG diffdot --color=always {2}' --bind 'enter:execute($HG vimdiffdot {2} < /dev/tty > /dev/tty 2>&1)+reload($HG statusdot --color=always)' --bind 'ctrl-r:reload($HG statusdot --color=always)' --bind 'y:accept' --header 'enter: vimdiff, y: pick, ctrl-r: reload.' | cut -d' ' -f2-
+
+iresolve = !$HG conflicted --color=always | fzf --ansi --nth=2 --exit-0 --bind 'enter:execute(vim {2} < /dev/tty > /dev/tty 2>&1)' --bind 'r:execute($HG resolve --mark {2})+reload($HG conflicted --color=always)' --bind 'u:execute($HG resolve --unmark {2})+reload($HG conflicted --color=always)' --bind 'ctrl-r:reload($HG conflicted --color=always)' --bind 'y:accept' --header 'enter: edit, r: resolve, u: unresolve, y: pick, ctrl-r: reload.' | cut -d' ' -f2-
 
 %include .hgrc_google

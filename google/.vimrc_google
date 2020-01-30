@@ -3,6 +3,8 @@ source /usr/share/vim/google/google.vim
 Glug glug sources+=`$HOME . '/.vim/local'`
 Glug codefmt-google
 Glug glint-ale
+Glug outline-window
+Glug relatedfiles
 
 " Wrap autocmds inside an augroup to protect against reloading this script.  For
 " more details, see:
@@ -76,4 +78,6 @@ let g:ale_linters = {
       \}
 
 " Query mode.
-nnoremap <leader>qf :let g:clang_include_fixer_query_mode=1<CR>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>:w<CR>
+nnoremap <Leader>q :let g:clang_include_fixer_query_mode=1<CR>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>
+nnoremap <Leader>o :GoogleOutlineWindow<CR>
+nnoremap <Leader>r :RelatedFilesWindow<CR>

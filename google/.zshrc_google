@@ -20,13 +20,13 @@ else
   echo "ERROR: ${WJKOH_IBLAZE} not found." 1>&2
 fi
 
-# go/borgtools.
-alias bgrep=/google/data/ro/teams/borgtools/bgrep
-alias bkill=/google/data/ro/teams/borgtools/bkill
-alias btail=/google/data/ro/teams/borgtools/btail
+# source the common Brain bashrc (go/brain-bashrc)
+if [ -r /google/data/ro/teams/brain-frameworks/config/bashrc ] ; then
+  source /google/data/ro/teams/brain-frameworks/config/bashrc
+fi
 
 XM_DEFAULT_POOL="waymo"
-XM_DEFAULT_RESOURCE_ALLOC="user:waymo/${USER}"
+XM_DEFAULT_RESOURCE_ALLOC="user:${XM_DEFAULT_POOL}/${USER}"
 
 # Prodaccess.
 (( $+commands[prodcertstatus] )) && (prodcertstatus -check_remaining_hours=8 || prodaccess)

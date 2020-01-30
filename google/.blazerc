@@ -4,3 +4,15 @@ test --test_output=errors
 
 # Literal %workspace% (enter as is) references your current google3 workspace.
 import %workspace%/javascript/typescript/blazerc
+
+# The following line was auto-added by the DeepMind .bashrc.
+# See http://go/dmtf.
+# If you don't want this behaviour, you may comment it out,
+# but do not delete it as it will be automatically re-added.
+import %workspace%/learning/deepmind/config/blazerc
+
+# Pre-compile cuda binaries to support local GPU(s).
+# Auto added by DeepMind bashrc (see http://go/dmtf).
+# If you don't want this behaviour, you may comment it out,
+# but do not delete it as it will be automatically re-added.
+build:cuda --define=cuda_target_sm61=1 # Added by sm_blaze_flags

@@ -48,13 +48,16 @@ SPACESHIP_HG_SHOW=false
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 FD='fdfind --hidden --color=never'
-FIND_ALL_DIRS="($FD --type d . waymo) 2> /dev/null ; $FD --type d --exclude waymo"
-FIND_ALL_FILES="($FD --type f . waymo) 2> /dev/null ; $FD --type f --exclude waymo"
-FIND_VCS_DIRS="($HG_AND_GIT_FILES | xargs -n 1 dirname)"
+FIND_ALL_DIRS="($FD --type d . waymo third_party/car) 2> /dev/null ; $FD --type d --exclude waymo --exclude third_party/car"
+FIND_ALL_FILES="($FD --type f . waymo third_party/car) 2> /dev/null ; $FD --type f --exclude waymo --exclude third_party/car"
 FIND_VCS_FILES='(hg files . || git ls-files .) 2> /dev/null'
 
+# Remove some consecutive duplicates here with `uniq`. All duplicates will be
+# completely removed at the last stage by `nauniq`.
+FIND_VCS_DIRS="$FIND_VCS_FILES | xargs -n 1 dirname | uniq"
+
 # `awk '!mem[$0]++'` is equivalent to `nauniq`.
-export FZF_ALT_C_COMMAND="($FIND_VCS_DIRECTORIES ; $FIND_ALL_DIRS) | awk '!mem[\$0]++'"
+export FZF_ALT_C_COMMAND="($FIND_VCS_DIRS; $FIND_ALL_DIRS) | awk '!mem[\$0]++'"
 export FZF_DEFAULT_COMMAND="($FIND_VCS_FILES ; $FIND_ALL_FILES) | awk '!mem[\$0]++'"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
