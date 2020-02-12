@@ -28,6 +28,8 @@ changed = !$HG statusdot --no-status | sed '/^#/d'
 ichanged = !$HG idiff
 conflicted = resolve --list
 
+copy_cl = !echo -e "\033]52;c;$(base64 <<< cl/`$HG print_cl`)\a"
+
 # TODO(wjkoh): filter out comments starting with '#'.
 statusdot = status --rev .^
 diffdot = diff -r .^
