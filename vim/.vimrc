@@ -15,7 +15,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
-" Plug 'mhinz/vim-grepper'  " See ~/.vim/after/plugin/grepper.vim.
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'natebosch/vim-lsc'
@@ -152,6 +151,7 @@ let g:ale_fixers = {
       \}
 
 let g:lion_squeeze_spaces = 1
+
 let g:clever_f_across_no_line    = 1
 let g:clever_f_fix_key_direction = 1
 
@@ -207,10 +207,10 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 "-----------------------------
 " Increment and decrement mappings
 "-----------------------------
-nnoremap + <C-a>
-nnoremap - <C-x>
-xnoremap + g<C-a>
-xnoremap - g<C-x>
+" nnoremap + <C-a>
+" nnoremap - <C-x>
+" xnoremap + g<C-a>
+" xnoremap - g<C-x>
 
 " nnoremap <Leader>,
 " nnoremap <Leader><Tab>
@@ -287,19 +287,20 @@ hi SpellLocal cterm=underline,italic
 imap <expr> <CR> (pumvisible() ? "\<C-e>\<Plug>DiscretionaryEnd" : "\<Plug>(PearTreeExpand)\<Plug>DiscretionaryEnd")
 
 function GetArgsDirs()
-  " Need to call shellescape() or use :h:S?
-  " Make paths absolute and remove duplicates.
-  return join(uniq(map(argv(), 'fnamemodify(v:val, ":p:h:S")')))
+  return join(uniq(sort(map(argv(), 'fnamemodify(v:val, ":p:h")'))))
 endfunction
 
-" Grep recursively in the parent directories of the argument list.
-command! -nargs=+ GrepBuffers execute 'vimgrep <args> ##' | cwindow
-command! -nargs=+ Grep execute 'silent grep! -R <args> ' . GetArgsDirs() | redraw! | cwindow
 if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep\ --hidden\ --smart-case
   set grepformat=%f:%l:%c:%m
-  command! -nargs=+ Grep execute 'silent grep! <args> ' . GetArgsDirs() | redraw! | cwindow
+else
+  echoerr 'ripgrep not found'
 endif
+
+" Grep recursively in the parent directories of the argument list. If your
+" grepprg is grep, not ripgrep, you should type `Grep -r` instead.
+command! -nargs=+ Grep execute 'silent grep! <args> ' . GetArgsDirs() | redraw! | cwindow
+command! -nargs=+ GrepBuffers execute 'vimgrep <args> ##' | cwindow
 
 command! HgChanged args `=systemlist("hg changeddot")`
 
