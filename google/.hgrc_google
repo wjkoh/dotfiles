@@ -42,9 +42,9 @@ test = !$HG rabbit -r chain -- test $($HG affected_tests)
 #   $ iblaze test $(hg affected_tests)
 #   $ iblaze build $(hg affected_bins_libs)
 # Or, use /google/bin/releases/tap-prod/public/depends_on.par.
-affected_bins_libs = !cd $($HG hgd) && hb depends_on --filter_type binaries,libraries --direct --short $($HG changed)
-affected_tests = !cd $($HG hgd) && hb depends_on --filter_type tests --direct --short $($HG affected_bins_libs)
-maybe_added_tests = !$HG added | sed '/_test.\(py\|cc\)$/!d' | sed 's/.\(py\|cc\)$//'
+affected_bins_libs = !hb depends_on --filter_type binaries,libraries --direct --short $($HG changed --cwd $($HG hgd))
+affected_tests = !hb depends_on --filter_type tests --direct --short $($HG affected_bins_libs)
+maybe_added_tests = !$HG added --cwd $($HG hgd) | sed '/_test.\(py\|cc\)$/!d' | sed 's/.\(py\|cc\)$//'
 
 mamend = !$HG fixwdir && $HG lint --working-dir && $HG amend "$@" && $HG uploadchain && $HG test
 mcommit = !$HG fixwdir && $HG lint --working-dir && $HG commit "$@" && $HG test
