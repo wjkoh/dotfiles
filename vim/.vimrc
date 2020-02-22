@@ -294,7 +294,7 @@ if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep\ --hidden\ --smart-case
   set grepformat=%f:%l:%c:%m
 else
-  echoerr 'ripgrep not found'
+  echoerr 'ripgrep not found.'
 endif
 
 " Grep recursively in the parent directories of the argument list. If your
