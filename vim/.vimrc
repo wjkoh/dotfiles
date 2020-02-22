@@ -15,7 +15,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
-Plug 'mhinz/vim-grepper'  " See ~/.vim/after/plugin/grepper.vim.
+" Plug 'mhinz/vim-grepper'  " See ~/.vim/after/plugin/grepper.vim.
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'natebosch/vim-lsc'
@@ -164,6 +164,7 @@ let g:lsc_auto_map = {
 " subdirectories, not the current working directory.
 command! -bang FilesDot call fzf#vim#files(expand('%:p:h'), <bang>0)
 command! -bang -nargs=* AgDot call fzf#vim#ag(<q-args>, \ {'dir': expand('%:p:h')}, <bang>0)
+command! -bang Args call fzf#run(fzf#wrap('args', {'source': argv()}, <bang>0))
 
 " Smart pairs are disabled by default:
 let g:pear_tree_smart_openers = 1
@@ -176,7 +177,7 @@ let g:neosnippet#disable_runtime_snippets = {
       \   '_' : 1,
       \ }
 
-let g:undotree_WindowLayout             = 4
+let g:undotree_WindowLayout = 4
 
 " Mappings.
 let mapleader      = ' '
@@ -217,7 +218,7 @@ nnoremap <Leader>.        :FilesDot<CR>
 nnoremap <Leader>1        :set hlsearch!<CR>
 nnoremap <Leader><Enter>  :Buffers<CR>
 nnoremap <Leader><Leader> `.zz
-nnoremap <Leader>a        :AgDot<CR>
+nnoremap <Leader>a        :Args<CR>
 nnoremap <Leader>d        :SignifyHunkDiff<CR>
 nnoremap <Leader>f        :Files<CR>
 nnoremap <Leader>h        :Helptags<CR>
@@ -225,9 +226,6 @@ nnoremap <Leader>l        :Lines<CR>
 nnoremap <Leader>m        :Marks<CR>
 nnoremap <Leader>u        :UndotreeToggle<CR>
 nnoremap <Leader>w        :Windows<CR>
-nnoremap <LocalLeader>r :OpenChanged<CR>
-
-command OpenChanged for f in systemlist('hg changed') | exe 'badd ' . f | endfor
 
 " Mapping selections for various modes.
 nmap <Leader>! <Plug>(fzf-maps-n)
@@ -239,11 +237,6 @@ imap <C-x>!   <Plug>(fzf-maps-i)
 " insert mode, which means that your past text should not contain <Leader>p.
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>c :cclose<CR>:lclose<CR>:pclose<CR>:helpclose<CR>:UndotreeHide<CR>
-
-" Search for user-supplied term. Don't use `-dir file` because it uses the
-" original path for symlink.
-nnoremap <Leader>/ :execute 'Grepper -cd ' . expand('%:p:h')<CR>
-nnoremap <LocalLeader>/ :Grepper -dir cwd<CR>
 
 " Fold the current indent.
 nnoremap <Leader>z zazz
@@ -293,7 +286,22 @@ hi SpellLocal cterm=underline,italic
 " - does vim-endwise processing
 imap <expr> <CR> (pumvisible() ? "\<C-e>\<Plug>DiscretionaryEnd" : "\<Plug>(PearTreeExpand)\<Plug>DiscretionaryEnd")
 
-nnoremap <leader>cs :CSearch<Space>
+function GetArgsDirs()
+  " Need to call shellescape() or use :h:S?
+  " Make paths absolute and remove duplicates.
+  return join(uniq(map(argv(), 'fnamemodify(v:val, ":p:h:S")')))
+endfunction
+
+" Grep recursively in the parent directories of the argument list.
+command! -nargs=+ GrepBuffers execute 'vimgrep <args> ##' | cwindow
+command! -nargs=+ Grep execute 'silent grep! -R <args> ' . GetArgsDirs() | redraw! | cwindow
+if executable('rg')
+  set grepprg=rg\ --no-heading\ --vimgrep\ --hidden\ --smart-case
+  set grepformat=%f:%l:%c:%m
+  command! -nargs=+ Grep execute 'silent grep! <args> ' . GetArgsDirs() | redraw! | cwindow
+endif
+
+command! HgChanged args `=systemlist("hg changeddot")`
 
 if filereadable(expand('~/.vimrc_google'))
   source ~/.vimrc_google

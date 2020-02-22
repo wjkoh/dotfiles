@@ -1,11 +1,8 @@
 # Mercurial section causes slowness when using Fig at Google.
 SPACESHIP_HG_SHOW=false
 
-# P4 and g4d.
-if [[ -f /etc/bash_completion.d/g4d ]]; then
-  . /etc/bash_completion.d/p4
-  . /etc/bash_completion.d/g4d
-fi
+# hgd, an alternative to g4d.
+source /etc/bash_completion.d/hgd
 
 # "You will get blaze completion out of the box because _blaze is contained in
 # /usr/share/zsh/vendor-completions/." from
@@ -13,18 +10,14 @@ fi
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-WJKOH_IBLAZE=wjkoh_iblaze.sh
-if [[ -f "${HOME}/bin/${WJKOH_IBLAZE}" ]]; then
-  compdef _blaze ${WJKOH_IBLAZE}
-else
-  echo "ERROR: ${WJKOH_IBLAZE} not found." 1>&2
-fi
+alias iblaze_test_all='iblaze test $(hg affected_tests) $(hg maybe_added_tests)'
+alias iblaze_build_all='iblaze build $(hg affected_bins_libs)'
 
-# source the common Brain bashrc (go/brain-bashrc)
+# Copied from http://go/waymo-agentsim/symphony#commands-to-use.
+# Source the common Brain bashrc (go/brain-bashrc).
 if [ -r /google/data/ro/teams/brain-frameworks/config/bashrc ] ; then
   source /google/data/ro/teams/brain-frameworks/config/bashrc
 fi
-
 XM_DEFAULT_POOL="waymo"
 XM_DEFAULT_RESOURCE_ALLOC="user:${XM_DEFAULT_POOL}/${USER}"
 

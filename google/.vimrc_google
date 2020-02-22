@@ -81,3 +81,4 @@ let g:ale_linters = {
 nnoremap <Leader>q :let g:clang_include_fixer_query_mode=1<CR>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>
 nnoremap <Leader>o :GoogleOutlineWindow<CR>
 nnoremap <Leader>r :RelatedFilesWindow<CR>
+nnoremap <leader>cs :CSearch<Space>
