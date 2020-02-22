@@ -16,7 +16,6 @@ pickcheckout.enable_curses_ui = true
 [templatealias]
 google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 
-
 [alias]
 # Prints the files in this revision that differ from the previous, as relative
 # to the cwd. See go/pappysfigconfig.
@@ -25,27 +24,31 @@ whatsout = status --color=always --rev .^ -man
 # See go/pappysfigconfig.
 watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 5 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
-print_msg = parent --template '{desc}'
-edit_msg = !$HG mcommit --amend
-
-# Usage:
-#   $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
+# Usage: $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
+copy_cl = !echo -e "\033]52;c;$(base64 <<< cl/`$HG print_cl`)\a"
 print_cl = !$HG push -r . --quiet && $HG exportedcl .
 print_rev = log --template '{node}\n'
 
-# Note that you must add `-r .` if you want to push the current branch as well.
-# See alias `mcommit` for example.
-upload_exported = push -r "exportedchange() - obsolete() - troubled()"
+changed = !$HG status --rev p4head --no-status "$@" | sed '/^#/d'
+added = !$HG changed --added
 
-# feed revision numbers through stdin.
-# for example, hg print_rev -r xx -r yy -r aa::dd | hg rev_do 'echo cl/`hg print_cl`'
-# use single quotes if you use backtick inline execution. always dry run to see
-# the inline exectuion works as intended.
-rev_do = !xargs -I % sh -c '$HG up -r % --quiet && $HG parent --template "Processing... \"{desc}\"\n"; $@'
-lintdot = lint -r .
+# Use rabbit instead of blaze to unblock other blaze runs.
+test = !$HG rabbit -r chain -- test $($HG affected_tests)
 
-mamend = !$HG amend && ($HG fixdot ; $HG lintdot ; $HG evolve --all ; $HG upload_exported)
-mcommit = !$HG commit "$@" && ($HG fixdot ; $HG lintdot ; $HG evolve --all ; $HG upload_exported)
+# Gets all targets affected by the changed files in Hg/Fig. Note that you need
+# to run this at the repo root directory. For example, run `g4d` or `hgd`.
+# Example:
+#   $ sudo apt install hashbang-tap
+#   $ iblaze test $(hg affected_tests)
+#   $ iblaze build $(hg affected_bins_libs)
+# Or, use /google/bin/releases/tap-prod/public/depends_on.par.
+affected_bins_libs = !cd $($HG hgd) && hb depends_on --filter_type binaries,libraries --direct --short $($HG changed)
+affected_tests = !cd $($HG hgd) && hb depends_on --filter_type tests --direct --short $($HG affected_bins_libs)
+maybe_added_tests = !$HG added | sed '/_test.\(py\|cc\)$/!d' | sed 's/.\(py\|cc\)$//'
+
+mamend = !$HG fixwdir && $HG lint --working-dir && $HG amend "$@" && $HG uploadchain && $HG test
+mcommit = !$HG fixwdir && $HG lint --working-dir && $HG commit "$@" && $HG test
+msubmit = !$HG lint && $HG test && $HG submit && $HG sync
 
 [nointerrupt]
 # Stops the "don't interrupt Mercurial" message when Ctrl-C'ing the "watch"
