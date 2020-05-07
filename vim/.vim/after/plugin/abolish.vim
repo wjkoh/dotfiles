@@ -11,3 +11,4 @@ Abolish cal{a,e}nder{,s}                             cal{e}ndar{}
 Abolish reproducable                                 reproducible
 Abolish retreive                                     retrieve
 Abolish compeletly                                   completely
+Abolish tr{ja}ec{ot}r{eis,y}                         trajector{ies,y}
