@@ -129,6 +129,10 @@ augroup END
 command! -bang FilesDot call fzf#vim#files(expand('%:p:h'), <bang>0)
 command! -bang Args call fzf#run(fzf#wrap('args', {'source': argv()}, <bang>0))
 
+" NOTE(wjkoh): Do not move this to ~/.vim/after/plugin.
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 " Mappings.
 let mapleader      = ' '
 let maplocalleader = ','
