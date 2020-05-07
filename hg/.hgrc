@@ -24,12 +24,14 @@ rebase =
 shelve =
 
 [alias]
+print_rev = log -r . --template "{node|short}"
 conflicted = resolve --list
 
-# Filter out comments starting with '#'.
-changeddot = !$HG status --rev .^ --no-status "$@" | sed '/^#/d'
-diffdot = diff -r .^
+# --rev .^ includes everything in . and working copy.
 statusdot = status --rev .^
+changeddot = statusdot --template "{relpath(path)}\n"
+
+diffdot = diff -r .^
 vimdiffdot = vimdiff -r .^
 
 # https://github.com/junegunn/fzf/issues/1593#issuecomment-498007983.

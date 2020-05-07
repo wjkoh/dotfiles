@@ -19,18 +19,21 @@ google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 [alias]
 # Prints the files in this revision that differ from the previous, as relative
 # to the cwd. See go/pappysfigconfig.
-whatsout = status --color=always --rev .^ -man
+# whatsout = status --color=always --rev .^ -man
 
 # See go/pappysfigconfig.
 watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 5 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
 # Usage: $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
-copy_cl = !echo -e "\033]52;c;$(base64 <<< cl/`$HG print_cl`)\a"
-print_cl = !$HG push -r . --quiet && $HG exportedcl .
-print_rev = log --template '{node}\n'
+# copy_cl = !echo -e "\033]52;c;$(base64 <<< cl/`$HG print_cl`)\a"
+# print_cl = !$HG push -r . --quiet && $HG exportedcl .
+print_cl = exportedcl
 
-changed = !$HG status --rev p4head --no-status "$@" | sed '/^#/d'
-added = !$HG changed --added
+# Note that p4head isn't always the ancestor of the given revision. zuse p4base.
+changed = status --rev p4base --template "{relpath(path)}\n"
+added = changed --added
+
+# evolve_upload_all = !$HG evolve --all && $HG uploadall
 
 # Use rabbit instead of blaze to unblock other blaze runs.
 test = !$HG rabbit -r chain -- test $($HG affected_tests)
@@ -42,15 +45,28 @@ test = !$HG rabbit -r chain -- test $($HG affected_tests)
 #   $ iblaze test $(hg affected_tests)
 #   $ iblaze build $(hg affected_bins_libs)
 # Or, use /google/bin/releases/tap-prod/public/depends_on.par.
+# touch ~/.hbsuppresstips
 affected_bins_libs = !hb depends_on --filter_type binaries,libraries --direct --short $($HG changed --cwd $($HG hgd))
 affected_tests = !hb depends_on --filter_type tests --direct --short $($HG affected_bins_libs)
-maybe_added_tests = !$HG added --cwd $($HG hgd) | sed '/_test.\(py\|cc\)$/!d' | sed 's/.\(py\|cc\)$//'
+# maybe_added_tests = !$HG added --cwd $($HG hgd) | sed '/_test.\(py\|cc\)$/!d' | sed 's/.\(py\|cc\)$//'
 
-mamend = !$HG fixwdir && $HG lint --working-dir && $HG amend "$@" && $HG uploadchain && $HG test
-mcommit = !$HG fixwdir && $HG lint --working-dir && $HG commit "$@" && $HG test
-msubmit = !$HG lint && $HG test && $HG submit && $HG sync
+# See the [hooks] section as well.
+mamend = $HG amend "$@" && $HG uploadchain && $HG test
+mcommit = $HG commit "$@" && $HG test
+msubmit = REVISION=$($HG print_rev) && echo -e "\e[1mYou may now check out another revision.\e[21m" && $HG test && $HG submit --rev $REVISION && $HG sync --rev $REVISION
 
 [nointerrupt]
 # Stops the "don't interrupt Mercurial" message when Ctrl-C'ing the "watch"
 # command.
 attend-watch=False
+
+[hooks]
+# `precommit` hook (without a -) is a "operation" hook and `pre-commit` (with
+# the -) is a "command" hook.
+# https://groups.google.com/a/google.com/g/fig-users/c/vXUY7VmACxY/m/3oZABaaeDAAJ.
+# pre-commit.fixwdir = $HG fixwdir
+# pre-commit.lint = $HG lint --working-dir
+# pre-amend.fixwdir = $HG fixwdir
+# pre-amend.lint = $HG lint --working-dir
+# pre-submit.fixdot = $HG fixdot
+# pre-submit.lint = $HG lint --rev .
