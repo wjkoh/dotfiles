@@ -1,5 +1,6 @@
 common --color=yes --curses=yes
-build --trim_test_configuration --nocheck_visibility --compilation_mode=opt --copt=-mavx --show_timestamps
+build --trim_test_configuration --nocheck_visibility --show_timestamps
+build --compilation_mode=opt --copt=-mavx
 test --test_arg=--logtostderr --test_output=streamed
 
 # Literal %workspace% (enter as is) references your current google3 workspace.

@@ -85,7 +85,7 @@ augroup WjkohColorSchemeCustomizations
   autocmd ColorScheme * highlight clear SpellRare | highlight SpellRare cterm=underline,italic
 augroup END
 
-" :color blah must run after WjkohColorSchemeCustomizations.
+" :color <...> must run after WjkohColorSchemeCustomizations.
 color dracula
 if has('termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
