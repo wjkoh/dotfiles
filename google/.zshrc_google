@@ -13,6 +13,11 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 alias iblaze_test_all='iblaze test $(hg affected_tests) $(hg maybe_added_tests)'
 alias iblaze_build_all='iblaze build $(hg affected_bins_libs)'
 
+alias buildfix='/google/data/ro/teams/ads-integrity/buildfix'
+compdef _blaze buildfix
+compdef _blaze iwyu
+compdef _blaze build_cleaner
+
 # Copied from http://go/waymo-agentsim/symphony#commands-to-use.
 # Source the common Brain bashrc (go/brain-bashrc).
 if [ -r /google/data/ro/teams/brain-frameworks/config/bashrc ] ; then
