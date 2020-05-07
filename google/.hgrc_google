@@ -17,23 +17,14 @@ pickcheckout.enable_curses_ui = true
 google_compact_desc_text = '{if(outsidenarrow,"", desc|firstline)}'
 
 [alias]
-# Prints the files in this revision that differ from the previous, as relative
-# to the cwd. See go/pappysfigconfig.
-# whatsout = status --color=always --rev .^ -man
-
 # See go/pappysfigconfig.
 watch = !HGPLAINEXCEPT=alias,color,revsetalias,templatealias,i18n,graph watch -t -n 5 --color "echo $'\n\e[4mUncommitted Changes\e[0m' && hg st --color=always $(hg root) && echo && hg xl --color=always --config=extensions.blackbox=!"
 
-# Usage: $ ./trajectory_refiner_main.sh train_eval_borg --remove --variant=cl`hg print_cl`
-# copy_cl = !echo -e "\033]52;c;$(base64 <<< cl/`$HG print_cl`)\a"
-# print_cl = !$HG push -r . --quiet && $HG exportedcl .
 print_cl = exportedcl
 
 # Note that p4head isn't always the ancestor of the given revision. zuse p4base.
 changed = status --rev p4base --template "{relpath(path)}\n"
 added = changed --added
-
-# evolve_upload_all = !$HG evolve --all && $HG uploadall
 
 # Use rabbit instead of blaze to unblock other blaze runs.
 test = !$HG rabbit -r chain -- test $($HG affected_tests)
