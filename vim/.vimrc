@@ -3,70 +3,59 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'bronson/vim-visual-star-search'
-Plug 'chaoren/vim-wordmotion'
-Plug 'dense-analysis/ale'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
-Plug 'google/vim-maktaba'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-signify'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'natebosch/vim-lsc'
-Plug 'rhysd/clever-f.vim'
-Plug 'sso://user/mcdermottm/vim-csearch'
-Plug 'tmsvg/pear-tree'
-Plug 'tommcdo/vim-lion'
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'  " See ~/.vim/after/plugin/abolish.vim.
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'  " [f, ]f: switch between source and header files.
-Plug 'wellle/targets.vim'
+Plug 'tpope/vim-unimpaired'  " [f, ]f: switch between source and header files. [<Space>: insert blank lines.
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'Yggdroot/indentLine'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'machakann/vim-highlightedyank'
+Plug 'markonm/traces.vim'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'natebosch/vim-lsc'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'unblevable/quick-scope'
+Plug 'vim-python/python-syntax'
 
 " Initialize plugin system
 call plug#end()
-" the glaive#Install() should go after the "call vundle#end()"
-call glaive#Install()
 
+" Note that vim-sensible already enabled many useful options, such as autoread.
 set autowrite         " Write files when navigating with :next/:previous
-set belloff=all       " Bells are annoying
 set breakindent       " Wrap long lines *with* indentation
 set breakindentopt=shift:2
 set colorcolumn=81,82 " Highlight 81 and 82 columns
-set completeopt+=popup
-set completepopup=height:40,width:80,align:menu,border:off
-set conceallevel=2
 set cursorline
 set dictionary=/usr/share/dict/words
 set expandtab
-set foldlevelstart=20
-set foldmethod=indent " Simple and fast
 set hlsearch
 set ignorecase        " Search in case-insensitively
 set infercase         " Smart casing when completing
+set lazyredraw
 set list
+set makeprg=          " Set makeprg explicitly. Will be called at BufWritePost.
 set mouse=a           " Mouse support in the terminal
 set nohlsearch
 set nojoinspaces      " No to double-spaces when joining lines
 set noswapfile        " No backup files
+set nottyfast
 set nowrapscan
 set number
-set pumheight=20
+set path+=**
 set relativenumber
 set shiftwidth=2
 set showbreak=↳       " Use this to wrap long lines
 set showcmd
+set showmatch
 set smartcase         " Case-smart searching
 set spell spelllang=en_us
 set splitbelow        " Split below current window
@@ -74,14 +63,12 @@ set splitright        " Split window to the right
 set tabstop=2
 set ttymouse=xterm2
 set undofile          " Maintain undo history between sessions.
-set updatetime=150    " default updatetime 4000ms is not good for async update
-set wildcharm=<Tab>   " Defines the trigger for 'wildmenu' in mappings
+set updatetime=1000   " default updatetime 4000ms is not good for async update
 
 " Copy to/from system clipboard.
+set clipboard=unnamed
 if has("unnamedplus")
   set clipboard=unnamed,unnamedplus
-else
-  set clipboard=unnamed
 endif
 
 let s:undodir=$HOME . '/.vim/undodir_' . $USER
@@ -89,135 +76,90 @@ if isdirectory(s:undodir) || mkdir(s:undodir, 'p', 0700)
   let &undodir=s:undodir
 endif
 
+augroup WjkohColorSchemeCustomizations
+  " Clear the autocommands of the current group.
+  autocmd!
+  autocmd ColorScheme * highlight clear SpellBad | highlight SpellBad cterm=underline,italic
+  autocmd ColorScheme * highlight clear SpellCap | highlight SpellCap cterm=underline,italic
+  autocmd ColorScheme * highlight clear SpellLocal | highlight SpellLocal cterm=underline,italic
+  autocmd ColorScheme * highlight clear SpellRare | highlight SpellRare cterm=underline,italic
+augroup END
+
+" :color blah must run after WjkohColorSchemeCustomizations.
 color dracula
 if has('termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+  " Mosh + tmux causes a color problem. See
+  " https://github.com/mobile-shell/mosh/issues/928#issuecomment-427284270.
+  " set termguicolors
 endif
 
-if has('nvim-0.3.2') || has('patch-8.1.0360')
-  set diffopt+=algorithm:histogram,indent-heuristic
+if has('patch-8.1.0360')
+  set diffopt+=algorithm:patience,indent-heuristic
 endif
 
 "------------------------------------------------------------
-" Autocommands. augroup and autocmd! are necessary. See
-" https://superuser.com/a/634037 for details.
+" Autocommands.
 augroup WjkohAutocommands
+  " Clear the autocommands of the current group.
   autocmd!
-  autocmd InsertLeave * silent! set nopaste
   " Automatically equalize window splits.
   autocmd VimResized * wincmd =
   " Auto-read external file changes, compliments the vim-auto-save plugin.
   autocmd CursorHold * silent! checktime
-  " Restore default Enter/Return behaviour for the command line window.
-  autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
   " See ~/.vim/plugin/osc52.vim.
   autocmd TextYankPost * if v:event.operator ==# 'y' | call SendViaOSC52(getreg('"')) | endif
+  autocmd BufWritePost * if !empty(&makeprg) | exe 'Make' | endif
+  " % to the next > and g% to the last <.
+  autocmd FileType cpp setlocal matchpairs+=<:>
+  autocmd FileType c,cpp setlocal commentstring=//\ %s
 augroup END
 
 augroup autoformat_settings
+  " Clear the autocommands of the current group.
   autocmd!
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType proto,javascript,typescript AutoFormatBuffer clang-format
+  " TODO(wjkoh): Add clang-tidy and pylint.
+  autocmd FileType cpp,python,proto,typescript,html,bzl compiler clang_format
+  autocmd FileType python compiler yapf
 augroup END
 
-
-let g:signify_vcs_cmds = {
-      \ 'hg':       'hg diff --color=never --nodates -U0 -r .^ %f',
-      \ }
-let g:signify_vcs_cmds_diffmode = {
-      \ 'hg':       'hg cat -r .^ %f',
-      \ }
-
-let g:lightline = {
-      \ 'colorscheme': 'dracula',
-      \ 'active': {
-      \ 'left': [ [ 'mode', 'paste' ],
-      \           [ 'readonly', 'relativepath', 'modified'] ]
-      \}
-      \}
-
-" Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 0
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'c': ['clang-format'],
-      \ 'cpp': ['clang-format'],
-      \ 'java': ['google-java-format'],
-      \ 'python': ['yapf'],
-      \}
-
-let g:lion_squeeze_spaces = 1
-
-let g:clever_f_across_no_line    = 1
-let g:clever_f_fix_key_direction = 1
-
+" TODO(wjkoh): Remove the following plugin configurations to
+" ~/.vim/after/plugin/.
+let g:python_highlight_all = 1
 let g:lsc_auto_map = {
       \ 'defaults': v:true,
       \  'Completion': 'omnifunc',
       \}
+let g:undotree_WindowLayout = 4
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Run fzf+files and fzf+ag on the current file's parent directory and its
 " subdirectories, not the current working directory.
 command! -bang FilesDot call fzf#vim#files(expand('%:p:h'), <bang>0)
-command! -bang -nargs=* AgDot call fzf#vim#ag(<q-args>, \ {'dir': expand('%:p:h')}, <bang>0)
 command! -bang Args call fzf#run(fzf#wrap('args', {'source': argv()}, <bang>0))
-
-" Smart pairs are disabled by default:
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1
-
-let g:neosnippet#enable_complete_done = 1
-let g:neosnippet#enable_completed_snippet = 1
-let g:neosnippet#disable_runtime_snippets = {
-      \   '_' : 1,
-      \ }
-
-let g:undotree_WindowLayout = 4
 
 " Mappings.
 let mapleader      = ' '
 let maplocalleader = ','
 
-" Enter command mode via ';'
-noremap ; :
 " Y should behave like D and C, from cursor till the end of line.
 noremap Y y$
-" U for redo, the opposite of u for undo.
-nnoremap U <C-r>
 
-"-----------------------------
-" Navigation mappings
-"-----------------------------
-nnoremap <C-w>n gt
-nnoremap <C-w>p gT
-nnoremap <C-w>t  :$tabnew<CR>
+" gj gk g^ g$, etc. act on displayed lines rather than real lines.
+" countG == :countG
+" g* is like * that finds any substring
+" W B E gE move by WORDS (whitespace)
+" gp gP paste after/before but put cursor after.
+" Emphasize hello: ysiw<em> <em>Hello</em> world!
+" in visual mode, type o and O.
+" :vert sf tensor_map.h
 
-" Zoom the current file into a new tab.
-nnoremap <C-w>z  :tab split<CR>
-
-" Move vertically by visual line unless preceded by a count.
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
-"-----------------------------
-" Increment and decrement mappings
-"-----------------------------
-" nnoremap + <C-a>
-" nnoremap - <C-x>
-" xnoremap + g<C-a>
-" xnoremap - g<C-x>
-
-" nnoremap <Leader>,
-" nnoremap <Leader><Tab>
 nnoremap <Leader>.        :FilesDot<CR>
 nnoremap <Leader>1        :set hlsearch!<CR>
 nnoremap <Leader><Enter>  :Buffers<CR>
-nnoremap <Leader><Leader> `.zz
+nnoremap <Leader><Leader> `.
 nnoremap <Leader>a        :Args<CR>
 nnoremap <Leader>d        :SignifyHunkDiff<CR>
 nnoremap <Leader>f        :Files<CR>
@@ -225,84 +167,57 @@ nnoremap <Leader>h        :Helptags<CR>
 nnoremap <Leader>l        :Lines<CR>
 nnoremap <Leader>m        :Marks<CR>
 nnoremap <Leader>u        :UndotreeToggle<CR>
-nnoremap <Leader>w        :Windows<CR>
 
-" Mapping selections for various modes.
-nmap <Leader>! <Plug>(fzf-maps-n)
-omap <Leader>! <Plug>(fzf-maps-o)
-xmap <Leader>! <Plug>(fzf-maps-x)
-imap <C-x>!   <Plug>(fzf-maps-i)
+" vim-unimpaired required. Enter insert mode with 'paste' set. Leaving insert
+" mode sets 'nopaste' automatically.
+nmap <Leader>p ]op
 
-" Do not use `set pastetoggle=<Leader>p`. It can be triggered even in the
-" insert mode, which means that your past text should not contain <Leader>p.
-nnoremap <Leader>p :set paste!<CR>
-nnoremap <Leader>c :cclose<CR>:lclose<CR>:pclose<CR>:helpclose<CR>:UndotreeHide<CR>
-
-" Fold the current indent.
-nnoremap <Leader>z zazz
-
-" Replace the current word or selection with a new text. Use `.` to repeat.
-nnoremap <Leader>s :let @/='\<'.expand('<cword>').'\>'<CR>:set hlsearch<CR>cgn
-xnoremap <Leader>s "sy:let @/=@s<CR>:set hlsearch<CR>cgn
+" Easy search and replace. 3<leader>s -> replace the following 3 lines.
+" https://vi.stackexchange.com/a/11450
+nnoremap <expr> <leader>s (v:count == 0 ? ':%' : ':') . 's/<C-r><C-w>//g<Left><Left>'
+nnoremap <expr> <leader>S (v:count == 0 ? ':%' : ':') . 's/<C-r><C-a>//g<Left><Left>'
+" :help v:count -> <C-u> removes the line range that you get when typing ':' after a count.
+" :help N: for the ':.,.+(count - 1)' expression.
+vnoremap <expr> <leader>s 'y' . (v:count == 0 ? ':%' : ':.,.+' . (v:count - 1)) . 's/<C-R>"//g<Left><Left>'
 
 " Edit and reload my .vimrc file.
-command Change tabe $MYVIMRC
-command Update source $MYVIMRC
+command! Change tabe $MYVIMRC
+command! Update source $MYVIMRC
 
-"-----------------------------
-" Center navigation mappings
-"-----------------------------
-noremap {  {zz
-noremap }  }zz
-noremap n  nzz
-noremap N  Nzz
-noremap ]s ]szz
-noremap [s [szz
+" To begin diffing on all visible windows:
+" :windo diffthis
+" which executes :diffthis on each window.
+" To end diff mode:
+" :diffoff!
+" (The ! makes diffoff apply to all windows of the current tab - it'd be nice if diffthis had the same feature, but it doesn't.)
 
-"-----------------------------
-" Completion mappings
-"-----------------------------
-" - b       - keyword completion from the current buffer (<C-b> again to extend)
-" - d       - dictionary completion (via 'dictionary' setting)
-" - f       - file path completion
-" - l       - line completion (repeat an existing line)
-imap     <C-d>  <plug>(fzf-complete-word)
-imap     <C-l>  <plug>(fzf-complete-line)
-imap     <expr> <C-f> fzf#vim#complete#path("eval $FZF_DEFAULT_COMMAND")
-inoremap <C-b>  <C-x><C-p>
-
-hi clear SpellBad
-hi SpellBad cterm=underline,italic
-hi clear SpellRare
-hi SpellRare cterm=underline,italic
-hi clear SpellCap
-hi SpellCap cterm=underline,italic
-hi clear SpellLocal
-hi SpellLocal cterm=underline,italic
-
-" Insert <CR> mapping that:
-" - autocloses the popup menu and adds a newline
-" - does pear-tree processing
-" - does vim-endwise processing
-imap <expr> <CR> (pumvisible() ? "\<C-e>\<Plug>DiscretionaryEnd" : "\<Plug>(PearTreeExpand)\<Plug>DiscretionaryEnd")
-
-function GetArgsDirs()
-  return join(uniq(sort(map(argv(), 'fnamemodify(v:val, ":p:h")'))))
+" https://vim.fandom.com/wiki/Diff_current_buffer_and_the_original_file
+function! s:ReadOutputToScratch(command, filetype)
+  let filetype = !empty(a:filetype) ? a:filetype : &l:filetype
+  vert new
+  execute 'read !' a:command
+  " Delete the blank line at the beginning.
+  normal! 1Gdd
+  let &l:filetype = filetype
+  setlocal buftype=nofile bufhidden=wipe nobuflisted readonly noswapfile
 endfunction
 
-if executable('rg')
-  set grepprg=rg\ --no-heading\ --vimgrep\ --hidden\ --smart-case
+"  # is replaced with the filename of the original buffer you're editing.
+command! HgAnnotate call s:ReadOutputToScratch('hg annotate --user --number #', '')
+command! HgChild call s:ReadOutputToScratch('hg cat --rev .~-1 #', '')
+command! HgDiffAll call s:ReadOutputToScratch('hg diff --rev .^', 'diff')
+command! HgDiffThis call s:ReadOutputToScratch('hg diff --rev .^ #', 'diff')
+command! HgParent call s:ReadOutputToScratch('hg cat --rev .^ #', '')
+
+" I prefer ag to ripgrep because I can do `:grep Trajectories **/*.cc`.
+if executable('ag')
+  set grepprg=ag\ --vimgrep\ $*
   set grepformat=%f:%l:%c:%m
 else
-  echoerr 'ripgrep not found.'
+  echoerr 'ag not found.'
 endif
 
-" Grep recursively in the parent directories of the argument list. If your
-" grepprg is grep, not ripgrep, you should type `Grep -r` instead.
-command! -nargs=+ Grep execute 'silent grep! <args> ' . GetArgsDirs() | redraw! | cwindow
-command! -nargs=+ GrepBuffers execute 'vimgrep <args> ##' | cwindow
-
-command! HgChanged args `=systemlist("hg changeddot")`
+command! -nargs=+ GrepArgs execute 'vimgrep /\C<args>/ ##' | cwindow
 
 if filereadable(expand('~/.vimrc_google'))
   source ~/.vimrc_google

@@ -1,23 +1,9 @@
-source /usr/share/vim/google/google.vim
-
-Glug glug sources+=`$HOME . '/.vim/local'`
-Glug codefmt-google
-Glug glint-ale
-Glug outline-window
-Glug relatedfiles
-
-" Wrap autocmds inside an augroup to protect against reloading this script.  For
-" more details, see:
-" http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
 augroup autoformat_settings
+  " Clear the autocommands of the current group.
   autocmd!
-  autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
-  autocmd FileType proto,javascript,typescript AutoFormatBuffer clang-format
-  autocmd FileType markdown AutoFormatBuffer mdformat
-  autocmd FileType textpb AutoFormatBuffer text-proto-format
-  autocmd FileType proto AutoFormatBuffer protofmt
-  autocmd FileType sql AutoFormatBuffer format_sql
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  " Use setfiletype instead of set filetype=.
+  autocmd BufEnter,BufNewFile *.clif setfiletype python
+  autocmd FileType cpp,python,proto,typescript,html,bzl compiler hg_lint
 augroup END
 
 let g:lsc_server_commands = {
@@ -30,54 +16,4 @@ let g:lsc_server_commands = {
       \ 'textproto': '/google/bin/releases/editor-devtools/ciderlsp --tooltag=vim-lsc --noforward_sync_responses',
       \ }
 
-function Buildifier(buffer)
-  return {
-        \   'command': 'buildifier %t',
-        \   'read_temporary_file': 1,
-        \}
-endfunction
-
-function PyFormat(buffer)
-  return {
-        \   'command': '/google/data/ro/projects/devtools/pyformat/pyformat'
-        \       . ' --force_quote_type single --in_place %t',
-        \   'read_temporary_file': 1,
-        \}
-endfunction
-
-function PyImportOrder(buffer)
-  return {
-        \   'command': '/google/bin/releases/python-team/public/importorder'
-        \       . ' --inplace %t',
-        \   'read_temporary_file': 1,
-        \}
-endfunction
-
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'bzl': ['Buildifier'],
-      \ 'c': ['clang-format'],
-      \ 'cpp': ['clang-format'],
-      \ 'java': ['google-java-format'],
-      \ 'python': ['PyFormat', 'PyImportOrder'],
-      \}
-
-let g:ale_linters = {
-      \ 'borg': ['glint'],
-      \ 'bzl': ['glint'],
-      \ 'c': ['glint'],
-      \ 'cpp': ['glint'],
-      \ 'html': ['glint'],
-      \ 'java': ['glint'],
-      \ 'javascript': ['glint'],
-      \ 'json': ['glint'],
-      \ 'proto': ['glint'],
-      \ 'python': ['glint'],
-      \ 'sh': ['glint'],
-      \ 'typescript': ['glint'],
-      \}
-
-nnoremap <leader>cs :CSearch<Space>
-nnoremap <Leader>o :GoogleOutlineWindow<CR>
 nnoremap <Leader>q :let g:clang_include_fixer_query_mode=1<CR>:py3f /usr/lib/clang-include-fixer/clang-include-fixer.py<CR>
-nnoremap <Leader>r :RelatedFilesWindow<CR>
