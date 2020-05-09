@@ -63,7 +63,7 @@ set splitright        " Split window to the right
 set tabstop=2
 set ttymouse=xterm2
 set undofile          " Maintain undo history between sessions.
-set updatetime=1000   " default updatetime 4000ms is not good for async update
+set updatetime=100   " default updatetime 4000ms is not good for async update
 
 " Copy to/from system clipboard.
 set clipboard=unnamed
@@ -110,7 +110,7 @@ augroup WjkohAutocommands
   autocmd CursorHold * silent! checktime
   " See ~/.vim/plugin/osc52.vim.
   autocmd TextYankPost * if v:event.operator ==# 'y' | call SendViaOSC52(getreg('"')) | endif
-  autocmd BufWritePost * if !empty(&makeprg) | exe 'Make' | endif
+  " autocmd BufWritePost * if !empty(&makeprg) | exe 'Make' | endif
   " % to the next > and g% to the last <.
   autocmd FileType cpp setlocal matchpairs+=<:>
   autocmd FileType c,cpp setlocal commentstring=//\ %s

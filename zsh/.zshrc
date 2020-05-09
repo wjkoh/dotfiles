@@ -1,9 +1,12 @@
 EDITOR=vim
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
+MANPAGER='vim -M +MANPAGER -'
 PAGER=less
 SAVEHIST=100000
 VISUAL=vim
+
+# If you want programs run from zsh to see the var, export it.
 export PATH=$HOME/bin:$PATH:$HOME/.local/bin
 
 autoload -Uz compinit
@@ -67,8 +70,17 @@ alias change="$EDITOR ~/.zshrc"
 alias update='source ~/.zshrc'
 # Vim: Load all modified files in this mercurial repository into buffers.
 alias vimhg='vim $(hg changeddot)'
+# Or, use `qmv` and use a column-conditioned substitute, e.g., :%s/\%>11cOLD_TEXT/NEW_TEXT/g.
+alias vimrename='vidir'
 # Load modified and untracked files. See https://stackoverflow.com/a/2299448.
 alias vimgit='vim $(git ls-files --modified --others --exclude-standard .)'
+
+alias capture_pane='tmux capture-pane -b wjkoh-capture -S - \; show-buffer -b wjkoh-capture \; delete-buffer -b wjkoh-capture'
+alias split_by_spaces='awk -F" " '\''{for (i = 1; i <= NF; i++) print $i}'\'
+alias vimpane='capture_pane | vipe'
+# TODO(wjkoh): output a string containing '.' as well?
+alias vimpaths='capture_pane | split_by_spaces | grep / | sort | uniq | vipe'
+alias fzfpaths='capture_pane | split_by_spaces | grep / | sort | uniq | fzf'
 
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 if [[ -f ~/.zshrc_google ]]; then
