@@ -9,8 +9,7 @@ VISUAL=vim
 # If you want programs run from zsh to see the var, export it.
 export PATH=$HOME/bin:$PATH:$HOME/.local/bin
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 zmodload -i zsh/complist
 
 setopt ALWAYS_TO_END        # move cursor to end if word had one match

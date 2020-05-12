@@ -1,8 +1,6 @@
 augroup autoformat_settings
   " Clear the autocommands of the current group.
   autocmd!
-  " Use setfiletype instead of set filetype=.
-  autocmd BufEnter,BufNewFile *.clif setfiletype python
   autocmd FileType cpp,python,proto,typescript,html,bzl compiler hg_lint
 augroup END
 

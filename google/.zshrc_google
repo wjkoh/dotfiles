@@ -5,8 +5,9 @@ SPACESHIP_HG_SHOW=false
 source /etc/bash_completion.d/hgd
 
 # "You will get blaze completion out of the box because _blaze is contained in
-# /usr/share/zsh/vendor-completions/." from
-# http://go/eng-resources/zsh#completion.
+# /usr/share/zsh/vendor-completions/." from go/eng-resources/zsh#completion.
+# go/blaze-faq#can-i-get-zsh-command-completion-for-blaze
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
