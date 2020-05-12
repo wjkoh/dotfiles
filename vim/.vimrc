@@ -110,7 +110,6 @@ augroup WjkohAutocommands
   autocmd CursorHold * silent! checktime
   " See ~/.vim/plugin/osc52.vim.
   autocmd TextYankPost * if v:event.operator ==# 'y' | call SendViaOSC52(getreg('"')) | endif
-  " autocmd BufWritePost * if !empty(&makeprg) | exe 'Make' | endif
   " % to the next > and g% to the last <.
   autocmd FileType cpp setlocal matchpairs+=<:>
   autocmd FileType c,cpp setlocal commentstring=//\ %s
@@ -154,7 +153,6 @@ nnoremap <Leader>1        :set hlsearch!<CR>
 nnoremap <Leader><Enter>  :Buffers<CR>
 nnoremap <Leader><Leader> `.
 nnoremap <Leader>a        :Args<CR>
-nnoremap <Leader>d        :SignifyHunkDiff<CR>
 nnoremap <Leader>f        :Files<CR>
 nnoremap <Leader>h        :Helptags<CR>
 nnoremap <Leader>l        :Lines<CR>
@@ -172,10 +170,6 @@ nnoremap <expr> <leader>S (v:count == 0 ? ':%' : ':') . 's/<C-r><C-a>//g<Left><L
 " :help v:count -> <C-u> removes the line range that you get when typing ':' after a count.
 " :help N: for the ':.,.+(count - 1)' expression.
 vnoremap <expr> <leader>s 'y' . (v:count == 0 ? ':%' : ':.,.+' . (v:count - 1)) . 's/<C-R>"//g<Left><Left>'
-
-" Edit and reload my .vimrc file.
-command! Change tabe $MYVIMRC
-command! Update source $MYVIMRC
 
 " To begin diffing on all visible windows:
 " :windo diffthis
