@@ -1,7 +1,11 @@
+
+source /usr/share/vim/google/core.vim
+Glug google-filetypes
+
 augroup autoformat_settings
   " Clear the autocommands of the current group.
   autocmd!
-  autocmd FileType cpp,python,proto,typescript,html,bzl compiler hg_lint
+  autocmd FileType cpp,python,proto,typescript,html,bzl,md,borg,markdown,conf compiler hg_lint
 augroup END
 
 let g:lsc_server_commands = {

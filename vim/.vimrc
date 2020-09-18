@@ -99,6 +99,8 @@ if has('patch-8.1.0360')
   set diffopt+=algorithm:patience,indent-heuristic
 endif
 
+let g:fzf_preview_window = ''
+
 "------------------------------------------------------------
 " Autocommands.
 augroup WjkohAutocommands
@@ -113,6 +115,9 @@ augroup WjkohAutocommands
   " % to the next > and g% to the last <.
   autocmd FileType cpp setlocal matchpairs+=<:>
   autocmd FileType c,cpp setlocal commentstring=//\ %s
+  " Update a timestamp, for example "reviewed: '2020-01-01'", in between line
+  " 1 and 10 to today's date when saving a Markdown file.
+  autocmd BufWritePre *.md :1,10s/reviewed: '\d\{4}-\d\{1,2}-\d\{1,2}'/\="reviewed: '" . strftime("%Y-%m-%d") . "'"
 augroup END
 
 augroup autoformat_settings

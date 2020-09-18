@@ -81,6 +81,8 @@ alias vimpane='capture_pane | vipe'
 alias vimpaths='capture_pane | split_by_spaces | grep / | sort | uniq | vipe'
 alias fzfpaths='capture_pane | split_by_spaces | grep / | sort | uniq | fzf'
 
+alias g3doc-preview='/google/src/head/depot/google3/experimental/users/gagern/g3doc_preview/g3doc-preview.sh'
+
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 if [[ -f ~/.zshrc_google ]]; then
   source ~/.zshrc_google
