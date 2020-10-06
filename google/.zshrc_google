@@ -11,8 +11,10 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-alias iblaze_test_all='iblaze test $(hg affected_tests) $(hg maybe_added_tests)'
+alias g3doc-preview='/google/src/head/depot/google3/experimental/users/gagern/g3doc_preview/g3doc-preview.sh'
 alias iblaze_build_all='iblaze build $(hg affected_bins_libs)'
+alias iblaze_test_all='iblaze test $(hg affected_tests) $(hg maybe_added_tests)'
+alias pyfactor='/google/data/ro/teams/youtube-code-health/pyfactor'
 
 alias buildfix='/google/data/ro/teams/ads-integrity/buildfix'
 compdef _blaze buildfix
