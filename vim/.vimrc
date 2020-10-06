@@ -117,7 +117,7 @@ augroup WjkohAutocommands
   autocmd FileType c,cpp setlocal commentstring=//\ %s
   " Update a timestamp, for example "reviewed: '2020-01-01'", in between line
   " 1 and 10 to today's date when saving a Markdown file.
-  autocmd BufWritePre *.md :1,10s/reviewed: '\d\{4}-\d\{1,2}-\d\{1,2}'/\="reviewed: '" . strftime("%Y-%m-%d") . "'"
+  autocmd BufWritePre *.md :1,10s/reviewed: '\d\{4}-\d\{1,2}-\d\{1,2}'/\="reviewed: '" . strftime("%Y-%m-%d") . "'"/ | normal! ``zz
 augroup END
 
 augroup autoformat_settings
