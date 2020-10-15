@@ -126,6 +126,7 @@ augroup autoformat_settings
   " TODO(wjkoh): Add clang-tidy and pylint.
   autocmd FileType cpp,python,proto,typescript,html,bzl compiler clang_format
   autocmd FileType python compiler yapf
+  autocmd FileType dot compiler dot_preview
 augroup END
 
 " Run fzf+files and fzf+ag on the current file's parent directory and its

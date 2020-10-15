@@ -81,12 +81,12 @@ alias vimpane='capture_pane | vipe'
 alias vimpaths='capture_pane | split_by_spaces | grep / | sort | uniq | vipe'
 alias fzfpaths='capture_pane | split_by_spaces | grep / | sort | uniq | fzf'
 
+# We cannot move the following `gcertstatus` to .zshrc_google because a corp
+# laptop, which has no access to source code, still needs `gcert` to SSH.
+(( $+commands[gcertstatus] )) && \
+  (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || gcert)
+
 source "${ZDOTDIR:-${HOME}}/.zshrc_`uname`"
 if [[ -f ~/.zshrc_google ]]; then
   source ~/.zshrc_google
-else
-  # We cannot move the following `gcertstatus` to .zshrc_google because a corp
-  # laptop, which has no access to source code, still needs `gcert` to SSH.
-  (( $+commands[gcertstatus] )) && \
-    (gcertstatus -ssh_cert_comment="corp/normal" -check_remaining=$((8 * 60 * 60))s || gcert)
 fi
