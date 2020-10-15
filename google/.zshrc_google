@@ -21,6 +21,14 @@ compdef _blaze buildfix
 compdef _blaze iwyu
 compdef _blaze build_cleaner
 
+# alias vimcs='vim $(cs -l --local simulate_and_generate_turing_test_questions | fzf --multi)'
+vimcs() {
+  if [ -n "$1" ]
+  then
+    vim $(cs -l --local "$1" | fzf --multi)
+  fi
+}
+
 # Copied from http://go/waymo-agentsim/symphony#commands-to-use.
 # Source the common Brain bashrc (go/brain-bashrc).
 if [ -r /google/data/ro/teams/brain-frameworks/config/bashrc ] ; then
