@@ -28,6 +28,3 @@ if [ -r /google/data/ro/teams/brain-frameworks/config/bashrc ] ; then
 fi
 XM_DEFAULT_POOL="waymo"
 XM_DEFAULT_RESOURCE_ALLOC="user:${XM_DEFAULT_POOL}/${USER}"
-
-# Prodaccess.
-(( $+commands[prodcertstatus] )) && (prodcertstatus -check_remaining_hours=8 || prodaccess)

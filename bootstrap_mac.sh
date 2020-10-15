@@ -10,6 +10,7 @@ brew install python@2 python
 
 brew install clang-format
 brew install fd
+brew install graphviz
 brew install hg
 brew install htop
 brew install llvm
