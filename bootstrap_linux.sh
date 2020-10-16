@@ -30,4 +30,5 @@ if [ -f ~/.at_google ]; then
   sudo dpkg -i fd-find.deb
 fi
 
+./install_dotfiles.sh
 ./post_bootstrap.sh
