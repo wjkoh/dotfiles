@@ -28,7 +28,7 @@ brew install vim
 
 echo 'Use Fira Code Regular 11pt or 13pt.'
 brew install getantibody/tap/antibody
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-fira-code
 brew cask install kitty
 
@@ -39,4 +39,5 @@ echo 'A: Go to Preferences > Profiles tab. Select your profile on the left, and 
 tic -x terminfo/tmux-256color.terminfo
 tic -x terminfo/xterm-256color-italic.terminfo
 
+./install_dotfiles.sh
 ./post_bootstrap.sh
